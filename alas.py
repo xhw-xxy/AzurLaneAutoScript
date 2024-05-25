@@ -81,6 +81,10 @@ class AzurLaneAutoScript:
             if command != "restart" and self.GameRestartBecauseErrorTimes != 0:
                 self.GameRestartBecauseErrorTimes = 0
             return True
+        except RequireRestartGame:
+            self.config.task_call('Restart')
+            self.device.sleep(10)
+            return True
         except TaskEnd:
             return True
         except GameNotRunningError as e:
