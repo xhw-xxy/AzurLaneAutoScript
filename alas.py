@@ -13,6 +13,7 @@ from module.config.utils import deep_get, deep_set
 from module.exception import *
 from module.logger import logger
 from module.notify import handle_notify
+from module.gg_handler.gg_handler import GGHandler
 
 
 class AzurLaneAutoScript:

@@ -4,7 +4,7 @@
 
 Azur Lane bot with GUI (Supports CN, EN, JP, TW, able to support other servers), designed for 24/7 running scenes, can take over almost all Azur Lane gameplay. Azur Lane, as a mobile game, has entered the late stage of its life cycle. During the period from now to the server down, please reduce the time spent on the Azur Lane and leave everything to Alas.
 
-Alas is a free open source software, link: https://github.com/LmeSzinc/AzurLaneAutoScript
+Alas is a free open source software, link: https://github.com/SYuanLUV/AzurLaneAutoScript
 
 EN support, thanks **[@whoamikyo](https://github.com/whoamikyo)** and **[@nEEtdo0d](https://github.com/nEEtdo0d)**.
 
@@ -14,9 +14,9 @@ TW support, thanks **[@Zorachristine](https://github.com/Zorachristine)** , some
 
 GUI development, thanks **[@18870](https://github.com/18870)** , say HURRAY.
 
-![](https://img.shields.io/github/commit-activity/m/LmeSzinc/AzurLaneAutoScript?color=4e4c97) ![](https://img.shields.io/tokei/lines/github/LmeSzinc/AzurLaneAutoScript?color=4e4c97) ![](https://img.shields.io/github/repo-size/LmeSzinc/AzurLaneAutoScript?color=4e4c97) ![](https://img.shields.io/github/issues-closed/LmeSzinc/AzurLaneAutoScript?color=4e4c97) ![](https://img.shields.io/github/issues-pr-closed/LmeSzinc/AzurLaneAutoScript?color=4e4c97)
+![](https://img.shields.io/github/commit-activity/m/SYuanLUV/AzurLaneAutoScript?color=4e4c97) ![](https://img.shields.io/tokei/lines/github/SYuanLUV/AzurLaneAutoScript?color=4e4c97) ![](https://img.shields.io/github/repo-size/SYuanLUV/AzurLaneAutoScript?color=4e4c97) ![](https://img.shields.io/github/issues-closed/SYuanLUV/AzurLaneAutoScript?color=4e4c97) ![](https://img.shields.io/github/issues-pr-closed/SYuanLUV/AzurLaneAutoScript?color=4e4c97)
 
-![gui](https://raw.githubusercontent.com/LmeSzinc/AzurLaneAutoScript/master/doc/README.assets/gui_en.png)
+![gui](https://raw.githubusercontent.com/SYuanLUV/AzurLaneAutoScript/master/doc/README.assets/gui_en.png)
 
 
 
@@ -37,9 +37,9 @@ GUI development, thanks **[@18870](https://github.com/18870)** , say HURRAY.
 
 
 
-## Installation [![](https://img.shields.io/github/downloads/LmeSzinc/AzurLaneAutoScript/total?color=4e4c97)](https://github.com/LmeSzinc/AzurLaneAutoScript/releases)
+## Installation [![](https://img.shields.io/github/downloads/SYuanLUV/AzurLaneAutoScript/total?color=4e4c97)](https://github.com/SYuanLUV/AzurLaneAutoScript/releases)
 
-Refers to [Installation tutorial](https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/Installation_en), including easy-installer manual, use manual, manual installation tutorial, remote access manul.
+Refers to [Installation tutorial](https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/Installation_en), including easy-installer manual, use manual, manual installation tutorial, remote access manul.
 
 ## Modify Game Settings
 
@@ -76,7 +76,7 @@ Remove the ship's equipment skins to avoid affecting image recognition.
 
 Spend at least 5 minutes for thinking and preparing, before someone spend his/her 5 minutes to help you. Issues like "Why isn't running", "Why stuck here" will not be answered.
 
-- Check [Frequently Asked Questions (FAQ)](https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/FAQ_en_cn).
+- Check [Frequently Asked Questions (FAQ)](https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/FAQ_en_cn).
 - Check updates of Alas, ensure it's the latest.
 - Upload error logs under `log/error`, which include `log.txt` and recent screenshots. If it's an  unexpected behavior not an error, provide today's log under `log` and at least one screenshot.
 
@@ -94,13 +94,13 @@ Spend at least 5 minutes for thinking and preparing, before someone spend his/he
 
 ## Alas Community Guidelines
 
-See [#1416](https://github.com/LmeSzinc/AzurLaneAutoScript/issues/1416).
+See [#1416](https://github.com/SYuanLUV/AzurLaneAutoScript/issues/1416).
 
 
 
 ## Documents
 
-[Map detection](https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/perspective_en)
+[Map detection](https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/perspective_en)
 
 The core of an Azur Lane bot is map detection. If you simply use `Template matching` to search enemies, will encounter situation that mob enemies block the boss. Alas provide a better map detection method. In `module.map_detection`, you will be able to access full map data, like this.
 
@@ -113,15 +113,15 @@ The core of an Azur Lane bot is map detection. If you simply use `Template match
 2020-03-10 22:09:03.830 | INFO | 5 -- -- -- 2E -- 2E ++ ++
 ```
 
-Development documents, refer to [WIKI](https://github.com/LmeSzinc/AzurLaneAutoScript/wiki).
+Development documents, refer to [WIKI](https://github.com/SYuanLUV/AzurLaneAutoScript/wiki).
 
 
 
 ## Join Development
 
-Alas is still in active development, we will occasionally publish future work on [Issues](https://github.com/LmeSzinc/AzurLaneAutoScript/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22) and mark it as `help wanted`, feel free to submit [Pull Requests](https://github.com.com/LmeSzinc/AzurLaneAutoScript/pulls) to Alas, we will read every line of your code.
+Alas is still in active development, we will occasionally publish future work on [Issues](https://github.com/SYuanLUV/AzurLaneAutoScript/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22) and mark it as `help wanted`, feel free to submit [Pull Requests](https://github.com.com/SYuanLUV/AzurLaneAutoScript/pulls) to Alas, we will read every line of your code.
 
-Oh yeah, don't forget to read the [development documentation](https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/1.-Start).
+Oh yeah, don't forget to read the [development documentation](https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/1.-Start).
 
 
 
@@ -132,7 +132,7 @@ Oh yeah, don't forget to read the [development documentation](https://github.com
 - [ALAuto](https://github.com/Egoistically/ALAuto), Another Azur Lane bot for EN, not maintaining anymore. Alas imitated its structure.
 - [ALAuto homg_trans_beta](https://github.com/asd111333/ALAuto/tree/homg_trans_beta), Alas introduced its homography transition into map detection.
 - [PyWebIO](https://github.com/pywebio/PyWebIO), GUI framework that Alas uses.
-- [MaaAssistantArknights](https://github.com/MaaAssistantArknights/MaaAssistantArknights), an Arknights assistant based on image recognition, helps you to complete daily quests efficiently! -> [MAA submodule tutorial](https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/submodule_maa_cn)
+- [MaaAssistantArknights](https://github.com/MaaAssistantArknights/MaaAssistantArknights), an Arknights assistant based on image recognition, helps you to complete daily quests efficiently! -> [MAA submodule tutorial](https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/submodule_maa_cn)
 
 ## Contact Us
 

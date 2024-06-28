@@ -1,3 +1,3 @@
 ﻿# Documentation
 
-Documentation has moved to https://github.com/LmeSzinc/AzurLaneAutoScript/wiki
+Documentation has moved to https://github.com/SYuanLUV/AzurLaneAutoScript/wiki

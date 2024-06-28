@@ -89,6 +89,15 @@ Event:
       - Emotion
       - HpControl
       - EnemyPriority
+    Event3:
+      - Scheduler
+      - Campaign
+      - StopCondition
+      - Fleet
+      - Submarine
+      - Emotion
+      - HpControl
+      - EnemyPriority
     Raid:
       - Scheduler
       - Raid
@@ -330,3 +339,10 @@ Tool:
       - AzurLaneUncensored
     GameManager:
       - GameManager
+      - GGHandler
+      - PowerLimit
+      - ChangeShip
+      - ChangeAttribute
+    SomethingSpecial:
+      - InfiniteDelay
+      - TurnOffForcedOnSettings

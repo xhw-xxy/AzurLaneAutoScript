@@ -477,7 +477,7 @@
     },
     "OnePushConfig": {
       "name": "Error notify config",
-      "help": "When Alas cannot handle exception, send a message through Onepush. Configuration document: \nhttps://github.com/LmeSzinc/AzurLaneAutoScript/wiki/Onepush-configuration-%5BEN%5D"
+      "help": "When Alas cannot handle exception, send a message through Onepush. Configuration document: \nhttps://github.com/SYuanLUV/AzurLaneAutoScript/wiki/Onepush-configuration-%5BEN%5D"
     },
     "ScreenshotLength": {
       "name": "Record Screenshot(s)",
@@ -1290,7 +1290,7 @@
     },
     "CustomFilter": {
       "name": "Custom Commission Priority",
-      "help": "To use your own filter, set \"Preset Filter Select\" to \"Custom\". All options have been defined at  <https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/filter_string_en>"
+      "help": "To use your own filter, set \"Preset Filter Select\" to \"Custom\". All options have been defined at  <https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/filter_string_en>"
     },
     "DoMajorCommission": {
       "name": "Do Major Commissions",
@@ -1412,7 +1412,7 @@
     },
     "CustomFilter": {
       "name": "Custom Research Priority",
-      "help": "To use your own filter, set \"Preset Filter Select\" to \"custom\". All options have been defined at  <https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/filter_string_en>"
+      "help": "To use your own filter, set \"Preset Filter Select\" to \"custom\". All options have been defined at  <https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/filter_string_en>"
     }
   },
   "Dorm": {
@@ -1592,7 +1592,7 @@
     },
     "Filter": {
       "name": "Item Filter",
-      "help": "All options have been defined at <https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/reward_shop_filter_string>"
+      "help": "All options have been defined at <https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/reward_shop_filter_string>"
     }
   },
   "GuildShop": {
@@ -1606,7 +1606,7 @@
     },
     "Filter": {
       "name": "Item Filter",
-      "help": "All options have been defined at <https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/reward_shop_filter_string>\nHowever unlike other shops you cannot specify the exact item, you are limited to just category and grade\nThe select options below are used to substitute this incapability"
+      "help": "All options have been defined at <https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/reward_shop_filter_string>\nHowever unlike other shops you cannot specify the exact item, you are limited to just category and grade\nThe select options below are used to substitute this incapability"
     },
     "BOX_T3": {
       "name": "Faction Preference BoxT3",
@@ -1715,7 +1715,7 @@
     },
     "Filter": {
       "name": "Item Filter",
-      "help": "All options have been defined at <https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/reward_shop_filter_string>\nDifferent from other shops, the below select options assist with filling the unknowns for the vague items 'Retrofit' and 'Plate'\nFurthermore restricted for 'Plate', there are both specific and wild types\nIf you are targeting a specific type then use a string combination such as 'PlateGeneralT3 > PlateWildT3' otherwise 'PlateT3' will purchase every available T3 Plate\nFor research blueprints it is adviseable to use 'DR > PR', players should convert surplus into Prototype Core currency"
+      "help": "All options have been defined at <https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/reward_shop_filter_string>\nDifferent from other shops, the below select options assist with filling the unknowns for the vague items 'Retrofit' and 'Plate'\nFurthermore restricted for 'Plate', there are both specific and wild types\nIf you are targeting a specific type then use a string combination such as 'PlateGeneralT3 > PlateWildT3' otherwise 'PlateT3' will purchase every available T3 Plate\nFor research blueprints it is adviseable to use 'DR > PR', players should convert surplus into Prototype Core currency"
     },
     "RETROFIT_T1": {
       "name": "Type Preference RetrofitT1",
@@ -1780,7 +1780,7 @@
     },
     "Filter": {
       "name": "Item Filter",
-      "help": "All options have been defined at <https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/reward_shop_filter_string>"
+      "help": "All options have been defined at <https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/reward_shop_filter_string>"
     }
   },
   "CoreShop": {
@@ -1790,7 +1790,7 @@
     },
     "Filter": {
       "name": "Item Filter",
-      "help": "All options have been defined at <https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/reward_shop_filter_string>\nHowever unlike other shops, only Chip and Array are supported\nALAS does not browse, scroll, or recognize any other items displayed besides those two"
+      "help": "All options have been defined at <https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/reward_shop_filter_string>\nHowever unlike other shops, only Chip and Array are supported\nALAS does not browse, scroll, or recognize any other items displayed besides those two"
     }
   },
   "ShipyardDr": {
@@ -2294,7 +2294,7 @@
   "OpsiShop": {
     "_info": {
       "name": "OpSi Shop Settings",
-      "help": "Completes OpSi daily activities\nThe following must be satisfied:\n- OpSi story and practice battles must be complete\n- Task OpSi Explore enabled or consuming 5000 oil for special radar in OpSi voucher shop"
+      "help": "Completes OpSi daily activities\nThe following must be satisfied:\n- OpSi story and practice battles must be complete\n- Task OpSi Explore enabled or consuming 5000 oil for special radar in OpSi voucher shop\nAvailable only in the next month after clearing OpSi story, i.e., after the port shop becomes a new version of the shop"
     },
     "PresetFilter": {
       "name": "OpSi Shop Filter",
@@ -2307,7 +2307,7 @@
     },
     "CustomFilter": {
       "name": "Custom Research Priority",
-      "help": "To use your own filter, set \"OpSi Shop Filter Select\" to \"custom\". All options have been defined at  <https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/filter_string_en>"
+      "help": "To use your own filter, set \"OpSi Shop Filter Select\" to \"custom\". All options have been defined at  <https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/filter_string_en>"
     }
   },
   "OpsiVoucher": {
@@ -2317,7 +2317,7 @@
     },
     "Filter": {
       "name": "Item Filter",
-      "help": "All options have been defined at <https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/reward_shop_filter_string>"
+      "help": "All options have been defined at <https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/reward_shop_filter_string>"
     }
   },
   "OpsiDaily": {

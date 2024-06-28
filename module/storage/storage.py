@@ -78,7 +78,7 @@ class StorageHandler(StorageUI):
                 self.device.click(button)
                 continue
             # 75 is a magic number to distinguish `use 1` and `use 10`
-            # See https://github.com/LmeSzinc/AzurLaneAutoScript/pull/1529#issuecomment-1221315455
+            # See https://github.com/SYuanLUV/AzurLaneAutoScript/pull/1529#issuecomment-1221315455
             if self.appear_then_click(BOX_USE, offset=(-75, -20, 10, 20), interval=5):
                 used = 10
                 self.interval_reset(MATERIAL_CHECK)

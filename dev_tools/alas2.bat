@@ -23,11 +23,11 @@ set ALAS_PATH=%~dp0
 set ADB=%ALAS_PATH%toolkit\Lib\site-packages\adbutils\binaries\adb.exe
 set PYTHON=%ALAS_PATH%toolkit\python.exe
 set GIT=%ALAS_PATH%toolkit\Git\cmd\git.exe
-set LMESZINC=https://github.com/LmeSzinc/AzurLaneAutoScript.git
+set LMESZINC=https://github.com/SYuanLUV/AzurLaneAutoScript.git
 set WHOAMIKYO=https://github.com/whoamikyo/AzurLaneAutoScript.git
 set ALAS_ENV=https://github.com/whoamikyo/alas-env.git
 set ALAS_ENV_GITEE=https://gitee.com/lmeszinc/alas-env.git
-set GITEE_URL=https://gitee.com/lmeszinc/AzurLaneAutoScript.git
+set GITEE_URL=https://gitee.com/SYuanLUV/AzurLaneAutoScript.git
 set ADB_P=%ALAS_PATH%config\adb_port.ini
 set CURL=%ALAS_PATH%toolkit\Git\mingw64\bin\curl.exe
 set API_JSON=%ALAS_PATH%log\api_git.json
@@ -63,8 +63,8 @@ for /f "delims=" %%a in (!config!) do (
 )
 :: -----------------------------------------------------------------------------
 :bypass_first_run
-rem %CURL% -s https://api.github.com/repos/lmeszinc/AzurLaneAutoScript/git/refs/heads/master?access_token=!github_token! > %~dp0log\api_git.json
-%CURL% -s https://api.github.com/repos/lmeszinc/AzurLaneAutoScript/commits/master?access_token=!github_token! > %~dp0log\api_git.json
+rem %CURL% -s https://api.github.com/repos/SYuanLUV/AzurLaneAutoScript/git/refs/heads/master?access_token=!github_token! > %~dp0log\api_git.json
+%CURL% -s https://api.github.com/repos/SYuanLUV/AzurLaneAutoScript/commits/master?access_token=!github_token! > %~dp0log\api_git.json
 endlocal
 rem for /f "skip=5 tokens=2 delims=:," %%I IN (%API_JSON%) DO IF NOT DEFINED sha SET sha=%%I 
 rem set sha=%sha:"=%
@@ -385,11 +385,11 @@ call :alas
     echo    ::Overwrite local changes::
     echo.
     echo.
-    echo    1) https://github.com/LmeSzinc/AzurLaneAutoScript (Main Repo, When in doubt, use it)
+    echo    1) https://github.com/SYuanLUV/AzurLaneAutoScript (Main Repo, When in doubt, use it)
     echo    2) https://github.com/whoamikyo/AzurLaneAutoScript (Mirrored Fork)
     echo    3) https://github.com/whoamikyo/AzurLaneAutoScript (nightly build, dont use)
-    echo    4) https://gitee.com/lmeszinc/AzurLaneAutoScript.git (Recommended for CN users)
-    echo    5) https://github.com/LmeSzinc/AzurLaneAutoScript (Dev build, use only if you know what you are doing)
+    echo    4) https://gitee.com/SYuanLUV/AzurLaneAutoScript.git (Recommended for CN users)
+    echo    5) https://github.com/SYuanLUV/AzurLaneAutoScript (Dev build, use only if you know what you are doing)
     echo    6) Toolkit tools updater
     echo    7) Back to main menu
     echo.
@@ -426,10 +426,10 @@ call :alas
     echo    ::Keep local changes::
     echo.
     echo.
-    echo    1) https://github.com/LmeSzinc/AzurLaneAutoScript (Main Repo, When in doubt, use it)
+    echo    1) https://github.com/SYuanLUV/AzurLaneAutoScript (Main Repo, When in doubt, use it)
     echo    2) https://github.com/whoamikyo/AzurLaneAutoScript (Mirrored Fork)
     echo    3) https://github.com/whoamikyo/AzurLaneAutoScript (nightly build, dont use)
-    echo    4) https://gitee.com/lmeszinc/AzurLaneAutoScript.git (Recommended for CN users)
+    echo    4) https://gitee.com/SYuanLUV/AzurLaneAutoScript.git (Recommended for CN users)
     echo    5) Back to main menu
     echo.
     echo    :: Type a 'number' and press ENTER
@@ -824,7 +824,7 @@ endlocal & set %1=%y%-%m%-%d% %h%:%mi%:%s%
 call :time_parsed
 :: -----------------------------------------------------------------------------
 rem :git_update_checker
-rem %CURL% -s https://api.github.com/repos/lmeszinc/AzurLaneAutoScript/git/refs/heads/master?access_token=%github_token% > %~dp0log\API_GIT.json
+rem %CURL% -s https://api.github.com/repos/SYuanLUV/AzurLaneAutoScript/git/refs/heads/master?access_token=%github_token% > %~dp0log\API_GIT.json
 rem FOR /f "skip=5 tokens=2 delims=:," %%I IN (%API_JSON%) DO IF NOT DEFINED sha SET sha=%%I
 rem set sha=%sha:"=%
 rem set sha=%sha: =%

@@ -5,11 +5,11 @@
 #### Discord [![](https://img.shields.io/discord/720789890354249748?logo=discord&logoColor=ffffff&color=4e4c97)](https://discord.gg/AQN6GeJ) QQ群  ![](https://img.shields.io/badge/QQ%20Group-1087735381-4e4c97)
 Azur Lane bot with GUI (Supports CN, EN, JP, TW, able to support other servers), designed for 24/7 running scenes, can take over almost all Azur Lane gameplay. Azur Lane, as a mobile game, has entered the late stage of its life cycle. During the period from now to the server down, please reduce the time spent on the Azur Lane and leave everything to Alas.
 
-Alas is a free open source software, link: https://github.com/LmeSzinc/AzurLaneAutoScript
+Alas is a free open source software, link: https://github.com/SYuanLUV/AzurLaneAutoScript
 
 Alas，一个带GUI的碧蓝航线脚本（支持国服, 国际服, 日服, 台服, 可以支持其他服务器），为 7x24 运行的场景而设计，能接管近乎全部的碧蓝航线玩法。碧蓝航线，作为一个手游，已经进入了生命周期的晚期。从现在到关服的这段时间里，请减少花费在碧蓝航线上的时间，把一切都交给 Alas。
 
-Alas 是一款免费开源软件，地址：https://github.com/LmeSzinc/AzurLaneAutoScript
+Alas 是一款免费开源软件，地址：https://github.com/SYuanLUV/AzurLaneAutoScript
 
 EN support, thanks **[@whoamikyo](https://github.com/whoamikyo)** and **[@nEEtdo0d](https://github.com/nEEtdo0d)**.
 
@@ -19,10 +19,10 @@ TW support, thanks **[@Zorachristine](https://github.com/Zorachristine)** , some
 
 GUI development, thanks **[@18870](https://github.com/18870)** , say HURRAY.
 
-![](https://img.shields.io/github/commit-activity/m/LmeSzinc/AzurLaneAutoScript?color=4e4c97) ![](https://img.shields.io/tokei/lines/github/LmeSzinc/AzurLaneAutoScript?color=4e4c97) ![](https://img.shields.io/github/repo-size/LmeSzinc/AzurLaneAutoScript?color=4e4c97) ![](https://img.shields.io/github/issues-closed/LmeSzinc/AzurLaneAutoScript?color=4e4c97) ![](https://img.shields.io/github/issues-pr-closed/LmeSzinc/AzurLaneAutoScript?color=4e4c97)
+![](https://img.shields.io/github/commit-activity/m/SYuanLUV/AzurLaneAutoScript?color=4e4c97) ![](https://img.shields.io/tokei/lines/github/SYuanLUV/AzurLaneAutoScript?color=4e4c97) ![](https://img.shields.io/github/repo-size/SYuanLUV/AzurLaneAutoScript?color=4e4c97) ![](https://img.shields.io/github/issues-closed/SYuanLUV/AzurLaneAutoScript?color=4e4c97) ![](https://img.shields.io/github/issues-pr-closed/SYuanLUV/AzurLaneAutoScript?color=4e4c97)
 
 这里是一张GUI预览图：
-![gui](https://raw.githubusercontent.com/LmeSzinc/AzurLaneAutoScript/master/doc/README.assets/gui.png)
+![gui](https://raw.githubusercontent.com/SYuanLUV/AzurLaneAutoScript/master/doc/README.assets/gui.png)
 
 
 
@@ -43,11 +43,11 @@ GUI development, thanks **[@18870](https://github.com/18870)** , say HURRAY.
 
 
 
-## 安装 Installation [![](https://img.shields.io/github/downloads/LmeSzinc/AzurLaneAutoScript/total?color=4e4c97)](https://github.com/LmeSzinc/AzurLaneAutoScript/releases)
+## 安装 Installation [![](https://img.shields.io/github/downloads/SYuanLUV/AzurLaneAutoScript/total?color=4e4c97)](https://github.com/SYuanLUV/AzurLaneAutoScript/releases)
 
-[中文安装教程](https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/Installation_cn)，包含自动安装教程，使用教程，手动安装教程，远程控制教程。
+[中文安装教程](https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/Installation_cn)，包含自动安装教程，使用教程，手动安装教程，远程控制教程。
 
-[设备支持文档](https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/Emulator_cn)，包含模拟器运行、云手机运行以及解锁各种骚方式运行。
+[设备支持文档](https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/Emulator_cn)，包含模拟器运行、云手机运行以及解锁各种骚方式运行。
 
 
 
@@ -110,7 +110,7 @@ GUI development, thanks **[@18870](https://github.com/18870)** , say HURRAY.
 
 在提问题之前至少花费 5 分钟来思考和准备，才会有人花费他的 5 分钟来帮助你。"XX怎么运行不了"，"XX卡住了"，这样的描述将不会得到回复。
 
-- 在提问题前，请先阅读 [常见问题(FAQ)](https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/FAQ_en_cn)。
+- 在提问题前，请先阅读 [常见问题(FAQ)](https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/FAQ_en_cn)。
 - 检查 Alas 的更新和最近的 commit，确认使用的是最新版。
 - 上传出错 log，在 `log/error` 目录下，以毫秒时间戳为文件夹名，包含 log.txt 和最近的截图。若不是错误而是非预期的行为，提供在 `log` 目录下当天的 log和至少一张游戏截图。
 
@@ -128,13 +128,13 @@ GUI development, thanks **[@18870](https://github.com/18870)** , say HURRAY.
 
 ## Alas 社区准则 Alas Community Guidelines
 
-见 [#1416](https://github.com/LmeSzinc/AzurLaneAutoScript/issues/1416)。
+见 [#1416](https://github.com/SYuanLUV/AzurLaneAutoScript/issues/1416)。
 
 
 
 ## 文档 Documents
 
-[海图识别 perspective](https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/perspective)
+[海图识别 perspective](https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/perspective)
 
 `海图识别` 是一个碧蓝航线脚本的核心，如果只是单纯地使用 `模板匹配 (Template matching)` 来进行索敌，就不可避免地会出现 BOSS被小怪堵住 的情况。 Alas 提供了一个更好的海图识别方法，在 `module.map_detection` 中，你将可以得到完整的海域信息，比如：
 
@@ -147,15 +147,15 @@ GUI development, thanks **[@18870](https://github.com/18870)** , say HURRAY.
 2020-03-10 22:09:03.830 | INFO | 5 -- -- -- 2E -- 2E ++ ++
 ```
 
-更多文档，请前往 [WIKI](https://github.com/LmeSzinc/AzurLaneAutoScript/wiki)。
+更多文档，请前往 [WIKI](https://github.com/SYuanLUV/AzurLaneAutoScript/wiki)。
 
 
 
 ## 参与开发 Join Development
 
-Alas 仍在活跃开发中，我们会不定期发布未来的工作在 [Issues](https://github.com/LmeSzinc/AzurLaneAutoScript/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22) 上并标记为 `help wanted`，欢迎向 Alas 提交 [Pull Requests](https://github.com/LmeSzinc/AzurLaneAutoScript/pulls)，我们会认真阅读你的每一行代码的。
+Alas 仍在活跃开发中，我们会不定期发布未来的工作在 [Issues](https://github.com/SYuanLUV/AzurLaneAutoScript/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22) 上并标记为 `help wanted`，欢迎向 Alas 提交 [Pull Requests](https://github.com/SYuanLUV/AzurLaneAutoScript/pulls)，我们会认真阅读你的每一行代码的。
 
-哦对，别忘了阅读 [开发文档](https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/1.-Start)。
+哦对，别忘了阅读 [开发文档](https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/1.-Start)。
 
 
 
@@ -166,7 +166,7 @@ Alas 仍在活跃开发中，我们会不定期发布未来的工作在 [Issues]
 - [ALAuto](https://github.com/Egoistically/ALAuto)，EN服的碧蓝航线脚本，已不再维护，Alas 模仿了其架构。
 - [ALAuto homg_trans_beta](https://github.com/asd111333/ALAuto/tree/homg_trans_beta)，Alas 引入了其中的单应性变换至海图识别模块中。
 - [PyWebIO](https://github.com/pywebio/PyWebIO)，Alas 使用的 GUI 库。
-- [MaaAssistantArknights](https://github.com/MaaAssistantArknights/MaaAssistantArknights)，明日方舟小助手，全日常一键长草，现已加入Alas豪华午餐 -> [MAA 插件使用教程](https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/submodule_maa_cn)
+- [MaaAssistantArknights](https://github.com/MaaAssistantArknights/MaaAssistantArknights)，明日方舟小助手，全日常一键长草，现已加入Alas豪华午餐 -> [MAA 插件使用教程](https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/submodule_maa_cn)
 - [FGO-py](https://github.com/hgjazhgj/FGO-py)，全自动免配置跨平台开箱即用的Fate/Grand Order助手.启动脚本,上床睡觉,养肝护发,满加成圣诞了解一下?
 - [StarRailCopilot](https://github.com/LmeSzinc/StarRailCopilot)，星铁速溶茶，崩坏：星穹铁道脚本，基于下一代Alas框架。
 

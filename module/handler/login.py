@@ -17,6 +17,7 @@ from module.map.assets import *
 from module.ui.assets import *
 from module.ui.page import page_campaign_menu
 from module.ui.ui import UI
+from module.gg_handler.gg_handler import GGHandler
 
 
 class LoginHandler(UI):

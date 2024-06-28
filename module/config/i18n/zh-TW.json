@@ -477,7 +477,7 @@
     },
     "OnePushConfig": {
       "name": "錯誤推送設定",
-      "help": "發生無法處理的異常後，使用 Onepush 推送错误消息。設定參考文檔：https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/Onepush-configuration-%5BCN%5D"
+      "help": "發生無法處理的異常後，使用 Onepush 推送错误消息。設定參考文檔：https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/Onepush-configuration-%5BCN%5D"
     },
     "ScreenshotLength": {
       "name": "出錯時，保留最後 X 張截圖",
@@ -1290,7 +1290,7 @@
     },
     "CustomFilter": {
       "name": "自定義委托過濾器",
-      "help": "使用自定義過濾器需將 \"委托過濾器\" 設定為 \"自定義\"，並閱讀 https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/filter_string_cn"
+      "help": "使用自定義過濾器需將 \"委托過濾器\" 設定為 \"自定義\"，並閱讀 https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/filter_string_cn"
     },
     "DoMajorCommission": {
       "name": "做主要委託 (1200油/1000油委託)",
@@ -1412,7 +1412,7 @@
     },
     "CustomFilter": {
       "name": "自定義科研過濾器",
-      "help": "使用自定義過濾器需將 \"科研過濾器\" 設定為 \"自定義\"，並閱讀 https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/filter_string_cn"
+      "help": "使用自定義過濾器需將 \"科研過濾器\" 設定為 \"自定義\"，並閱讀 https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/filter_string_cn"
     }
   },
   "Dorm": {
@@ -2294,7 +2294,7 @@
   "OpsiShop": {
     "_info": {
       "name": "大世界商店",
-      "help": "使用此功能前必須滿足以下條件：\n- 通關大世界主線任務+模擬戰\n- 開啟大世界開荒任務或使用戰役信息記錄儀（5000油道具）"
+      "help": "使用此功能前必須滿足以下條件：\n- 通關大世界主線任務+模擬戰\n- 開啟大世界開荒任務或使用戰役信息記錄儀（5000油道具）\n- 通關大世界主線後的下個月，也就是港口商店變成新版商店後才可使用"
     },
     "PresetFilter": {
       "name": "港口商店過濾器",
@@ -2307,7 +2307,7 @@
     },
     "CustomFilter": {
       "name": "自定義過濾器",
-      "help": "使用自定義過濾器需將 \"港口商店過濾器\" 設定為 \"自定義\"，並閱讀 https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/filter_string_cn"
+      "help": "使用自定義過濾器需將 \"港口商店過濾器\" 設定為 \"自定義\"，並閱讀 https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/filter_string_cn"
     }
   },
   "OpsiVoucher": {
@@ -2317,7 +2317,7 @@
     },
     "Filter": {
       "name": "商店過濾器",
-      "help": "參考文檔 https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/reward_shop_filter_string"
+      "help": "參考文檔 https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/reward_shop_filter_string"
     }
   },
   "OpsiDaily": {

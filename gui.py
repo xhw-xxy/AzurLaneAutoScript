@@ -59,7 +59,7 @@ def func(ev: threading.Event):
     logger.attr("Reload", ev is not None)
 
     if State.electron:
-        # https://github.com/LmeSzinc/AzurLaneAutoScript/issues/2051
+        # https://github.com/SYuanLUV/AzurLaneAutoScript/issues/2051
         logger.info("Electron detected, remove log output to stdout")
         from module.logger import console_hdlr
         logger.removeHandler(console_hdlr)

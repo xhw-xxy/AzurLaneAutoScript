@@ -11,7 +11,7 @@ class ExecutionError(Exception):
 
 class ConfigModel:
     # Git
-    Repository: str = "https://github.com/LmeSzinc/AzurLaneAutoScript"
+    Repository: str = "https://github.com/SYuanLUV/AzurLaneAutoScript"
     Branch: str = "master"
     GitExecutable: str = "./toolkit/Git/mingw64/bin/git.exe"
     GitProxy: Optional[str] = None
@@ -108,11 +108,11 @@ class DeployConfig(ConfigModel):
         Redirect deploy config, must be called after each `read()`
         """
         if self.Repository in [
-            'https://gitee.com/LmeSzinc/AzurLaneAutoScript',
+            'https://gitee.com/SYuanLUV/AzurLaneAutoScript',
             'https://gitee.com/lmeszinc/azur-lane-auto-script-mirror',
             'https://e.coding.net/llop18870/alas/AzurLaneAutoScript.git',
             'https://e.coding.net/saarcenter/alas/AzurLaneAutoScript.git',
-            'https://git.saarcenter.com/LmeSzinc/AzurLaneAutoScript.git',
+            'https://git.saarcenter.com/SYuanLUV/AzurLaneAutoScript.git',
         ]:
             self.Repository = 'git://git.lyoko.io/AzurLaneAutoScript'
 
@@ -123,7 +123,7 @@ class DeployConfig(ConfigModel):
             self.Repository == 'git://git.lyoko.io/AzurLaneAutoScript' and self.Branch == 'master'
         )
         if self.Repository in ['global']:
-            super().__setattr__('Repository', 'https://github.com/LmeSzinc/AzurLaneAutoScript')
+            super().__setattr__('Repository', 'https://github.com/SYuanLUV/AzurLaneAutoScript')
         if self.Repository in ['cn']:
             super().__setattr__('Repository', 'git://git.lyoko.io/AzurLaneAutoScript')
 

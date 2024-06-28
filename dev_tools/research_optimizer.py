@@ -287,7 +287,7 @@ PROJECT_TABLE_S4 = """
 """
 
 """
-从 Alas (https://github.com/LmeSzinc/AzurLaneAutoScript) 里复制过来的一大堆代码
+从 Alas (https://github.com/SYuanLUV/AzurLaneAutoScript) 里复制过来的一大堆代码
 只是为了能单文件运行
 """
 
@@ -1149,7 +1149,7 @@ if __name__ == '__main__':
     Alas用户运行需要额外安装numba，无指定版本
     非Alas用户运行需要python>=3.7，安装 numba==0.45.1 llvmlite==0.29.0 numpy tqdm
 
-    过滤器与Alas内的过滤器基本相同，编写参考 https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/filter_string_cn
+    过滤器与Alas内的过滤器基本相同，编写参考 https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/filter_string_cn
     但需要注意：
     - 必须有且只有一个reset
     - 不能使用Alas的预设选择，比如 shortest 需要展开成

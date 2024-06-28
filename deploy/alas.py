@@ -56,7 +56,7 @@ class AlasManager(DeployConfig):
             _ = GetObject
         except UnboundLocalError:
             logger.warning('Unable to import win32com.client, please fix it manually, '
-                           'see https://github.com/LmeSzinc/AzurLaneAutoScript/issues/2382')
+                           'see https://github.com/SYuanLUV/AzurLaneAutoScript/issues/2382')
             exit(1)
 
         try:

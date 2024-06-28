@@ -1,5 +1,6 @@
 from module.handler.login import LoginHandler
 from module.logger import logger
+from module.gg_handler.gg_handler import GGHandler
 
 
 class GameManager(LoginHandler):
