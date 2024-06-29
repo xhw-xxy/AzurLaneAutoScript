@@ -2203,7 +2203,7 @@
         "value": "12-4"
       },
       "Event": {
-        "type": "state",
+        "type": "select",
         "value": "campaign_main",
         "option": [
           "event_20200227_cn",
@@ -2273,13 +2273,13 @@
           "event_20240521_cn"
         ],
         "option_bold": [
-          "event_20220428_cn",
-          "event_20231026_cn"
+          "event_20230525_cn",
+          "event_20240521_cn"
         ],
-        "cn": "event_20220428_cn",
-        "en": "event_20220428_cn",
-        "jp": "event_20220428_cn",
-        "tw": "event_20231026_cn"
+        "cn": "event_20240521_cn",
+        "en": "event_20240521_cn",
+        "jp": "event_20240521_cn",
+        "tw": "event_20230525_cn"
       },
       "Mode": {
         "type": "select",
@@ -2653,7 +2653,7 @@
         "value": "12-4"
       },
       "Event": {
-        "type": "state",
+        "type": "select",
         "value": "campaign_main",
         "option": [
           "event_20200227_cn",
@@ -2723,13 +2723,13 @@
           "event_20240521_cn"
         ],
         "option_bold": [
-          "event_20220428_cn",
-          "event_20231026_cn"
+          "event_20210916_cn",
+          "event_20240521_cn"
         ],
-        "cn": "event_20220428_cn",
-        "en": "event_20220428_cn",
-        "jp": "event_20220428_cn",
-        "tw": "event_20231026_cn"
+        "cn": "event_20240521_cn",
+        "en": "event_20240521_cn",
+        "jp": "event_20240521_cn",
+        "tw": "event_20210916_cn"
       },
       "Mode": {
         "type": "select",
@@ -3793,23 +3793,20 @@
     "Campaign": {
       "Name": {
         "type": "input",
-        "value": "dynamic",
-        "display": "hide"
+        "value": "12-4"
       },
       "Event": {
         "type": "state",
         "value": "campaign_main",
         "option": [
-          "coalition_20230323",
-          "coalition_20240627"
+          "coalition_20230323"
         ],
         "option_bold": [
-          "coalition_20230323",
-          "coalition_20240627"
+          "coalition_20230323"
         ],
-        "cn": "coalition_20240627",
-        "en": "coalition_20240627",
-        "jp": "coalition_20240627",
+        "cn": "coalition_20230323",
+        "en": "coalition_20230323",
+        "jp": "coalition_20230323",
         "tw": "coalition_20230323"
       },
       "Mode": {
@@ -3848,16 +3845,6 @@
       }
     },
     "Coalition": {
-      "Mode": {
-        "type": "select",
-        "value": "hard",
-        "option": [
-          "easy",
-          "normal",
-          "hard",
-          "ex"
-        ]
-      },
       "Fleet": {
         "type": "select",
         "value": "single",

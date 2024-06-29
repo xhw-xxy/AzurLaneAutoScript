@@ -345,9 +345,6 @@ RaidDaily:
 MaritimeEscort:
   Enable: true
 Coalition:
-  Mode:
-    value: hard
-    option: [ easy, normal, hard, ex ]
   Fleet:
     value: single
     option: [ single, multi ]
@@ -487,7 +484,7 @@ GeneralShop:
   UseGems: false
   Refresh: false
   BuySkinBox: false
-  ConsumeCoins: false
+  ConsumeCoins: 550000
   Filter: |-
     BookRedT3 > BookYellowT3 > BookBlueT3 > BookRedT2
     > Cube
@@ -715,19 +712,7 @@ OpsiExplore:
   ForceRun: false
   LastZone: 0
 OpsiShop:
-  PresetFilter:
-    value: max_benefit_meta
-    option:
-      - max_benefit
-      - max_benefit_meta
-      - no_meta
-      - all
-      - custom
-  CustomFilter: |-
-    LoggerAbyssalT6 > LoggerAbyssalT5 > LoggerObscure > LoggerAbyssalT4 > ActionPoint > PurpleCoins
-    > GearDesignPlanT3 > PlateRandomT4 > DevelopmentMaterialT3 > GearDesignPlanT2 > GearPart
-    > OrdnanceTestingReportT3 > OrdnanceTestingReportT2 > DevelopmentMaterialT2 > OrdnanceTestingReportT1
-    > METARedBook > CrystallizedHeatResistantSteel > NanoceramicAlloy > NeuroplasticProstheticArm > SupercavitationGenerator
+  BuySupply: true
 OpsiVoucher:
   Filter: |-
     LoggerAbyssal > LoggerObscure > Book > Coin > Fragment
@@ -797,7 +782,7 @@ GGHandler:
   AutoRestartGG: false
   RestartEverytime:
     value: true
-  #    display: disabled
+#    display: disabled
   RepushLua: true
   GGMultiplyingFactor: 200
   Timeout: 1200
