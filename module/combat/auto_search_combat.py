@@ -83,12 +83,18 @@ class AutoSearchCombat(MapOperation, Combat, CampaignStatus):
             if not checked:
                 logger.info(f'Fleet: {self.fleet_show_index}, fleet_current_index: {self.fleet_current_index}')
                 checked = True
-                self.lv_get(after_battle=True)
+                if self.__getattribute__("battle_count") != 0:
+                    self.lv_get(after_battle=True)
+                else:
+                    logger.warning("Skip getting ship level when BATTLE_0")
         else:
             # Fleet changed
             logger.info(f'Fleet: {self.fleet_show_index}, fleet_current_index: {self.fleet_current_index}')
             checked = True
-            self.lv_get(after_battle=False)
+            if self.__getattribute__("battle_count") != 0:
+                self.lv_get(after_battle=False)
+            else:
+                logger.warning("Skip getting ship level when BATTLE_0")
 
         return checked
 
@@ -98,7 +104,7 @@ class AutoSearchCombat(MapOperation, Combat, CampaignStatus):
         This will set auto_search_oil_limit_triggered.
         """
         if not checked:
-            oil = self._get_oil()
+            oil = self.get_oil()
             if oil == 0:
                 logger.warning('Oil not found')
             else:
@@ -183,9 +189,8 @@ class AutoSearchCombat(MapOperation, Combat, CampaignStatus):
 
             if self.is_auto_search_running():
                 checked_fleet = self.auto_search_watch_fleet(checked_fleet)
-                if not checked_oil or not checked_coin:
-                    checked_oil = self.auto_search_watch_oil(checked_oil)
-                    checked_coin = self.auto_search_watch_coin(checked_coin)
+                checked_oil = self.auto_search_watch_oil(checked_oil)
+                checked_coin = self.auto_search_watch_coin(checked_coin)
             if self.handle_retirement():
                 self.map_offensive_auto_search()
                 continue

@@ -3,7 +3,7 @@ from module.logger import logger
 from module.map.map_base import CampaignMap
 from module.map.map_grids import RoadGrids, SelectedGrids
 
-MAP = CampaignMap()
+MAP = CampaignMap('12-1')
 MAP.shape = 'H6'
 MAP.camera_data = ['D2', 'D4', 'E2', 'E4']
 MAP.camera_data_spawn_point = ['D4', 'E4']
@@ -59,7 +59,6 @@ class Config:
         'distance': 50,
         'wlen': 1000
     }
-    HOMO_CANNY_THRESHOLD = (75, 100)
     HOMO_EDGE_COLOR_RANGE = (0, 49)
     HOMO_EDGE_HOUGHLINES_THRESHOLD = 210
     MAP_SWIPE_MULTIPLY = (0.977, 0.995)

@@ -123,7 +123,7 @@ class StrategyHandler(InfoHandler):
         Returns:
             int: Formation index.
         """
-        image = self.image_crop(MAP_BUFF, copy=False)
+        image = self.image_crop(MAP_BUFF)
         if TEMPLATE_FORMATION_2.match(image):
             buff = 'double_line'
         elif TEMPLATE_FORMATION_1.match(image):
@@ -211,22 +211,23 @@ class StrategyHandler(InfoHandler):
         """
         return self.appear(MOB_MOVE_CANCEL, offset=(20, 20))
 
-    def strategy_has_mob_move(self):
+    def strategy_get_mob_move_remain(self):
         """
         Pages:
             in: STRATEGY_OPENED
             out: STRATEGY_OPENED
         """
-        if (self.appear(MOB_MOVE_ENTER, offset=MOB_MOVE_OFFSET)
-                and MOB_MOVE_ENTER.match_appear_on(self.device.image)):
-            return True
+        if self.appear(MOB_MOVE_2, offset=MOB_MOVE_OFFSET):
+            return 2
+        elif self.appear(MOB_MOVE_1, offset=MOB_MOVE_OFFSET):
+            return 1
         else:
-            return False
+            return 0
 
     def strategy_mob_move_enter(self, skip_first_screenshot=True):
         """
         Pages:
-            in: STRATEGY_OPENED, MOB_MOVE_ENTER
+            in: STRATEGY_OPENED, MOB_MOVE_1 or MOB_MOVE_2
             out: MOB_MOVE_CANCEL
         """
         logger.info('Mob move enter')
@@ -239,14 +240,16 @@ class StrategyHandler(InfoHandler):
             if self.appear(MOB_MOVE_CANCEL, offset=(20, 20)):
                 break
 
-            if self.appear_then_click(MOB_MOVE_ENTER, offset=MOB_MOVE_OFFSET, interval=5):
+            if self.appear_then_click(MOB_MOVE_1, offset=MOB_MOVE_OFFSET, interval=5):
+                continue
+            if self.appear_then_click(MOB_MOVE_2, offset=MOB_MOVE_OFFSET, interval=5):
                 continue
 
     def strategy_mob_move_cancel(self, skip_first_screenshot=True):
         """
         Pages:
             in: MOB_MOVE_CANCEL
-            out: STRATEGY_OPENED, MOB_MOVE_ENTER
+            out: STRATEGY_OPENED, MOB_MOVE_1 or MOB_MOVE_2
         """
         logger.info('Mob move cancel')
         while 1:
@@ -255,7 +258,8 @@ class StrategyHandler(InfoHandler):
             else:
                 self.device.screenshot()
 
-            if self.appear(MOB_MOVE_ENTER, offset=MOB_MOVE_OFFSET):
+            if self.appear(MOB_MOVE_1, offset=MOB_MOVE_OFFSET) \
+                    or self.appear(MOB_MOVE_2, offset=MOB_MOVE_OFFSET):
                 break
 
             if self.appear_then_click(MOB_MOVE_CANCEL, offset=(20, 20), interval=5):

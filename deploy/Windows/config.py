@@ -14,7 +14,7 @@ class ExecutionError(Exception):
 
 class ConfigModel:
     # Git
-    Repository: str = "https://github.com/SYuanLUV/AzurLaneAutoScript"
+    Repository: str = "https://github.com/LmeSzinc/AzurLaneAutoScript"
     Branch: str = "master"
     GitExecutable: str = "./toolkit/Git/mingw64/bin/git.exe"
     GitProxy: Optional[str] = None
@@ -56,7 +56,7 @@ class ConfigModel:
 
     # Webui
     WebuiHost: str = "0.0.0.0"
-    WebuiPort: int = 22367
+    WebuiPort: int = 22267
     Language: str = "en-US"
     Theme: str = "default"
     DpiScaling: bool = True

@@ -2,7 +2,7 @@ Deploy:
   Git:
     # URL of AzurLaneAutoScript repository
     # [CN user] Use 'git://git.lyoko.io/AzurLaneAutoScript' for faster and more stable download
-    # [Other] Use 'https://github.com/SYuanLUV/AzurLaneAutoScript'
+    # [Other] Use 'https://github.com/LmeSzinc/AzurLaneAutoScript'
     Repository: git://git.lyoko.io/AzurLaneAutoScript
     # Branch of Alas
     # [Developer] Use 'dev', 'app', etc, to try new features
@@ -87,7 +87,7 @@ Deploy:
 
   Update:
     # Use auto update and builtin updater feature
-    # This may cause problem https://github.com/SYuanLUV/AzurLaneAutoScript/issues/876
+    # This may cause problem https://github.com/LmeSzinc/AzurLaneAutoScript/issues/876
     EnableReload: true
     # Check update every X minute
     # [Disable] 0
@@ -135,6 +135,7 @@ Deploy:
     # 'en-US' for English
     # 'ja-JP' for Japanese
     # 'zh-TW' for Chinese traditional
+    # 'es-ES' for Spanish
     Language: zh-CN
     # Theme of web ui
     # 'default' for light theme
@@ -157,3 +158,9 @@ Deploy:
     # '["alas"]' specified "alas" config
     # '["alas","alas2"]' specified "alas" "alas2" configs
     Run: null
+    # To update app.asar
+    # [In most cases] true
+    AppAsarUpdate: true
+    # --no-sandbox. https://github.com/electron/electron/issues/30966
+    # Some Windows systems cannot call the GPU normally for virtualization, and you need to manually turn off sandbox mode
+    NoSandbox: false

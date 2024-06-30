@@ -49,6 +49,7 @@ class AshCombat(Combat):
         return False
 
     def handle_battle_preparation(self):
+
         if self.appear(BATTLE_PREPARATION, offset=(20, 20)):
             self.device.sleep(0.5)
             self.device.screenshot()

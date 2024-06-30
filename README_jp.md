@@ -6,12 +6,12 @@
 #### Discord [![](https://img.shields.io/discord/720789890354249748?logo=discord&logoColor=ffffff&color=4e4c97)](https://discord.gg/AQN6GeJ) QQグループ  ![](https://img.shields.io/badge/QQ%20Group-1087735381-4e4c97)
 Azur Lane bot with GUI (Supports CN, EN, JP, TW, able to support other servers), designed for 24/7 running scenes, can take over almost all Azur Lane gameplay. Azur Lane, as a mobile game, has entered the late stage of its life cycle. During the period from now to the server down, please reduce the time spent on the Azur Lane and leave everything to Alas.
 
-Alas is a free open source software, link: https://github.com/SYuanLUV/AzurLaneAutoScript
+Alas is a free open source software, link: https://github.com/LmeSzinc/AzurLaneAutoScript
 
 Alasは、GUI機能を搭載されていたアズールレーン用のスクリプトでございます。（日本サーバー、中国サーバー、英語サーバーと台湾（中国）サーバーに対応しています）このスクリプトは、7x24時間稼働する為に設計されたもので、ほぼ全てのゲームシステムを人のように代行できる。
 モバイルゲームとして、アズールレーンはもはやライフサイクルのエンディングに迫っています。故に、今から配信終了までの間、アズールレーンに使う時間を少しずつ減らして、全ての操作をAlasに任せてください。
 
-Alasは、無料配布のオープンソースソフトウェアの一つであります。リンク：https://github.com/SYuanLUV/AzurLaneAutoScript
+Alasは、無料配布のオープンソースソフトウェアの一つであります。リンク：https://github.com/LmeSzinc/AzurLaneAutoScript
 
 EN support, thanks **[@whoamikyo](https://github.com/whoamikyo)** and **[@nEEtdo0d](https://github.com/nEEtdo0d)**.
 
@@ -21,10 +21,10 @@ TW support, thanks **[@Zorachristine](https://github.com/Zorachristine)** , some
 
 GUI development, thanks **[@18870](https://github.com/18870)** , say HURRAY.
 
-![](https://img.shields.io/github/commit-activity/m/SYuanLUV/AzurLaneAutoScript?color=4e4c97) ![](https://img.shields.io/tokei/lines/github/SYuanLUV/AzurLaneAutoScript?color=4e4c97) ![](https://img.shields.io/github/repo-size/SYuanLUV/AzurLaneAutoScript?color=4e4c97) ![](https://img.shields.io/github/issues-closed/SYuanLUV/AzurLaneAutoScript?color=4e4c97) ![](https://img.shields.io/github/issues-pr-closed/SYuanLUV/AzurLaneAutoScript?color=4e4c97)
+![](https://img.shields.io/github/commit-activity/m/LmeSzinc/AzurLaneAutoScript?color=4e4c97) ![](https://img.shields.io/tokei/lines/github/LmeSzinc/AzurLaneAutoScript?color=4e4c97) ![](https://img.shields.io/github/repo-size/LmeSzinc/AzurLaneAutoScript?color=4e4c97) ![](https://img.shields.io/github/issues-closed/LmeSzinc/AzurLaneAutoScript?color=4e4c97) ![](https://img.shields.io/github/issues-pr-closed/LmeSzinc/AzurLaneAutoScript?color=4e4c97)
 
 これはGUIプレビュー画像の一枚である：
-![gui](https://raw.githubusercontent.com/SYuanLUV/AzurLaneAutoScript/master/doc/README.assets/gui.png)
+![gui](https://raw.githubusercontent.com/LmeSzinc/AzurLaneAutoScript/master/doc/README.assets/gui.png)
 
 
 
@@ -44,13 +44,13 @@ GUI development, thanks **[@18870](https://github.com/18870)** , say HURRAY.
 
 
 
-## インストール Installation [![](https://img.shields.io/github/downloads/SYuanLUV/AzurLaneAutoScript/total?color=4e4c97)](https://github.com/SYuanLUV/AzurLaneAutoScript/releases)
+## インストール Installation [![](https://img.shields.io/github/downloads/LmeSzinc/AzurLaneAutoScript/total?color=4e4c97)](https://github.com/LmeSzinc/AzurLaneAutoScript/releases)
 
-[インストールする方法（中国語）](https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/Installation_cn)
+[インストールする方法（中国語）](https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/Installation_cn)
 
-[インストールする方法（英語）](https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/Installation_en)日本語はいまだ未翻訳の状態です。
+[インストールする方法（英語）](https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/Installation_en)日本語はいまだ未翻訳の状態です。
 
-[設備対応ドキュメント](https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/Emulator_cn)様々な設備とエミュレータで、アズールレーンとAlasを実行ようにの説明ドキュメント。（今は中国語しかありません）
+[設備対応ドキュメント](https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/Emulator_cn)様々な設備とエミュレータで、アズールレーンとAlasを実行ようにの説明ドキュメント。（今は中国語しかありません）
 
 
 ## スケジューラープログラムを正しく使ってください
@@ -108,7 +108,7 @@ GUI development, thanks **[@18870](https://github.com/18870)** , say HURRAY.
 質問をする前に、少なくとも５分をかけてきちんと「どの状況で問題が起こったのか」を考えてください。そうすれば、答えをする人も喜んで自分の５分をかけて君の質問を答えるのであります。
 当然のことに、「なぜ○○機能は作動しない」「なぜフリーズしたのか」のような質問は答えされません。ちゃんと問題が起こった時の状況を伝えてくれるこそ、バグを特定できるから。
 
-- 質問をする前に、先ずは[よくある質問(FAQ)](https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/FAQ_en_cn)を読んでください。
+- 質問をする前に、先ずは[よくある質問(FAQ)](https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/FAQ_en_cn)を読んでください。
 - Alasのアップデータと最新commitをチェックして、お使いのAlasは最新版と確保してください。
 - ディレクトリ`log/error`の中では、時間順で保存されているログフィールド（中身はlog.txtと当時のスクリーンショット）が入っています。それを質問をする際に、issuesと共に提出してください。
 
@@ -126,13 +126,13 @@ GUI development, thanks **[@18870](https://github.com/18870)** , say HURRAY.
 
 ## Alas コミュニティールール Alas Community Guidelines
 
-[#1416](https://github.com/SYuanLUV/AzurLaneAutoScript/issues/1416)でご参照ください。
+[#1416](https://github.com/LmeSzinc/AzurLaneAutoScript/issues/1416)でご参照ください。
 
 
 
 ## ドキュメント Documents
 
-[海域識別 perspective](https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/perspective)
+[海域識別 perspective](https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/perspective)
 
 `海域識別`はアズールレーンスクリプトのコアとも言えます。もしも単なる`テンプレートマッチング (Template matching)`でゲーム内の索敵機能を実現するなら、通常単位で艦隊現在地からBOSS単位への道を通行不可になることは不可避となります。そこで、Alasではより適用性の高い海域識別方法が提供している。`module.map_detection`の中で、現在ゲーム内のフールマップをゲットすることができます。例えば下記の通り：
 
@@ -145,16 +145,16 @@ GUI development, thanks **[@18870](https://github.com/18870)** , say HURRAY.
 2020-03-10 22:09:03.830 | INFO | 5 -- -- -- 2E -- 2E ++ ++
 ```
 
-[WIKI](https://github.com/SYuanLUV/AzurLaneAutoScript/wiki)で全てのドキュメントを読めます。
+[WIKI](https://github.com/LmeSzinc/AzurLaneAutoScript/wiki)で全てのドキュメントを読めます。
 
 
 
 ## 開発にお手伝 Join Development
 
-現在、Alasはまだ開発し続いている。私たちは未来の開発方向を不定期に[Issues](https://github.com/SYuanLUV/AzurLaneAutoScript/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22)に発表して、`help wanted`と表記します。
-ですので、皆さんからAlasに[Pull Requests](https://github.com/SYuanLUV/AzurLaneAutoScript/pulls)を提出することが歓迎しています。私たちは必ず提出してくれる方々のコートを行列ごとにきちんと読んで分析します。
+現在、Alasはまだ開発し続いている。私たちは未来の開発方向を不定期に[Issues](https://github.com/LmeSzinc/AzurLaneAutoScript/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22)に発表して、`help wanted`と表記します。
+ですので、皆さんからAlasに[Pull Requests](https://github.com/LmeSzinc/AzurLaneAutoScript/pulls)を提出することが歓迎しています。私たちは必ず提出してくれる方々のコートを行列ごとにきちんと読んで分析します。
 
-勿論、[開発ドキュメント](https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/1.-Start)を読むことを忘れないでね。
+勿論、[開発ドキュメント](https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/1.-Start)を読むことを忘れないでね。
 
 
 
@@ -165,7 +165,7 @@ GUI development, thanks **[@18870](https://github.com/18870)** , say HURRAY.
 - [ALAuto](https://github.com/Egoistically/ALAuto)：英語サーバー向けのアズールレーンスクリプト、現在は開発終了しています。Alasはこのスクリプトをフレームワークとして出来たものである。
 - [ALAuto homg_trans_beta](https://github.com/asd111333/ALAuto/tree/homg_trans_beta)：Alasでは、このプロジェクトで使われているホモグラフィを画像解析モジュールに導入しています。
 - [PyWebIO](https://github.com/pywebio/PyWebIO)：Alasに使われているGUIクラス。
-- [MaaAssistantArknights](https://github.com/MaaAssistantArknights/MaaAssistantArknights)：ゲームアークナイトのスクリプト、ゲーム日課を自動的に一括完成できる。 -> [MAAプラグインの使い方](https://github.com/SYuanLUV/AzurLaneAutoScript/wiki/submodule_maa_cn)
+- [MaaAssistantArknights](https://github.com/MaaAssistantArknights/MaaAssistantArknights)：ゲームアークナイトのスクリプト、ゲーム日課を自動的に一括完成できる。 -> [MAAプラグインの使い方](https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/submodule_maa_cn)
 
 
 
