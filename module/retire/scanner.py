@@ -13,7 +13,7 @@ from module.ocr.ocr import Digit
 from module.retire.assets import (TEMPLATE_FLEET_1, TEMPLATE_FLEET_2,
                                   TEMPLATE_FLEET_3, TEMPLATE_FLEET_4,
                                   TEMPLATE_FLEET_5, TEMPLATE_FLEET_6,
-                                  TEMPLATE_IN_BATTLE, TEMPLATE_IN_COMMISSION, TEMPLATE_IN_HARD,
+                                  TEMPLATE_IN_BATTLE, TEMPLATE_IN_COMMISSION,
                                   TEMPLATE_IN_EVENT_FLEET)
 from module.retire.dock import (CARD_EMOTION_GRIDS, CARD_GRIDS,
                                 CARD_LEVEL_GRIDS, CARD_RARITY_GRIDS)
@@ -244,17 +244,10 @@ class StatusScanner(Scanner):
         super().__init__()
         self._results = []
         self.grids = CARD_GRIDS
-        self.value_list: List[str] = [
-            'free',
-            'battle',
-            'commission',
-            'in_hard_fleet',
-            'in_event_fleet',
-        ]
+        self.value_list: List[str] = ['free', 'battle', 'commission']
         self.templates = {
             TEMPLATE_IN_BATTLE: 'battle',
             TEMPLATE_IN_COMMISSION: 'commission',
-            TEMPLATE_IN_HARD: 'in_hard_fleet',
             TEMPLATE_IN_EVENT_FLEET: 'in_event_fleet',
         }
 
@@ -291,13 +284,7 @@ class ShipScanner(Scanner):
         level (tuple): (lower, upper). Will be limited in range [1, 125]
         emotion (tuple): (lower, upper). Will be limited in range [0, 150]
         fleet (int): 0 means not in any fleet. Will be limited in range [0, 6]
-        status (str, list): [
-            'free',
-            'battle',
-            'commission',
-            'in_hard_fleet',
-            'in_event_fleet',
-            ]
+        status (str, list): ['any', 'commission', 'battle']
     """
     def __init__(
         self,
@@ -411,13 +398,7 @@ class ShipScanner(Scanner):
             level (tuple): (lower, upper). Will be limited in range [1, 125]
             emotion (tuple): (lower, upper). Will be limited in range [0, 150]
             fleet (int): 0 means not in any fleet. Will be limited in range [0, 6]
-            status (str, list): [
-                'free',
-                'battle',
-                'commission',
-                'in_hard_fleet',
-                'in_event_fleet',
-                ]
+            status (str, list): ['any', 'commission', 'battle']
         """
         for attr in self.limitaion.keys():
             value = kwargs.get(attr, self.limitaion[attr])
@@ -458,7 +439,7 @@ class DockScanner(ShipScanner):
         # Roughly Adjust
         # After graying the image, calculate the standard deviation and take the part below the threshold
         # Those parts should present multiple discontinuous subsequences, which here called gap_seq
-        scan_image = crop(image, self.scan_zone)
+        scan_image = crop(image, self.scan_zone, copy=False)
 
         def find_bound(image):
             bound = []
@@ -473,7 +454,7 @@ class DockScanner(ShipScanner):
                 bound = [0] + bound
             return bound
 
-        bounds = [find_bound(crop(scan_image, button.area)) for button in self.scan_grids.buttons]
+        bounds = [find_bound(crop(scan_image, button.area, copy=False)) for button in self.scan_grids.buttons]
         card_bottom = (np.mean(bounds, axis=0) + 0.5).astype(np.uint8)
         # Calculate the bound of gap_seq, usually we get 3 endpoints
         # The offset is the difference between the two groups of endpoints
