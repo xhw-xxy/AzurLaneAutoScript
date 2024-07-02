@@ -15,8 +15,8 @@ from module.os.globe_operation import OSExploreError
 from module.os.map import OSMap
 from module.os_handler.action_point import OCR_OS_ADAPTABILITY, ActionPointLimit
 from module.os_handler.assets import OS_MONTHBOSS_NORMAL, OS_MONTHBOSS_HARD, EXCHANGE_CHECK, EXCHANGE_ENTER
-from module.os_shop.assets import OS_SHOP_CHECK
 from module.shop.shop_voucher import VoucherShop
+from module.base.decorator import Config
 
 
 class OperationSiren(OSMap):
@@ -242,23 +242,13 @@ class OperationSiren(OSMap):
         logger.hr('OS port daily', level=1)
         if not self.zone.is_azur_port:
             self.globe_goto(self.zone_nearest_azur_port(self.zone))
-
         self.port_enter()
-        self.port_shop_enter()
-
-        if self.appear(OS_SHOP_CHECK):
-            not_empty = self.handle_port_supply_buy()
-            next_reset = self._os_shop_delay(not_empty)
-            logger.info('OS port daily finished, delay to next reset')
-            logger.attr('OpsiShopNextReset', next_reset)
-        else:
-            next_reset = get_os_next_reset()
-            logger.warning('There is no shop in the port, skip to the next month.')
-            logger.attr('OpsiShopNextReset', next_reset)
-
-        self.port_shop_quit()
+        not_empty = self.port_supply_buy()
         self.port_quit()
 
+        next_reset = self._os_shop_delay(not_empty)
+        logger.info('OS port daily finished, delay to next reset')
+        logger.attr('OpsiShopNextReset', next_reset)
         self.config.task_delay(target=next_reset)
         self.config.task_stop()
 
@@ -344,7 +334,7 @@ class OperationSiren(OSMap):
             self.config.task_stop()
 
         ap_checked = False
-        while True:
+        while 1:
             self.config.OS_ACTION_POINT_PRESERVE = preserve
             if self.config.is_task_enabled('OpsiAshBeacon') \
                     and not self._ash_fully_collected \
@@ -468,7 +458,7 @@ class OperationSiren(OSMap):
         with self.config.multi_set():
             next_run = self.config.Scheduler_NextRun
             for task in ['OpsiObscure', 'OpsiAbyssal', 'OpsiArchive', 'OpsiStronghold', 'OpsiMeowfficerFarming',
-                         'OpsiMonthBoss', 'OpsiShop']:
+                         "OpsiMonthBoss"]:
                 keys = f'{task}.Scheduler.NextRun'
                 current = self.config.cross_get(keys=keys, default=DEFAULT_TIME)
                 if current < next_run:
@@ -586,7 +576,7 @@ class OperationSiren(OSMap):
         self.handle_after_auto_search()
 
     def os_obscure(self):
-        while True:
+        while 1:
             self.clear_obscure()
             if self.config.OpsiObscure_ForceRun:
                 self.config.check_task_switch()
@@ -640,7 +630,7 @@ class OperationSiren(OSMap):
         self.delay_abyssal()
 
     def os_abyssal(self):
-        while True:
+        while 1:
             self.clear_abyssal()
             self.config.check_task_switch()
 
@@ -659,7 +649,7 @@ class OperationSiren(OSMap):
             self.config.task_stop()
 
         shop = VoucherShop(self.config, self.device)
-        while True:
+        while 1:
             # In case logger bought manually,
             # finish pre-existing archive zone
             self.os_finish_daily_mission(question=False, rescan=False)
@@ -708,7 +698,7 @@ class OperationSiren(OSMap):
         self.handle_fleet_resolve(revert=False)
 
     def os_stronghold(self):
-        while True:
+        while 1:
             self.clear_stronghold()
             self.config.check_task_switch()
 

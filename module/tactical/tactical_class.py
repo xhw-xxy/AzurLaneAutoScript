@@ -167,7 +167,7 @@ class Book:
         """
         area = self.button.area
         check_area = tuple([area[0], area[3] + 2, area[2], area[3] + 4])
-        im = rgb2gray(crop(image, check_area, copy=False))
+        im = rgb2gray(crop(image, check_area))
         return True if np.mean(im) > 127 else False
 
     def __str__(self):
@@ -527,7 +527,7 @@ class RewardTacticalClass(Dock):
         if book_empty:
             logger.warning('Tactical books empty, delay to tomorrow')
             self.tactical_finish = get_server_next_update(self.config.Scheduler_ServerUpdate)
-            logger.info(f'Tactical finish: {self.tactical_finish}')
+            logger.info(f'Tactical finish: {[str(f) for f in self.tactical_finish]}')
         return True
 
     def _tactical_skill_select(self, selected_skill, skip_first_screenshot=True):

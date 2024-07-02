@@ -2,6 +2,7 @@ from module.base.button import ButtonGrid
 from module.base.timer import Timer
 from module.base.utils import color_similar, get_color, resize
 from module.combat.assets import GET_ITEMS_1
+from module.config.utils import deep_get
 from module.exception import RequestHumanTakeover, ScriptError
 from module.handler.assets import AUTO_SEARCH_MAP_OPTION_OFF, AUTO_SEARCH_MAP_OPTION_ON
 from module.logger import logger
@@ -282,8 +283,27 @@ class Retirement(Enhancement, QuickRetireSettingHandler):
         if not gems_farming_enable:
             logger.info('Not in GemsFarming, skip')
             return 0
-
-        self.dock_filter_set(index='cv', rarity='common', extra='not_level_max', sort='level')
+        if self.config.task.command == "GemsFarming":
+            HARDMODEMAPS = [
+                'd1', 'd2', 'd3',
+                'ht4', 'ht5', 'ht6',
+            ]
+            if deep_get(self.config.data, "GemsFarming.Campaign.Name").lower() in HARDMODEMAPS:
+                s = deep_get(self.config.data, "GemsFarming.FlagshipFilter.Sort")
+                i = deep_get(self.config.data, "GemsFarming.FlagshipFilter.Index")
+                f = deep_get(self.config.data, "GemsFarming.FlagshipFilter.Faction")
+                r = deep_get(self.config.data, "GemsFarming.FlagshipFilter.Rarity")
+                e = deep_get(self.config.data, "GemsFarming.FlagshipFilter.Extra")
+                self.dock_filter_set(
+                    index='cv' if i == "default" else i,
+                    rarity='common' if r == "default" else r,
+                    extra='not_level_max' if e == "default" else e,
+                    sort='level' if s == "default" else s
+                )
+            else:
+                self.dock_filter_set(index='cv', rarity='common', extra='not_level_max', sort='level')
+        else:
+            self.dock_filter_set(index='cv', rarity='common', extra='not_level_max', sort='level')
         self.dock_favourite_set(False)
 
         scanner = ShipScanner(
