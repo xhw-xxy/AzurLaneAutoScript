@@ -217,7 +217,7 @@ def get_research_series_jp_old(image):
 
     area = SERIES_DETAIL.area
     # Resize is not needed because only one area will be checked in JP server.
-    im = color_similarity_2d(crop(image, area, copy=False), color=(255, 255, 255))
+    im = color_similarity_2d(crop(image, area), color=(255, 255, 255))
     peaks = [len(signal.find_peaks(row, **parameters)[0]) for row in im[5:-5]]
     upper, lower = max(peaks), min(peaks)
     # print(upper, lower)

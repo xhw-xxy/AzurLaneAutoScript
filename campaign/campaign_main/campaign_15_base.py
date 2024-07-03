@@ -22,7 +22,6 @@ class Config:
         'prominence': 10,
         'distance': 35,
     }
-    HOMO_CANNY_THRESHOLD = (50, 100)
     MAP_SWIPE_MULTIPLY = (0.993, 1.011)
     MAP_SWIPE_MULTIPLY_MINITOUCH = (0.960, 0.978)
     MAP_SWIPE_MULTIPLY_MAATOUCH = (0.932, 0.949)
@@ -58,7 +57,8 @@ class CampaignBase(CampaignBase_):
             sub_view=sub_view,
             sub_hunt=sub_hunt,
         )
-        logger.attr("Map has mob move", self.strategy_has_mob_move())
+        self.map_has_mob_move = (self.strategy_get_mob_move_remain() > 0)
+        logger.attr("Map has mob move", self.map_has_mob_move)
 
     def _map_swipe(self, vector, box=(239, 159, 1175, 628)):
         # Left border to 239, avoid swiping on support fleet
@@ -183,7 +183,6 @@ class CampaignBase(CampaignBase_):
         self.map[target].is_boss = self.map[location].is_boss
         self.map[location].is_boss = False
         self.map[target].is_enemy = True
-        self.map[target].may_enemy = True
         self.map[location].is_enemy = False
 
     def mob_move(self, location, target):
@@ -205,7 +204,8 @@ class CampaignBase(CampaignBase_):
             return False
 
         self.strategy_open()
-        if not self.strategy_has_mob_move():
+        remain = self.strategy_get_mob_move_remain()
+        if remain == 0:
             logger.warning(f'No remain mob move trials, will abandon moving')
             self.strategy_close()
             return False
