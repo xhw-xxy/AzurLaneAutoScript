@@ -103,15 +103,7 @@ class DockOld(Equipment):
         )
         return setting
 
-    def dock_filter_set(
-            self,
-            sort='level',
-            index='all',
-            faction='all',
-            rarity='all',
-            extra='no_limit',
-            wait_loading=True
-    ):
+    def dock_filter_set(self, sort='level', index='all', faction='all', rarity='all', extra='no_limit'):
         """
         A faster filter set function.
 

@@ -207,10 +207,8 @@ class Retirement(Enhancement, QuickRetireSettingHandler):
                 break
             self._retirement_confirm()
             total += 10
-            # if total >= amount:
-            #     break
-            # Always break, since game client retire all once
-            break
+            if total >= amount:
+                break
 
         logger.info(f'Total retired round: {total // 10}')
         return total
@@ -343,7 +341,7 @@ class Retirement(Enhancement, QuickRetireSettingHandler):
             self._retirement_confirm()
 
         self._have_kept_cv = _
-        self.dock_filter_set(wait_loading=False)
+        self.dock_filter_set()
 
         return total
 
