@@ -161,10 +161,12 @@ class Retirement(Enhancement, QuickRetireSettingHandler):
             rarity.add('SSR')
         return rarity
 
-    def retire_ships_one_click(self):
+    def retire_ships_one_click(self, amount=None):
         logger.hr('Retirement')
         logger.info('Using one click retirement.')
         self.dock_favourite_set(False)
+        if amount is None:
+            amount = self._retire_amount
         end = False
         total = 0
 
