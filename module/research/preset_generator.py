@@ -80,6 +80,8 @@ def translate(string: str, target='series_4_tenrai_only_cube', for_simulate=Fals
 
 def convert_name(name, series):
     name = re.sub(r'series_\d', f'series_{series}', name)
+    if 'series_7' in name:
+        name = name.replace('tenrai', 'la9')
     if 'series_6' in name:
         name = name.replace('tenrai', '203')
     if 'series_5' in name:

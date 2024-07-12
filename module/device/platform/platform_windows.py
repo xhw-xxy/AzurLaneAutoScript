@@ -82,7 +82,7 @@ class PlatformWindows(PlatformBase, EmulatorManager):
         """
         Start a emulator without error handling
         """
-        exe = instance.emulator.path
+        exe: str = instance.emulator.path
         if instance == Emulator.MuMuPlayer:
             # NemuPlayer.exe
             self.execute(exe)
@@ -94,15 +94,21 @@ class PlatformWindows(PlatformBase, EmulatorManager):
             if instance.MuMuPlayer12_id is None:
                 logger.warning(f'Cannot get MuMu instance index from name {instance.name}')
             self.execute(f'"{exe}" -v {instance.MuMuPlayer12_id}')
+        elif instance == Emulator.LDPlayerFamily:
+            # LDPlayer.exe index=0
+            self.execute(f'"{exe}" index={instance.LDPlayer_id}')
         elif instance == Emulator.NoxPlayerFamily:
             # Nox.exe -clone:Nox_1
             self.execute(f'"{exe}" -clone:{instance.name}')
         elif instance == Emulator.BlueStacks5:
-            # HD-Player.exe -instance Pie64
-            self.execute(f'"{exe}" -instance {instance.name}')
+            # HD-Player.exe --instance Pie64
+            self.execute(f'"{exe}" --instance {instance.name}')
         elif instance == Emulator.BlueStacks4:
-            # BlueStacks\Client\Bluestacks.exe -vmname Android_1
+            # Bluestacks.exe -vmname Android_1
             self.execute(f'"{exe}" -vmname {instance.name}')
+        elif instance == Emulator.MEmuPlayer:
+            # MEmu.exe MEmu_0
+            self.execute(f'"{exe}" {instance.name}')
         else:
             raise EmulatorUnknown(f'Cannot start an unknown emulator instance: {instance}')
 
