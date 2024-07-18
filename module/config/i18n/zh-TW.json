@@ -744,7 +744,7 @@
       "event_20230803_cn": "奏響鳶尾之歌",
       "event_20230817_cn": "愚者的天平",
       "event_20230914_cn": "Effulgence Before Eclipse",
-      "event_20231026_cn": "Tempesta and the Fountain of Youth",
+      "event_20231026_cn": "飓風與青春之泉",
       "event_20231123_cn": "蒼閃忍法帖",
       "event_20231221_cn": "Light-Chasing Sea of Stars",
       "event_20240229_cn": "Snowrealm Peregrination",
@@ -2119,15 +2119,19 @@
       "name": "領取郵件",
       "help": ""
     },
-    "Collect": {
-      "name": "領取郵件",
+    "ClaimMerit": {
+      "name": "領取功勳郵件",
       "help": ""
     },
-    "Filter": {
-      "name": "郵件過濾器",
-      "help": "默認只領取演習功勳郵件"
+    "ClaimMaintenance": {
+      "name": "領取維护郵件",
+      "help": ""
     },
-    "Delete": {
+    "ClaimTradeLicense": {
+      "name": "領取月卡郵件",
+      "help": ""
+    },
+    "DeleteCollected": {
       "name": "刪除已讀郵件",
       "help": ""
     }
