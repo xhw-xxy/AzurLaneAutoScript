@@ -106,7 +106,6 @@ class Retirement(Enhancement, QuickRetireSettingHandler):
                 break
             if self.appear(IN_RETIREMENT_CHECK, offset=(20, 20)):
                 if executed:
-                    self.handle_info_bar()
                     break
             else:
                 timeout.reset()
@@ -169,12 +168,10 @@ class Retirement(Enhancement, QuickRetireSettingHandler):
             rarity.add('SSR')
         return rarity
 
-    def retire_ships_one_click(self, amount=None):
+    def retire_ships_one_click(self):
         logger.hr('Retirement')
         logger.info('Using one click retirement.')
         self.dock_favourite_set(False)
-        if amount is None:
-            amount = self._retire_amount
         end = False
         total = 0
 
@@ -215,8 +212,10 @@ class Retirement(Enhancement, QuickRetireSettingHandler):
                 break
             self._retirement_confirm()
             total += 10
-            if total >= amount:
-                break
+            # if total >= amount:
+            #     break
+            # Always break, since game client retire all once
+            break
 
         logger.info(f'Total retired round: {total // 10}')
         return total
@@ -329,6 +328,7 @@ class Retirement(Enhancement, QuickRetireSettingHandler):
             else:
                 self.device.screenshot()
 
+            self.handle_info_bar()
             ships = scanner.scan(self.device.image)
             if not ships:
                 # exit if nothing can be retired
