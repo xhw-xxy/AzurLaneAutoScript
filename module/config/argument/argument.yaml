@@ -288,6 +288,7 @@ GemsFarming:
     option: [ 0, 1, 2 ]
   StopIFAutoNotEnsured: true
   CommissionLimit: true
+  Use2xBook: false
 FlagshipFilter:
   Sort:
     value: 'default'
