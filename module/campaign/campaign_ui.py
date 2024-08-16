@@ -25,7 +25,7 @@ MODE_SWITCH_2.add_status('hard', SWITCH_2_HARD)
 MODE_SWITCH_2.add_status('ex', SWITCH_2_EX)
 
 
-class CampaignUI(CampaignEvent, CampaignOcr):
+class CampaignUI(MapOperation, CampaignEvent, CampaignOcr):
     ENTRANCE = Button(area=(), color=(), button=(), name='default_button')
 
     def campaign_ensure_chapter(self, index, skip_first_screenshot=True):
@@ -212,6 +212,21 @@ class CampaignUI(CampaignEvent, CampaignOcr):
         else:
             logger.warning(f'Unknown campaign chapter: {name}')
 
+    def handle_campaign_ui_additional(self):
+        """
+        Returns:
+            bool: If handled
+        """
+        if self.appear(WITHDRAW, offset=(30, 30)):
+            # logger.info("WITHDRAW button found, wait until map loaded to prevent bugs in game client")
+            self.ensure_no_info_bar(timeout=2)
+            try:
+                self.withdraw()
+            except CampaignEnd:
+                pass
+            return True
+        return False
+
     def ensure_campaign_ui(self, name, mode='normal'):
         for n in range(20):
             try:
@@ -220,6 +235,8 @@ class CampaignUI(CampaignEvent, CampaignOcr):
                 return True
             except CampaignNameError:
                 pass
+            if self.handle_campaign_ui_additional():
+                continue
 
             self.device.screenshot()
 

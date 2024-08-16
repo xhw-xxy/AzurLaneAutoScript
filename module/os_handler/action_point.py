@@ -12,8 +12,6 @@ from module.os_handler.map_event import MapEventHandler
 from module.statistics.item import Item, ItemGrid
 from module.ui.assets import OS_CHECK
 from module.ui.ui import UI
-from module.config.utils import deep_get
-from module.log_res.log_res import LogRes
 
 OCR_ACTION_POINT_REMAIN = Digit(ACTION_POINT_REMAIN, letter=(255, 219, 66), name='OCR_ACTION_POINT_REMAIN')
 OCR_ACTION_POINT_REMAIN_OS = Digit(ACTION_POINT_REMAIN_OS, letter=(239, 239, 239),
@@ -139,10 +137,8 @@ class ActionPointHandler(UI, MapEventHandler):
         if self.config.OS_ACTION_POINT_BOX_USE:
             total += np.sum(np.array(box) * tuple(ACTION_POINT_BOX.values()))
         oil = box[0]
-        LogRes(self.config).Oil = oil
+
         logger.info(f'Action points: {current}({total}), oil: {oil}')
-        LogRes(self.config).ActionPoint = {'Value': current, 'Total': total}
-        self.config.update()
         self._action_point_current = current
         self._action_point_box = box
         self._action_point_total = total
@@ -380,9 +376,17 @@ class ActionPointHandler(UI, MapEventHandler):
             # Buy action points
             if self.config.OpsiGeneral_BuyActionPointLimit > 0 and not buy_checked:
                 if self.action_point_buy(preserve=self.config.OpsiGeneral_OilLimit):
+                    self.action_point_safe_get()
                     continue
                 else:
                     buy_checked = True
+
+            # Recheck if total ap is less than cost
+            # If it is, skip using boxes
+            if self._action_point_total < cost:
+                logger.info('Not having enough action points')
+                self.action_point_quit()
+                raise ActionPointLimit
 
             # Sort action point boxes
             box = []
