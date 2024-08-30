@@ -15,8 +15,8 @@ from module.os.globe_operation import OSExploreError
 from module.os.map import OSMap
 from module.os_handler.action_point import OCR_OS_ADAPTABILITY, ActionPointLimit
 from module.os_handler.assets import OS_MONTHBOSS_NORMAL, OS_MONTHBOSS_HARD, EXCHANGE_CHECK, EXCHANGE_ENTER
+from module.os_shop.assets import OS_SHOP_CHECK
 from module.shop.shop_voucher import VoucherShop
-from module.base.decorator import Config
 
 
 class OperationSiren(OSMap):
@@ -242,13 +242,23 @@ class OperationSiren(OSMap):
         logger.hr('OS port daily', level=1)
         if not self.zone.is_azur_port:
             self.globe_goto(self.zone_nearest_azur_port(self.zone))
+
         self.port_enter()
-        not_empty = self.port_supply_buy()
+        self.port_shop_enter()
+
+        if self.appear(OS_SHOP_CHECK):
+            not_empty = self.handle_port_supply_buy()
+            next_reset = self._os_shop_delay(not_empty)
+            logger.info('OS port daily finished, delay to next reset')
+            logger.attr('OpsiShopNextReset', next_reset)
+        else:
+            next_reset = get_os_next_reset()
+            logger.warning('There is no shop in the port, skip to the next month.')
+            logger.attr('OpsiShopNextReset', next_reset)
+
+        self.port_shop_quit()
         self.port_quit()
 
-        next_reset = self._os_shop_delay(not_empty)
-        logger.info('OS port daily finished, delay to next reset')
-        logger.attr('OpsiShopNextReset', next_reset)
         self.config.task_delay(target=next_reset)
         self.config.task_stop()
 
@@ -334,7 +344,7 @@ class OperationSiren(OSMap):
             self.config.task_stop()
 
         ap_checked = False
-        while 1:
+        while True:
             self.config.OS_ACTION_POINT_PRESERVE = preserve
             if self.config.is_task_enabled('OpsiAshBeacon') \
                     and not self._ash_fully_collected \
@@ -370,14 +380,13 @@ class OperationSiren(OSMap):
                     raise RequestHumanTakeover('wrong input, task stopped')
                 else:
                     logger.hr(f'OS meowfficer farming, zone_id={zone.zone_id}', level=1)
-                    self.globe_goto(zone)
+                    self.globe_goto(zone, refresh=True)
                     self.fleet_set(self.config.OpsiFleet_Fleet)
                     self.os_order_execute(
                         recon_scan=False,
                         submarine_call=self.config.OpsiFleet_Submarine)
                     self.run_auto_search()
-                    if not self.handle_after_auto_search():
-                        self.globe_goto(self.zone_nearest_azur_port(zone=zone))
+                    self.handle_after_auto_search()
                     self.config.check_task_switch()
             else:
                 zones = self.zone_select(hazard_level=self.config.OpsiMeowfficerFarming_HazardLevel) \
@@ -458,7 +467,7 @@ class OperationSiren(OSMap):
         with self.config.multi_set():
             next_run = self.config.Scheduler_NextRun
             for task in ['OpsiObscure', 'OpsiAbyssal', 'OpsiArchive', 'OpsiStronghold', 'OpsiMeowfficerFarming',
-                         "OpsiMonthBoss"]:
+                         'OpsiMonthBoss', 'OpsiShop']:
                 keys = f'{task}.Scheduler.NextRun'
                 current = self.config.cross_get(keys=keys, default=DEFAULT_TIME)
                 if current < next_run:
@@ -576,7 +585,7 @@ class OperationSiren(OSMap):
         self.handle_after_auto_search()
 
     def os_obscure(self):
-        while 1:
+        while True:
             self.clear_obscure()
             if self.config.OpsiObscure_ForceRun:
                 self.config.check_task_switch()
@@ -630,7 +639,7 @@ class OperationSiren(OSMap):
         self.delay_abyssal()
 
     def os_abyssal(self):
-        while 1:
+        while True:
             self.clear_abyssal()
             self.config.check_task_switch()
 
@@ -649,7 +658,7 @@ class OperationSiren(OSMap):
             self.config.task_stop()
 
         shop = VoucherShop(self.config, self.device)
-        while 1:
+        while True:
             # In case logger bought manually,
             # finish pre-existing archive zone
             self.os_finish_daily_mission(question=False, rescan=False)
@@ -698,7 +707,7 @@ class OperationSiren(OSMap):
         self.handle_fleet_resolve(revert=False)
 
     def os_stronghold(self):
-        while 1:
+        while True:
             self.clear_stronghold()
             self.config.check_task_switch()
 

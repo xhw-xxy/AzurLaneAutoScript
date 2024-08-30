@@ -89,8 +89,8 @@ class Emulator(EmulatorBase):
                 return cls.NoxPlayer64
             else:
                 return cls.NoxPlayer
-        if exe == 'bluestacks.exe':
-            if dir1 in ['bluestacks', 'bluestacks_cn']:
+        if exe in ['bluestacks.exe', 'bluestacksgp.exe']:
+            if dir1 in ['bluestacks', 'bluestacks_cn', 'bluestackscn']:
                 return cls.BlueStacks4
             elif dir1 in ['bluestacks_nxt', 'bluestacks_nxt_cn']:
                 return cls.BlueStacks5
@@ -127,7 +127,7 @@ class Emulator(EmulatorBase):
         return ''
 
     @staticmethod
-    def multi_to_single(exe):
+    def multi_to_single(exe: str):
         """
         Convert a string that might be a multi-instance manager to its single instance executable.
 
@@ -248,7 +248,7 @@ class Emulator(EmulatorBase):
         elif self == Emulator.BlueStacks4:
             # ../Engine/Android
             regex = re.compile(r'^Android')
-            for folder in self.list_folder('../Engine', is_dir=True):
+            for folder in self.list_folder('./Engine/ProgramData/Engine', is_dir=True):
                 folder = os.path.basename(folder)
                 res = regex.match(folder)
                 if not res:
@@ -299,12 +299,23 @@ class Emulator(EmulatorBase):
             for folder in self.list_folder('../vms', is_dir=True):
                 for file in iter_folder(folder, ext='.nemu'):
                     serial = Emulator.vbox_file_to_serial(file)
+                    name = os.path.basename(folder)
                     if serial:
                         yield EmulatorInstance(
                             serial=serial,
-                            name=os.path.basename(folder),
+                            name=name,
                             path=self.path,
                         )
+                    # Fix for MuMu12 v4.0.4, default instance of which has no forward record in vbox config
+                    else:
+                        instance = EmulatorInstance(
+                            serial=serial,
+                            name=name,
+                            path=self.path,
+                        )
+                        if instance.MuMuPlayer12_id:
+                            instance.serial = f'127.0.0.1:{16384 + 32 * instance.MuMuPlayer12_id}'
+                            yield instance
         elif self == Emulator.MEmuPlayer:
             # ./MemuHyperv VMs/{name}/{name}.memu
             for folder in self.list_folder('./MemuHyperv VMs', is_dir=True):
@@ -495,9 +506,10 @@ class EmulatorManager(EmulatorManagerBase):
             try:
                 exe = proc.cmdline()
                 exe = exe[0].replace(r'\\', '/').replace('\\', '/')
-            except (psutil.AccessDenied, psutil.NoSuchProcess, IndexError):
+            except (psutil.AccessDenied, psutil.NoSuchProcess, IndexError, OSError):
                 # psutil.AccessDenied
                 # NoSuchProcess: process no longer exists (pid=xxx)
+                # OSError: [WinError 87] 参数错误。: '(originated from ReadProcessMemory)'
                 continue
 
             if Emulator.is_emulator(exe):
