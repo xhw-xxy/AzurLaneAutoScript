@@ -6,6 +6,7 @@ import re
 
 from module.campaign.campaign_base import CampaignBase
 from module.campaign.campaign_event import CampaignEvent
+from module.shop.shop_status import ShopStatus
 from module.campaign.campaign_ui import MODE_SWITCH_1
 from module.config.config import AzurLaneConfig
 from module.exception import CampaignEnd, RequestHumanTakeover, ScriptEnd
@@ -13,9 +14,10 @@ from module.handler.fast_forward import map_files, to_map_file_name
 from module.logger import logger
 from module.notify import handle_notify
 from module.ui.page import page_campaign
+from module.config.utils import deep_get, deep_set
+from datetime import datetime, timedelta
 
-
-class CampaignRun(CampaignEvent):
+class CampaignRun(CampaignEvent, ShopStatus):
     folder: str
     name: str
     stage: str
@@ -245,8 +247,7 @@ class CampaignRun(CampaignEvent):
             'event_20211125_cn',
             'event_20231026_cn',
             'event_20231123_cn',
-            'event_20240725_cn',
-            'event_20240829_cn',
+            'event_20240725_cn'
         ]:
             name = convert.get(name, name)
         else:
@@ -276,10 +277,6 @@ class CampaignRun(CampaignEvent):
         if folder == 'event_20230817_cn':
             if name.startswith('e0'):
                 name = 'a1'
-        # event_20240829_cn, TP -> SP
-        if folder == 'event_20240829_cn':
-            if name == 'tp':
-                name = 'sp'
         # Stage loop
         for alias, stages in self.config.STAGE_LOOP_ALIAS.items():
             alias_folder, alias = alias
