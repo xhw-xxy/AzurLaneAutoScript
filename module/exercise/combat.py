@@ -1,5 +1,4 @@
 from module.combat.combat import *
-from module.combat.combat import PAUSE, QUIT
 from module.exercise.assets import *
 from module.exercise.equipment import ExerciseEquipment
 from module.exercise.hp_daemon import HpDaemon
@@ -83,14 +82,12 @@ class ExerciseCombat(HpDaemon, OpponentChoose, ExerciseEquipment):
                 continue
 
             # Quit
-            if self.handle_combat_quit():
-                pause_interval.reset()
+            if self.appear_then_click(QUIT_CONFIRM, offset=(20, 20), interval=5):
                 success = False
                 end = True
                 continue
             if self.appear_then_click(QUIT_RECONFIRM, offset=(20, 20), interval=5):
-                self.interval_reset(QUIT)
-                pause_interval.reset()
+                self.interval_reset(QUIT_CONFIRM)
                 continue
             if not end:
                 if self._at_low_hp(image=self.device.image):
