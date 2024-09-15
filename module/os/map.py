@@ -4,10 +4,10 @@ from sys import maxsize
 import inflection
 
 from module.base.timer import Timer
-from module.combat.assets import PAUSE
+from module.combat_ui.assets import PAUSE
 from module.config.utils import get_os_reset_remain
 from module.exception import CampaignEnd, GameTooManyClickError, MapWalkError, RequestHumanTakeover, ScriptError
-from module.exercise.assets import QUIT_CONFIRM, QUIT_RECONFIRM
+from module.exercise.assets import QUIT_RECONFIRM
 from module.handler.login import LoginHandler, MAINTENANCE_ANNOUNCE
 from module.logger import logger
 from module.map.map import Map
@@ -384,7 +384,9 @@ class OSMap(OSFleet, Map, GlobeCamera, StrategicSearchHandler):
         # Restart the game manually rather
         # than through 'task_call'
         # Ongoing task is uninterrupted
-        self.device.app_restart()
+        self.device.app_stop()
+        self.device.app_start()
+        LoginHandler(self.config, self.device).handle_app_login()
 
         self.ui_ensure(page_os)
         if repair:
@@ -403,7 +405,7 @@ class OSMap(OSFleet, Map, GlobeCamera, StrategicSearchHandler):
         remain = get_os_reset_remain()
         if remain <= 0:
             if self.config.is_task_enabled('OpsiCrossMonth'):
-                logger.info('Just less than 1 day to OpSi reset, OpsiCrossMonth is enabled, '
+                logger.info('Just less than 1 day to OpSi reset, OpsiCrossMonth is enabled'
                             'set OpsiMeowfficerFarming.ActionPointPreserve to 300 temporarily')
                 return 300
             else:
@@ -556,7 +558,7 @@ class OSMap(OSFleet, Map, GlobeCamera, StrategicSearchHandler):
                 self.interval_reset(MAINTENANCE_ANNOUNCE)
                 pause_interval.reset()
                 continue
-            if self.appear_then_click(QUIT_CONFIRM, offset=(20, 20), interval=5):
+            if self.handle_combat_quit():
                 self.interval_reset(MAINTENANCE_ANNOUNCE)
                 pause_interval.reset()
                 continue
