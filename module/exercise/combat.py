@@ -7,16 +7,9 @@ from module.exercise.opponent import OPPONENT, OpponentChoose
 from module.ui.assets import EXERCISE_CHECK
 
 
-class ExerciseCombat(HpDaemon, OpponentChoose, ExerciseEquipment):
+class ExerciseCombat(HpDaemon, OpponentChoose, ExerciseEquipment, Combat):
     def _in_exercise(self):
         return self.appear(EXERCISE_CHECK, offset=(20, 20))
-
-    def is_combat_executing(self):
-        """
-        Returns:
-            bool:
-        """
-        return self.appear(PAUSE) and np.max(self.image_crop(PAUSE_DOUBLE_CHECK)) < 153
 
     def _combat_preparation(self, skip_first_screenshot=True):
         logger.info('Combat preparation')
@@ -36,7 +29,7 @@ class ExerciseCombat(HpDaemon, OpponentChoose, ExerciseEquipment):
                 continue
 
             # End
-            if self.appear(PAUSE):
+            if self.is_combat_executing():
                 break
 
     def _combat_execute(self):
@@ -95,9 +88,12 @@ class ExerciseCombat(HpDaemon, OpponentChoose, ExerciseEquipment):
             if not end:
                 if self._at_low_hp(image=self.device.image):
                     logger.info('Exercise quit')
-                    if pause_interval.reached() and self.appear_then_click(PAUSE):
-                        pause_interval.reset()
-                        continue
+                    if pause_interval.reached():
+                        pause = self.is_combat_executing()
+                        if pause:
+                            self.device.click(pause)
+                            pause_interval.reset()
+                            continue
                 else:
                     if show_hp_timer.reached():
                         show_hp_timer.reset()
