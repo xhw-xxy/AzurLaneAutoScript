@@ -260,3 +260,5 @@ pyrightconfig.json
 /.github/workflows/docker.yaml
 /config/gg_handler/gg_data_test.tmp
 /.github/workflows/pack.yaml
+!/config/gg_handler/
+!/requirements.txt
