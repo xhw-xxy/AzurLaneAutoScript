@@ -7,7 +7,6 @@ config/*.yaml
 !config/deploy.*.yaml
 config/*.json
 config/tmp*
-*.tmp
 !config/template*.json
 *.pyw
 dev_tools/debug_tools
@@ -20,11 +19,6 @@ config/reloadflag
 config/reloadalas
 test.py
 test/
-
-# pack
-build
-pack
-install
 
 # Created by .ignore support plugin (hsz.mobi)
 
@@ -76,6 +70,9 @@ cmake-build-*/
 
 # IntelliJ
 out/
+
+# Visual Studio
+.vs
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
@@ -253,12 +250,8 @@ adb_port.ini
 *.exe
 !popup.exe
 *.zip
+console.bat
 .vscode/*
 
 # Pylance configuration file
 pyrightconfig.json
-/.github/workflows/docker.yaml
-/config/gg_handler/gg_data_test.tmp
-/.github/workflows/pack.yaml
-!/config/gg_handler/
-!/requirements.txt
