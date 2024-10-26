@@ -733,7 +733,7 @@
       "event_20220414_cn": "Aurora Noctis Rerun",
       "event_20220428_cn": "Rondo at Rainbows End Rerun",
       "event_20220526_cn": "Pledge of the Radiant Court Rerun",
-      "event_20220728_cn": "Aquilifers Ballade",
+      "event_20220728_cn": "Aquilifers Ballade Rerun",
       "event_20220818_cn": "Operation Convergence",
       "event_20220915_cn": "Violet Tempest Blooming Lycoris",
       "event_20221124_cn": "The Alchemist and the Archipelago of Secrets",
@@ -753,6 +753,7 @@
       "event_20240815_cn": "Windborne Steel Wings",
       "event_20240829_cn": "Whence Flowers Bear No Fruit",
       "event_20240912_cn": "Ode of Everblooming Crimson",
+      "event_20241024_cn": "Tempesta and the Sleeping Sea",
       "raid_20200624": "Air Raid Drills with Essex Rerun",
       "raid_20210708": "Cross Wave rerun",
       "raid_20220127": "Mystery Investigation",
@@ -781,15 +782,20 @@
       "war_archives_20200820_cn": "archives Scherzo of Iron and Blood",
       "war_archives_20200903_cn": "archives Stars of the Shimmering Fjord",
       "war_archives_20200917_cn": "archives Dreamwakers Butterfly",
+      "war_archives_20201012_cn": "archives Sundered Blue",
       "war_archives_20201029_cn": "archives Universe in Unison",
       "war_archives_20201229_cn": "archives Inverted Orthant",
       "war_archives_20210225_cn": "archives Khorovod of Dawns Rime",
       "war_archives_20210325_cn": "archives Ashen Simulacrum",
+      "war_archives_20210422_cn": "archives Daedalian Hymn",
       "war_archives_20210527_cn": "archives Mirror Involution",
       "war_archives_20210624_cn": "archives Swirling Cherry Blossoms",
       "war_archives_20210819_cn": "archives Microlayer Medley",
+      "war_archives_20210916_cn": "archives Upon the Shimmering Blue",
       "war_archives_20211014_cn": "archives Crescendo of Polaris",
       "war_archives_20211028_cn": "archives Skybound Oratorio",
+      "war_archives_20211111_cn": "archives The Flame-Touched Dagger",
+      "war_archives_20211229_cn": "archives Tower of Transcendence",
       "war_archives_20220210_cn": "archives Northern Overture",
       "war_archives_20220414_cn": "archives Aurora Noctis"
     },
@@ -1576,6 +1582,9 @@
       "name": "Preset Filter Select",
       "help": "See research drops rates and spawn rates in https://azur-stats.lyoko.io/. People without a basic knowledge of these are recommended to use pre-optimized presets instead of writing custom filters",
       "custom": "custom",
+      "series_7_blueprint_la9": "Series 7 Blueprints+La9",
+      "series_7_blueprint_only": "Series 7 Blueprints Only",
+      "series_7_la9_only": "Series 7 La9 Only",
       "series_6_blueprint_203": "Series 6 Blueprints+203",
       "series_6_blueprint_only": "Series 6 Blueprints Only",
       "series_6_203_only": "Series 6 203 Only",
@@ -2303,16 +2312,6 @@
       "name": "Exercise Settings",
       "help": "Runs exercise and automatically retreats when sum HP volume is low"
     },
-    "DelayUntilHoursBeforeNextUpdate": {
-      "name": "Exercise.DelayUntilHoursBeforeNextUpdate.name",
-      "help": "Exercise.DelayUntilHoursBeforeNextUpdate.help",
-      "1": "1",
-      "2": "2",
-      "3": "3",
-      "4": "4",
-      "5": "5",
-      "12": "12"
-    },
     "OpponentChooseMode": {
       "name": "Opponent Choose Mode",
       "help": "",
@@ -2374,7 +2373,7 @@
   },
   "OpsiAshAssist": {
     "_info": {
-      "name": "OpSi Ash Assist Settings",
+      "name": "META Assist Settings",
       "help": "Limited to 3 everyday"
     },
     "Tier": {
@@ -2420,11 +2419,11 @@
   },
   "OpsiAshBeacon": {
     "_info": {
-      "name": "Ash Beacon Settings",
+      "name": "META Battle Settings",
       "help": ""
     },
     "AttackMode": {
-      "name": "META Attack",
+      "name": "META Battle",
       "help": "",
       "current": "Current",
       "current_dossier": "Current + Dossier"
@@ -2434,8 +2433,8 @@
       "help": "Strike each beacon only once, then call for support every half hour thereafter\nNot effective in META dossiers"
     },
     "DossierAutoAttackMode": {
-      "name": "OpsiAshBeacon.DossierAutoAttackMode.name",
-      "help": "OpsiAshBeacon.DossierAutoAttackMode.help"
+      "name": "Use Auto Attack Mode in META Dossier",
+      "help": "Use Auto Attack Mode after the first battle, currently only available on CN"
     },
     "RequestAssist": {
       "name": "Request Assists",

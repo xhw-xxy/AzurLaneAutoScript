@@ -191,11 +191,11 @@
       "help": ""
     },
     "OpsiAshBeacon": {
-      "name": "餘燼信標",
+      "name": "META作戰",
       "help": ""
     },
     "OpsiAshAssist": {
-      "name": "信標支援",
+      "name": "META支援",
       "help": ""
     },
     "OpsiExplore": {
@@ -508,22 +508,6 @@
       "name": "戰鬥中放慢截圖速度至 X 秒一張",
       "help": "執行兩次截圖之間的最小間隔，限制在 0.3 ~ 1.0，能降低戰鬥時的 CPU 佔用"
     },
-    "ClickMaxRecord": {
-      "name": "Optimization.ClickMaxRecord.name",
-      "help": "Optimization.ClickMaxRecord.help"
-    },
-    "SingleButtonMaxCount": {
-      "name": "Optimization.SingleButtonMaxCount.name",
-      "help": "Optimization.SingleButtonMaxCount.help"
-    },
-    "MultiButtonMaxCount1": {
-      "name": "Optimization.MultiButtonMaxCount1.name",
-      "help": "Optimization.MultiButtonMaxCount1.help"
-    },
-    "MultiButtonMaxCount2": {
-      "name": "Optimization.MultiButtonMaxCount2.name",
-      "help": "Optimization.MultiButtonMaxCount2.help"
-    },
     "TaskHoardingDuration": {
       "name": "囤積任務 X 分鐘",
       "help": "能在收穫期間降低操作遊戲的頻率\n任務觸發後，等待 X 分鐘後，一次性執行佇列中的任務"
@@ -687,7 +671,7 @@
       "help": "自動選擇至最新的活動圖",
       "campaign_main": "主線圖",
       "coalition_20230323": "極地風暴",
-      "coalition_20240627": "Welcome to Little Academy",
+      "coalition_20240627": "歡迎來到童心學院",
       "event_20200227_cn": "Northern Overture",
       "event_20200312_cn": "斯圖爾特的硝煙",
       "event_20200326_cn": "Microlayer Medley",
@@ -755,6 +739,9 @@
       "event_20240521_cn": "Light of the Martyrium",
       "event_20240725_cn": "Interlude of Illusions",
       "event_20240815_cn": "Windborne Steel Wings",
+      "event_20240829_cn": "Whence Flowers Bear No Fruit",
+      "event_20240912_cn": "Ode of Everblooming Crimson",
+      "event_20241024_cn": "Tempesta and the Sleeping Sea",
       "raid_20200624": "特別演習埃塞克斯級(復刻)",
       "raid_20210708": "復刻穿越彼方的水線",
       "raid_20220127": "演習神秘事件調查",
@@ -783,15 +770,20 @@
       "war_archives_20200820_cn": "檔案 鐵血音符誓言",
       "war_archives_20200903_cn": "檔案 峽灣間的星辰",
       "war_archives_20200917_cn": "檔案 蝶海夢花",
+      "war_archives_20201012_cn": "檔案 劃破海空之翼",
       "war_archives_20201029_cn": "檔案 激唱的UNIVERSE",
       "war_archives_20201229_cn": "檔案 負象限作戰",
       "war_archives_20210225_cn": "檔案 破曉冰華",
       "war_archives_20210325_cn": "檔案 箱庭療法",
+      "war_archives_20210422_cn": "檔案 復興的讚美詩",
       "war_archives_20210527_cn": "檔案 鏡位螺旋",
       "war_archives_20210624_cn": "檔案 浮櫻影華",
       "war_archives_20210819_cn": "檔案 微層混合",
+      "war_archives_20210916_cn": "檔案 碧海光粼",
       "war_archives_20211014_cn": "檔案 激奏的Polaris",
       "war_archives_20211028_cn": "檔案 穹頂下的聖詠曲",
+      "war_archives_20211111_cn": "檔案 杰諾瓦的焰火",
+      "war_archives_20211229_cn": "檔案 逆轉彩虹之塔",
       "war_archives_20220210_cn": "檔案 北境序曲",
       "war_archives_20220414_cn": "檔案 永夜幻光"
     },
@@ -1176,7 +1168,7 @@
     },
     "ChangeVanguard": {
       "name": "更換前排",
-      "help": "當前排紅臉時更換前排，選擇不更換則會強制紅臉出擊\n換前排通過找一艘心情不低於16、等級70的白鷹白船驅逐完成，所以盡量保證有足夠多的驅逐。國服則為等級100的白鷹白船驅逐。\n\n換裝備只會更換正在裝備中的欄位，即使是白裝也會更換。如果指定了旗艦，則會更換全部5個裝備，未指定旗艦隻會更換設備。",
+      "help": "當前排紅臉時更換前排，選擇不更換則會強制紅臉出擊\n換前排通過找一艘心情不低於10、等級70的白鷹或鐵血的白船驅逐完成，所以盡量保證有足夠多的驅逐。國服則為等級100的白鷹白船驅逐。\n\n換裝備只會更換正在裝備中的欄位，即使是白裝也會更換。前排會更換全部5個裝備。",
       "disabled": "不更换",
       "ship": "更換艦船",
       "ship_equip": "更換艦船 + 裝備"
@@ -1185,23 +1177,10 @@
       "name": "指定前排",
       "help": "",
       "any": "任意",
+      "favourite": "僅常用",
       "aulick_or_foote": "奧利克或富特",
-      "cassin_or_downes": "卡辛或唐斯"
-    },
-    "ALLowLowVanguardLevel": {
-      "name": "可更換低等級前排",
-      "help": "倍率打開時，前排等級限制改為10以上即可"
-    },
-    "FleetNumberInHardMode": {
-      "name": "GemsFarming.FleetNumberInHardMode.name",
-      "help": "GemsFarming.FleetNumberInHardMode.help",
-      "0": "0",
-      "1": "1",
-      "2": "2"
-    },
-    "StopIFAutoNotEnsured": {
-      "name": "GemsFarming.StopIFAutoNotEnsured.name",
-      "help": "GemsFarming.StopIFAutoNotEnsured.help"
+      "cassin_or_downes": "卡辛或唐斯",
+      "z20_or_z21": "Z20或Z21"
     },
     "CommissionLimit": {
       "name": "防止緊急委託數量過多",
@@ -2392,7 +2371,7 @@
   },
   "OpsiAshAssist": {
     "_info": {
-      "name": "信標支援",
+      "name": "META支援",
       "help": "打每日三次的信標支援"
     },
     "Tier": {
@@ -2438,11 +2417,11 @@
   },
   "OpsiAshBeacon": {
     "_info": {
-      "name": "餘燼信標",
+      "name": "META作戰",
       "help": ""
     },
     "AttackMode": {
-      "name": "餘燼信標",
+      "name": "META作戰",
       "help": "",
       "current": "當期",
       "current_dossier": "當期 + 檔案"
@@ -2452,8 +2431,8 @@
       "help": "對每個信標只出擊一次，之後每半個小時呼叫支援\n在檔案信標中不生效"
     },
     "DossierAutoAttackMode": {
-      "name": "OpsiAshBeacon.DossierAutoAttackMode.name",
-      "help": "OpsiAshBeacon.DossierAutoAttackMode.help"
+      "name": "檔案信標自動作戰",
+      "help": "在檔案信標首次戰鬥後進行自動作戰"
     },
     "RequestAssist": {
       "name": "呼叫支援",

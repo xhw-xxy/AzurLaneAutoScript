@@ -2,7 +2,6 @@ from module.base.button import ButtonGrid
 from module.base.timer import Timer
 from module.base.utils import color_similar, get_color, resize
 from module.combat.assets import GET_ITEMS_1
-from module.config.utils import deep_get
 from module.exception import RequestHumanTakeover, ScriptError
 from module.handler.assets import AUTO_SEARCH_MAP_OPTION_OFF, AUTO_SEARCH_MAP_OPTION_ON
 from module.logger import logger
@@ -290,27 +289,8 @@ class Retirement(Enhancement, QuickRetireSettingHandler):
         if not gems_farming_enable:
             logger.info('Not in GemsFarming, skip')
             return 0
-        if self.config.task.command == "GemsFarming":
-            HARDMODEMAPS = [
-                'd1', 'd2', 'd3',
-                'ht4', 'ht5', 'ht6',
-            ]
-            if deep_get(self.config.data, "GemsFarming.Campaign.Name").lower() in HARDMODEMAPS:
-                s = deep_get(self.config.data, "GemsFarming.FlagshipFilter.Sort")
-                i = deep_get(self.config.data, "GemsFarming.FlagshipFilter.Index")
-                f = deep_get(self.config.data, "GemsFarming.FlagshipFilter.Faction")
-                r = deep_get(self.config.data, "GemsFarming.FlagshipFilter.Rarity")
-                e = deep_get(self.config.data, "GemsFarming.FlagshipFilter.Extra")
-                self.dock_filter_set(
-                    index='cv' if i == "default" else i,
-                    rarity='common' if r == "default" else r,
-                    extra='not_level_max' if e == "default" else e,
-                    sort='level' if s == "default" else s
-                )
-            else:
-                self.dock_filter_set(index='cv', rarity='common', extra='not_level_max', sort='level')
-        else:
-            self.dock_filter_set(index='cv', rarity='common', extra='not_level_max', sort='level')
+
+        self.dock_filter_set(index='cv', rarity='common', extra='not_level_max', sort='level')
         self.dock_favourite_set(False)
 
         scanner = ShipScanner(
@@ -338,7 +318,7 @@ class Retirement(Enhancement, QuickRetireSettingHandler):
                     break
                 else:
                     # Try to keep the one with the lowest level
-                    ships.sort(key=lambda ship: -ship.level)
+                    ships.sort(key=lambda s: -s.level)
                     ships = ships[:-1]
 
             for ship in ships[:10]:
@@ -349,7 +329,7 @@ class Retirement(Enhancement, QuickRetireSettingHandler):
             self._retirement_confirm()
 
         self._have_kept_cv = _
-        self.dock_filter_set()
+        self.dock_filter_set(wait_loading=False)
 
         return total
 
@@ -368,6 +348,7 @@ class Retirement(Enhancement, QuickRetireSettingHandler):
                 self._retire_handler(mode='one_click_retire')
                 self._unable_to_enhance = False
                 self.interval_reset(IN_RETIREMENT_CHECK)
+                self.map_cat_attack_timer.reset()
                 return True
         elif self.config.Retirement_RetireMode == 'enhance':
             if self.appear_then_click(RETIRE_APPEAR_3, offset=(20, 20), interval=3):
@@ -387,16 +368,19 @@ class Retirement(Enhancement, QuickRetireSettingHandler):
                     logger.info('Too few spare docks, retire next time')
                     self._unable_to_enhance = True
                 self.interval_reset(DOCK_CHECK)
+                self.map_cat_attack_timer.reset()
                 return True
         else:
             if self.appear_then_click(RETIRE_APPEAR_1, offset=(20, 20), interval=3):
                 self.interval_clear(IN_RETIREMENT_CHECK)
                 self.interval_reset([AUTO_SEARCH_MAP_OPTION_OFF, AUTO_SEARCH_MAP_OPTION_ON])
+                self.map_cat_attack_timer.reset()
                 return False
             if self.appear(IN_RETIREMENT_CHECK, offset=(20, 20), interval=10):
                 self._retire_handler()
                 self._unable_to_enhance = False
                 self.interval_reset(IN_RETIREMENT_CHECK)
+                self.map_cat_attack_timer.reset()
                 return True
 
         return False
@@ -468,8 +452,7 @@ class Retirement(Enhancement, QuickRetireSettingHandler):
             button (Button): Ship button to select
             skip_first_screenshot:
         """
-
-        retire_coin_timer = Timer(2)
+        count = 0
         RETIRE_COIN.load_color(self.device.image)
 
         while 1:
@@ -477,13 +460,18 @@ class Retirement(Enhancement, QuickRetireSettingHandler):
                 skip_first_screenshot = False
             else:
                 self.device.screenshot()
+
+            # End
+            if not self.appear(RETIRE_COIN, threshold=0.97):
+                return True
+            if count > 3:
+                logger.warning('_retire_select_one failed after 3 trial')
+                return False
+
             if self.appear(SHIP_CONFIRM_2, offset=(30, 30), interval=3):
                 self.device.click(button)
+                count += 1
                 continue
-
-            if retire_coin_timer.reached() and not self.appear(RETIRE_COIN, threshold=0.97):
-                return True
-        return False
 
     def retirement_get_common_rarity_cv_in_page(self):
         """
@@ -520,7 +508,10 @@ class Retirement(Enhancement, QuickRetireSettingHandler):
         if button is not None:
             return button
 
-        while RETIRE_CONFIRM_SCROLL.appear(main=self):
+        for _ in range(7):
+            if not RETIRE_CONFIRM_SCROLL.appear(main=self):
+                logger.info('Scroll bar disappeared, stop')
+                break
             RETIRE_CONFIRM_SCROLL.next_page(main=self)
             button = self.retirement_get_common_rarity_cv_in_page()
             if button is not None:
@@ -534,5 +525,5 @@ class Retirement(Enhancement, QuickRetireSettingHandler):
     def keep_one_common_cv(self):
         button = self.retirement_get_common_rarity_cv()
         if button is not None:
-            self._retire_select_one(button, skip_first_screenshot=False)
+            self._retire_select_one(button)
             self._have_kept_cv = True
