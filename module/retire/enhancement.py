@@ -1,6 +1,5 @@
 from random import choice
 
-import module.config.server as server
 from module.base.timer import Timer
 from module.combat.assets import GET_ITEMS_1
 from module.exception import GameStuckError, ScriptError
@@ -10,12 +9,8 @@ from module.retire.assets import *
 from module.retire.dock import CARD_GRIDS, Dock
 
 VALID_SHIP_TYPES = ['dd', 'ss', 'cl', 'ca', 'bb', 'cv', 'repair', 'others']
-if server.server != 'jp':
-    OCR_DOCK_AMOUNT = DigitCounter(
-        DOCK_AMOUNT, letter=(255, 255, 255), threshold=192)
-else:
-    OCR_DOCK_AMOUNT = DigitCounter(
-        DOCK_AMOUNT, letter=(201, 201, 201), threshold=192)
+OCR_DOCK_AMOUNT = DigitCounter(
+    DOCK_AMOUNT, letter=(255, 255, 255), threshold=192)
 
 
 class Enhancement(Dock):
