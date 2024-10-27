@@ -300,7 +300,15 @@ class DockNew(UI):
         )
         return setting
 
-    def dock_filter_set(self, sort='level', index='all', faction='all', rarity='all', extra='no_limit'):
+    def dock_filter_set(
+            self,
+            sort='level',
+            index='all',
+            faction='all',
+            rarity='all',
+            extra='no_limit',
+            wait_loading=True
+    ):
         """
         A faster filter set function.
 
