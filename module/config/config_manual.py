@@ -183,7 +183,7 @@ class ManualConfig:
     # Use the green arrow on current fleet to decide if fleet arrived a certain grid
     MAP_WALK_USE_CURRENT_FLEET = False
     # Optimize walk path, reducing ambushes
-    MAP_WALK_OPTIMIZE = True
+    MAP_WALK_TURNING_OPTIMIZE = True
     # Optimize swipe path, reducing swipes turn info clicks.
     MAP_SWIPE_OPTIMIZE = True
     # Swipe after boss appear. Could avoid map detection error when camera is on edge.
@@ -325,6 +325,8 @@ class ManualConfig:
     OS_ACTION_POINT_BOX_USE = True
     OS_ACTION_POINT_PRESERVE = 0
     OS_CL1_YELLOW_COINS_PRESERVE = 100000
+    OS_NORMAL_YELLOW_COINS_PRESERVE = 35000
+    OS_NORMAL_PURPLE_COINS_PRESERVE = 100
 
     """
     module.os.globe_detection

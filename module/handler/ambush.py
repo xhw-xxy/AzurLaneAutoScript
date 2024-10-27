@@ -70,7 +70,7 @@ class AmbushHandler(Combat):
             if self.appear_then_click(MAP_AMBUSH_EVADE, offset=(30, 30), interval=3):
                 continue
 
-# Handle evade success and failures
+        # Handle evade success and failures
         image = info_letter_preprocess(self.image_crop(INFO_BAR_DETECT, copy=False))
         if TEMPLATE_AMBUSH_EVADE_SUCCESS.match(image):
             logger.attr('Ambush_evade', 'success')

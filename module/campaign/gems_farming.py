@@ -249,12 +249,16 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
 
         return success
 
+    def _dock_reset(self):
+        self.dock_filter_set()
+        self.dock_favourite_set(False)
+        self.dock_sort_method_dsc_set()
+
     def _ship_change_confirm(self, button):
 
         self.dock_select_one(button)
-        self.dock_filter_set()
-        self.dock_sort_method_dsc_set()
-        self.dock_select_confirm(check_button=self.page_fleet_check_button)
+        self._dock_reset()
+        self.dock_select_confirm(check_button=page_fleet.check_button)
 
     def get_common_rarity_cv(self, lv=31, emotion=16):
         """
@@ -344,8 +348,9 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
             return ships
 
         scanner.set_limitation(fleet=0)
+        self.dock_favourite_set(self.config.GemsFarming_CommonDD == 'favourite')
 
-        if self.config.GemsFarming_CommonDD == 'any':
+        if self.config.GemsFarming_CommonDD in ['any', 'favourite', 'z20_or_z21']:
             return scanner.scan(self.device.image, output=False)
         
         candidates = self.find_candidates(self.get_templates(self.config.GemsFarming_CommonDD), scanner)
@@ -378,14 +383,7 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
         """
         Returns the corresponding template list based on CommonDD
         """
-        if common_dd == 'any':
-            return [
-                TEMPLATE_CASSIN_1, TEMPLATE_CASSIN_2,
-                TEMPLATE_DOWNES_1, TEMPLATE_DOWNES_2,
-                TEMPLATE_AULICK,
-                TEMPLATE_FOOTE
-            ]
-        elif common_dd == 'aulick_or_foote':
+        if common_dd == 'aulick_or_foote':
             return [
                 TEMPLATE_AULICK,
                 TEMPLATE_FOOTE
@@ -494,6 +492,17 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
         # self.dock_filter_set(
         #     index='dd', rarity='common', faction='eagle', extra='can_limit_break')
 
+        if self.config.GemsFarming_CommonDD == 'any':
+            faction = ['eagle', 'iron']
+        elif self.config.GemsFarming_CommonDD == 'favourite':
+            faction = 'all'
+        elif self.config.GemsFarming_CommonDD == 'z20_or_z21':
+            faction = 'iron'
+        elif self.config.GemsFarming_CommonDD in ['aulick_or_foote', 'cassin_or_downes']:
+            faction = 'eagle'
+        else:
+            logger.error(f'Invalid CommonDD setting: {self.config.GemsFarming_CommonDD}')
+            raise ScriptError('Invalid GemsFarming_CommonDD')
         self.dock_filter_set(
             sort=self.config.VanguardFilter_Sort if self.config.VanguardFilter_Sort != 'default' else 'level',
             index=self.config.VanguardFilter_Index if self.config.VanguardFilter_Index != 'default' else 'dd',

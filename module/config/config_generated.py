@@ -155,7 +155,7 @@ class GeneratedConfig:
     GemsFarming_ChangeFlagship = 'ship'  # ship, ship_equip
     GemsFarming_CommonCV = 'any'  # any, langley, bogue, ranger, hermes
     GemsFarming_ChangeVanguard = 'ship'  # disabled, ship, ship_equip
-    GemsFarming_CommonDD = 'any'  # any, aulick_or_foote, cassin_or_downes
+    GemsFarming_CommonDD = 'any'  # any, favourite, aulick_or_foote, cassin_or_downes
     GemsFarming_ALLowLowVanguardLevel = True
     GemsFarming_FleetNumberInHardMode = 0  # 0, 1, 2
     GemsFarming_StopIFAutoNotEnsured = True
@@ -415,8 +415,9 @@ class GeneratedConfig:
     OpsiExplore_LastZone = 0
 
     # Group `OpsiShop`
+    OpsiShop_ScanFrequencyLimit = 'weekly'  # everyday, weekly, everyday_of_week_before_reset
     OpsiShop_PresetFilter = 'max_benefit_meta'  # max_benefit, max_benefit_meta, no_meta, all, custom
-    OpsiShop_CustomFilter = 'LoggerAbyssalT6 > LoggerAbyssalT5 > LoggerObscure > LoggerAbyssalT4 > ActionPoint > PurpleCoins\n> GearDesignPlanT3 > PlateRandomT4 > DevelopmentMaterialT3 > GearDesignPlanT2 > GearPart\n> OrdnanceTestingReportT3 > OrdnanceTestingReportT2 > DevelopmentMaterialT2 > OrdnanceTestingReportT1\n> METARedBook > CrystallizedHeatResistantSteel > NanoceramicAlloy > NeuroplasticProstheticArm > SupercavitationGenerator'
+    OpsiShop_CustomFilter = 'Logger'
 
     # Group `OpsiVoucher`
     OpsiVoucher_Filter = 'LoggerAbyssal > LoggerObscure > Book > Coin > Fragment'
