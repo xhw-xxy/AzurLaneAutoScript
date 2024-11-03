@@ -240,7 +240,7 @@ class OperationSiren(OSMap):
         If not having enough yellow coins or purple coins, skip buying supplies in next port.
         """
         logger.hr('OS port daily', level=1)
-        if not self.zone.is_azur_port:
+        if not self.is_in_azur_port(self.zone):
             self.globe_goto(self.zone_nearest_azur_port(self.zone))
 
         self.port_enter()

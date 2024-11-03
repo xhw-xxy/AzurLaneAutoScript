@@ -4,7 +4,7 @@ from copy import deepcopy
 
 from cached_property import cached_property
 
-from deploy.utils import DEPLOY_TEMPLATE, poor_yaml_read, poor_yaml_write
+from deploy.Windows.utils import DEPLOY_TEMPLATE, poor_yaml_read, poor_yaml_write
 from module.base.timer import timer
 from module.config.env import IS_ON_PHONE_CLOUD
 from module.config.redirect_utils.utils import *
@@ -665,7 +665,8 @@ class ConfigUpdater:
         # Update to latest event
         server = to_server(deep_get(new, 'Alas.Emulator.PackageName', 'cn'))
         if not is_template:
-            for task in EVENTS + RAIDS + COALITIONS:
+            # for task in EVENTS + RAIDS + COALITIONS:
+            for task in RAIDS + COALITIONS + EVENT_DAILY:
                 deep_set(new,
                          keys=f'{task}.Campaign.Event',
                          value=deep_get(self.args, f'{task}.Campaign.Event.{server}'))

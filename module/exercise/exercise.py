@@ -1,4 +1,4 @@
-from datetime import timedelta
+import datetime
 from module.config.utils import get_server_last_update
 from module.exercise.assets import *
 from module.exercise.combat import ExerciseCombat
@@ -49,10 +49,10 @@ class DatedDuration(Ocr):
         result = re.search(r'(\d{1,2})\D?(\d{1,2}):?(\d{2}):?(\d{2})', string)
         if result:
             result = [int(s) for s in result.groups()]
-            return timedelta(days=result[0], hours=result[1], minutes=result[2], seconds=result[3])
+            return datetime.timedelta(days=result[0], hours=result[1], minutes=result[2], seconds=result[3])
         else:
             logger.warning(f'Invalid dated duration: {string}')
-            return timedelta(days=0, hours=0, minutes=0, seconds=0)
+            return datetime.timedelta(days=0, hours=0, minutes=0, seconds=0)
 
 
 class DatedDurationYuv(DatedDuration, OcrYuv):
@@ -209,7 +209,7 @@ class Exercise(ExerciseCombat):
         if not self.server_support_ocr_reset_remain():
             logger.info(f'Server {self.config.SERVER} does not yet support OCR exercise reset remain time')
             logger.info('Please contact the developer to improve as soon as possible')
-            remain_time = timedelta(days=0)
+            remain_time = datetime.timedelta(days=0)
         else:
             remain_time = OCR_PERIOD_REMAIN.ocr(self.device.image)
         logger.info(f'Exercise period remain: {remain_time}')
@@ -241,7 +241,7 @@ class Exercise(ExerciseCombat):
         else:
             run = True
 
-        while 1:
+        while run:
             self.remain = OCR_EXERCISE_REMAIN.ocr(self.device.image)
             if self.remain <= self.preserve:
                 break
@@ -261,6 +261,13 @@ class Exercise(ExerciseCombat):
         with self.config.multi_set():
             self.config.set_record(Exercise_OpponentRefreshValue=self.opponent_change_count)
             if self.remain <= self.preserve or self.opponent_change_count >= 5:
-                self.config.task_delay(server_update=True)
+                next_run = get_server_next_update(server_update) \
+                           - datetime.timedelta(hours=self.config.Exercise_DelayUntilHoursBeforeNextUpdate)
+                now = datetime.datetime.now()
+                if next_run < now or run:
+                    self.config.task_delay(server_update=True)
+                    return
+                minutes_to_delay = int((next_run - now).total_seconds() / 60 + 1)
+                self.config.task_delay(minute=minutes_to_delay)
             else:
                 self.config.task_delay(success=False)

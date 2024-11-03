@@ -291,15 +291,16 @@ class RewardGacha(GachaUI, GeneralShop, Retirement):
         # Go to Gacha
         self.ui_goto_gacha()
 
+        # OCR Gold and Cubes
+        self.device.screenshot()
+        self.shop_currency()
+        self.build_cube_count = OCR_BUILD_CUBE_COUNT.ocr(self.device.image)
+
         # Flush queue of any pre-existing
         # builds to ensure starting fresh
         # Upon exit, expected to be in
         # main Build page
         self.gacha_flush_queue()
-
-        # OCR Gold and Cubes
-        self.shop_currency()
-        self.build_cube_count = OCR_BUILD_CUBE_COUNT.ocr(self.device.image)
 
         # Transition to appropriate target construction pool
         # Returns appropriate costs for gacha as well
@@ -324,6 +325,9 @@ class RewardGacha(GachaUI, GeneralShop, Retirement):
             buy[0] = self.build_ticket_count
             # Calculate rolls allowed based on configurations and resources
             buy[1] = self.gacha_calculate(self.config.Gacha_Amount-self.build_ticket_count, gold_cost, cube_cost)
+        else:
+            LogRes(self.config).Cube = self.build_cube_count
+            self.config.update()
 
         # Submit 'buy_count' and execute if capable
         # Cannot use handle_popup_confirm, this window

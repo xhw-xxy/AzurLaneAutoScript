@@ -198,10 +198,6 @@ class Device(Screenshot, Control, AppControl):
 
         return self.image
 
-    def dump_hierarchy(self) -> etree._Element:
-        self.stuck_record_check()
-        return super().dump_hierarchy()
-
     def release_during_wait(self):
         # Scrcpy server is still sending video stream,
         # stop it during wait
@@ -301,13 +297,13 @@ class Device(Screenshot, Control, AppControl):
         self.check_and_ensure_record_setting()
 
         count = collections.Counter(self.click_record).most_common(2)
-        if count[0][1] >= 12:
+        if count[0][1] >= self.config.Optimization_SingleButtonMaxCount:
             show_function_call()
             logger.warning(f'Too many click for a button: {count[0][0]}')
             logger.warning(f'History click: {[str(prev) for prev in self.click_record]}')
             self.click_record_clear()
             raise GameTooManyClickError(f'Too many click for a button: {count[0][0]}')
-        if len(count) >= 2 and count[0][1] >= 6 and count[1][1] >= 6:
+        if len(count) >= 2 and count[0][1] >= self.config.Optimization_MultiButtonMaxCount1 and count[1][1] >= self.config.Optimization_MultiButtonMaxCount2:
             show_function_call()
             logger.warning(f'Too many click between 2 buttons: {count[0][0]}, {count[1][0]}')
             logger.warning(f'History click: {[str(prev) for prev in self.click_record]}')
