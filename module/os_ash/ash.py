@@ -51,15 +51,8 @@ class AshCombat(Combat):
         return False
 
     def handle_battle_preparation(self):
-
-        if self.appear(BATTLE_PREPARATION, offset=(20, 20)):
-            self.device.sleep(0.5)
-            self.device.screenshot()
-            # Power limit check
-            from module.gg_handler.gg_handler import GGHandler
-            GGHandler(config=self.config, device=self.device).power_limit('Ash')
-            if super().handle_battle_preparation():
-                return True
+        if super().handle_battle_preparation():
+            return True
 
         if self.appear_then_click(ASH_START, offset=(30, 30), interval=2):
             return True
@@ -104,7 +97,7 @@ class OSAsh(UI, MapEventHandler):
                     ASH_DAILY_STATUS, letter=(235, 235, 235), threshold=160, name='OCR_ASH_DAILY_STATUS')
             else:
                 ocr_collect = DigitCounter(
-                    ASH_COLLECT_STATUS, letter=(193, 193, 193), threshold=160, name='OCR_ASH_COLLECT_STATUS')
+                    ASH_COLLECT_STATUS, letter=(201, 201, 201), threshold=128, name='OCR_ASH_COLLECT_STATUS')
                 ocr_daily = DailyDigitCounter(
                     ASH_DAILY_STATUS, letter=(193, 193, 193), threshold=160, name='OCR_ASH_DAILY_STATUS')
         elif self.image_color_count(ASH_COLLECT_STATUS, color=(140, 142, 140), threshold=221, count=20):

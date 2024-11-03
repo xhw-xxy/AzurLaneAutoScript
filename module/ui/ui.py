@@ -541,7 +541,7 @@ class UI(InfoHandler):
 
         # Idle page
         if self.get_interval_timer(IDLE, interval=3).reached():
-            if IDLE.match_binary(self.device.image, offset=(5, 5)):
+            if IDLE.match_luma(self.device.image, offset=(5, 5)):
                 logger.info(f'UI additional: {IDLE} -> {REWARD_GOTO_MAIN}')
                 self.device.click(REWARD_GOTO_MAIN)
                 self.get_interval_timer(IDLE).reset()
@@ -570,6 +570,10 @@ class UI(InfoHandler):
                 self.interval_reset(GET_SHIP)
         if button in [MAIN_GOTO_REWARD, MAIN_GOTO_REWARD_WHITE]:
             self.interval_reset(GET_SHIP)
+        if button == REWARD_GOTO_TACTICAL:
+            self.interval_reset(REWARD_GOTO_TACTICAL_WHITE)
+        if button == REWARD_GOTO_TACTICAL_WHITE:
+            self.interval_reset(REWARD_GOTO_TACTICAL)
         if button in [MAIN_GOTO_CAMPAIGN, MAIN_GOTO_CAMPAIGN_WHITE]:
             self.interval_reset(GET_SHIP)
             # Shinano event has the same title as raid
