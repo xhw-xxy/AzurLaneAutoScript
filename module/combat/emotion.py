@@ -201,6 +201,8 @@ class Emotion:
             return 4
         elif self.config.Campaign_Use2xBook:
             return 4
+        elif self.config.GemsFarming_Use2xBook:
+            return 4
         else:
             return 2
 

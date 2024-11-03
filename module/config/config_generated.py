@@ -160,7 +160,7 @@ class GeneratedConfig:
     GemsFarming_FleetNumberInHardMode = 0  # 0, 1, 2
     GemsFarming_StopIFAutoNotEnsured = True
     GemsFarming_CommissionLimit = True
-    Campaign_Use2xBook = False
+    GemsFarming_Use2xBook = False
 
     # Group `FlagshipFilter`
     FlagshipFilter_Sort = 'default'  # default, rarity, level, total, join, intimacy, stat

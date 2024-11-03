@@ -11,6 +11,7 @@ from module.campaign.assets import OCR_COIN, OCR_EVENT_PT, OCR_OIL, OCR_OIL_CHEC
 from module.logger import logger
 from module.ocr.ocr import Digit, Ocr
 from module.ui.ui import UI
+from module.log_res.log_res import LogRes
 
 if server.server != 'jp':
     OCR_COIN = Digit(OCR_COIN, name='OCR_COIN', letter=(239, 239, 239), threshold=128)
@@ -54,6 +55,7 @@ class CampaignStatus(UI):
         if res:
             pt = int(res.group(1))
             logger.attr('Event_PT', pt)
+            LogRes(self.config).Pt = pt
             return pt
         else:
             logger.warning(f'Invalid pt result: {pt}')
