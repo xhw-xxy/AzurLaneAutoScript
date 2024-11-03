@@ -113,14 +113,6 @@ class CampaignEvent(CampaignStatus):
         limit = self.config.TaskBalancer_CoinLimit
         coin = deep_get(self.config.data, 'Dashboard.Coin.Value')
         logger.attr('Coin Count', coin)
-        tasks = [
-            'Event',
-            'Event2',
-            'Event3',
-            'Raid',
-            'GemsFarming',
-        ]
-        command = self.config.Scheduler_Command
         # Check Coin
         if coin == 0:
             # Avoid wrong/zero OCR result

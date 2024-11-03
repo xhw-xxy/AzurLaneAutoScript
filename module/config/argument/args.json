@@ -9760,7 +9760,8 @@
       },
       "Color": {
         "type": "input",
-        "value": "^000000"
+        "value": "^000000",
+        "display": "hide"
       },
       "Record": {
         "type": "datetime",
@@ -9779,7 +9780,8 @@
       },
       "Color": {
         "type": "input",
-        "value": "^FFAA33"
+        "value": "^FFAA33",
+        "display": "hide"
       },
       "Record": {
         "type": "datetime",
@@ -9794,7 +9796,8 @@
       },
       "Color": {
         "type": "input",
-        "value": "^FF3333"
+        "value": "^FF3333",
+        "display": "hide"
       },
       "Record": {
         "type": "datetime",
@@ -9809,7 +9812,8 @@
       },
       "Color": {
         "type": "input",
-        "value": "^00BFFF"
+        "value": "^00BFFF",
+        "display": "hide"
       },
       "Record": {
         "type": "datetime",
@@ -9824,7 +9828,8 @@
       },
       "Color": {
         "type": "input",
-        "value": "^33FFFF"
+        "value": "^33FFFF",
+        "display": "hide"
       },
       "Record": {
         "type": "datetime",
@@ -9843,7 +9848,8 @@
       },
       "Color": {
         "type": "input",
-        "value": "^0000FF"
+        "value": "^0000FF",
+        "display": "hide"
       },
       "Record": {
         "type": "datetime",
@@ -9858,7 +9864,8 @@
       },
       "Color": {
         "type": "input",
-        "value": "^FF8800"
+        "value": "^FF8800",
+        "display": "hide"
       },
       "Record": {
         "type": "datetime",
@@ -9873,7 +9880,8 @@
       },
       "Color": {
         "type": "input",
-        "value": "^7700BB"
+        "value": "^7700BB",
+        "display": "hide"
       },
       "Record": {
         "type": "datetime",
@@ -9888,7 +9896,8 @@
       },
       "Color": {
         "type": "input",
-        "value": "^AAAAAA"
+        "value": "^AAAAAA",
+        "display": "hide"
       },
       "Record": {
         "type": "datetime",
@@ -9903,7 +9912,8 @@
       },
       "Color": {
         "type": "input",
-        "value": "^FFDD00"
+        "value": "^FFDD00",
+        "display": "hide"
       },
       "Record": {
         "type": "datetime",
@@ -9918,7 +9928,8 @@
       },
       "Color": {
         "type": "input",
-        "value": "^FFFF00"
+        "value": "^FFFF00",
+        "display": "hide"
       },
       "Record": {
         "type": "datetime",
@@ -9933,7 +9944,8 @@
       },
       "Color": {
         "type": "input",
-        "value": "^AAAAAA"
+        "value": "^AAAAAA",
+        "display": "hide"
       },
       "Record": {
         "type": "datetime",

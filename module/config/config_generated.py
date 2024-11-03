@@ -515,58 +515,58 @@ class GeneratedConfig:
     # Group `Coin`
     Coin_Value = 0
     Coin_Limit = 0
-    Coin_Color = '^FFAA33'
+    Coin_Color = '^000000'
     Coin_Record = datetime.datetime(2020, 1, 1, 0, 0)
 
     # Group `Gem`
     Gem_Value = 0
-    Gem_Color = '^FFAA33'
+    Gem_Color = '^000000'
     Gem_Record = datetime.datetime(2020, 1, 1, 0, 0)
 
     # Group `Pt`
     Pt_Value = 0
-    Pt_Color = '^00BFFF'
+    Pt_Color = '^000000'
     Pt_Record = datetime.datetime(2020, 1, 1, 0, 0)
 
     # Group `YellowCoin`
     YellowCoin_Value = 0
-    YellowCoin_Color = '^FF8800'
+    YellowCoin_Color = '^000000'
     YellowCoin_Record = datetime.datetime(2020, 1, 1, 0, 0)
 
     # Group `PurpleCoin`
     PurpleCoin_Value = 0
-    PurpleCoin_Color = '^7700BB'
+    PurpleCoin_Color = '^000000'
     PurpleCoin_Record = datetime.datetime(2020, 1, 1, 0, 0)
 
     # Group `ActionPoint`
     ActionPoint_Value = 0
     ActionPoint_Total = 0
-    ActionPoint_Color = '^0000FF'
+    ActionPoint_Color = '^000000'
     ActionPoint_Record = datetime.datetime(2020, 1, 1, 0, 0)
 
     # Group `Merit`
     Merit_Value = 0
-    Merit_Color = '^FFFF00'
+    Merit_Color = '^000000'
     Merit_Record = datetime.datetime(2020, 1, 1, 0, 0)
 
     # Group `Cube`
     Cube_Value = 0
-    Cube_Color = '^33FFFF'
+    Cube_Color = '^000000'
     Cube_Record = datetime.datetime(2020, 1, 1, 0, 0)
 
     # Group `Core`
     Core_Value = 0
-    Core_Color = '^AAAAAA'
+    Core_Color = '^000000'
     Core_Record = datetime.datetime(2020, 1, 1, 0, 0)
 
     # Group `Medal`
     Medal_Value = 0
-    Medal_Color = '^FFDD00'
+    Medal_Color = '^000000'
     Medal_Record = datetime.datetime(2020, 1, 1, 0, 0)
 
     # Group `GuildCoin`
     GuildCoin_Value = 0
-    GuildCoin_Color = '^AAAAAA'
+    GuildCoin_Color = '^000000'
     GuildCoin_Record = datetime.datetime(2020, 1, 1, 0, 0)
 
     # Group `AutoRestart`
