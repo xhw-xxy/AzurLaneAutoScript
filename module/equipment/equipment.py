@@ -343,13 +343,13 @@ class EquipmentNew(StorageHandler):
         enter_timer = Timer(10)
 
         while 1:
-            if skil_first_screenshot:
-                skil_first_screenshot = False
+            if skip_first_screenshot:
+                skip_first_screenshot = False
             else:
                 self.device.screenshot()
 
             # End
-            if self.appear(check_button):
+            if self.appear(check_button, offset=(5, 5)):
                 break
 
             # Long click accidentally became normal click, exit from dock
@@ -388,7 +388,7 @@ class EquipmentNew(StorageHandler):
             detail.
         """
         ship_side_navbar = ButtonGrid(
-            origin=(21, 118), delta=(0, 94.5), button_shape=(60, 75), grid_shape=(1, 5), name='DETAIL_SIDE_NAVBAR')
+            origin=(21, 118), delta=(0, 94.5), button_shape=(60, 75), grid_shape=(1, 5), name='SHIP_SIDE_NAVBAR')
 
         return Navbar(grids=ship_side_navbar,
                       active_color=(247, 255, 173), active_threshold=221,
@@ -452,7 +452,7 @@ class EquipmentNew(StorageHandler):
             if self.handle_storage_full():
                 continue
 
-            if confirm_timer.reached() and self.handle_popup_confirm():
+            if confirm_timer.reached() and self.handle_popup_confirm('EQUIPMENT_TAKE_OFF'):
                 confirm_timer.reset()
                 continue
 
@@ -480,7 +480,7 @@ class EquipmentNew(StorageHandler):
 
         while True:
             self.ship_equipment_take_off()
-            self.ui_click(click_button=EQUIPMENT_CLOSE, check_button=EQUIPMENT_OPEN, offset=None)
+            self.ui_click(EQUIPMENT_CLOSE, check_button=EQUIPMENT_OPEN, skip_first_screenshot=True)
             if not self.ship_view_next():
                 break
 
@@ -539,7 +539,7 @@ class EquipmentNew(StorageHandler):
                 self.ship_view_next()
             else:
                 self.ship_equipment_take_on_preset(index=index)
-                self.ui_click(click_button=EQUIPMENT_CLOSE, check_button=EQUIPMENT_OPEN, offset=None)
+                self.ui_click(EQUIPMENT_CLOSE, check_button=EQUIPMENT_OPEN, skip_first_screenshot=True)
 
         self.ui_back(out)
         self.equipment_has_take_on = True

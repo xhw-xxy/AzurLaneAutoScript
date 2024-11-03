@@ -7,17 +7,17 @@ import numpy as np
 import module.config.server as server
 
 from module.base.timer import Timer
-from module.base.utils import color_similar, get_color
 from module.campaign.assets import OCR_EVENT_PT, OCR_COIN, OCR_OIL, OCR_COIN_LIMIT, OCR_OIL_LIMIT, OCR_OIL_CHECK
+from module.base.utils import color_similar, get_color
 from module.logger import logger
 from module.ocr.ocr import Digit, Ocr
 from module.ui.ui import UI
 from module.log_res.log_res import LogRes
 
-if server.server != 'jp':
-    OCR_COIN = Digit(OCR_COIN, name='OCR_COIN', letter=(239, 239, 239), threshold=128)
-else:
-    OCR_COIN = Digit(OCR_COIN, name='OCR_COIN', letter=(201, 201, 201), threshold=128)
+# if server.server != 'jp':
+#     OCR_COIN = Digit(OCR_COIN, name='OCR_COIN', letter=(239, 239, 239), threshold=128)
+# else:
+#     OCR_COIN = Digit(OCR_COIN, name='OCR_COIN', letter=(201, 201, 201), threshold=128)
 
 
 class PtOcr(Ocr):
@@ -70,7 +70,6 @@ class CampaignStatus(UI):
             int: Coin amount
         """
         _coin = {}
-        amount = 0
         timeout = Timer(1, count=2).start()
         while 1:
             if skip_first_screenshot:

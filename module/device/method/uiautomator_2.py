@@ -333,7 +333,7 @@ class Uiautomator2(Connection):
 
     # No @retry decorator since _app_start_adb_am and _app_start_adb_monkey have @retry already
     # @retry
-    def app_start_uiautomator2(self, package_name=None, activity_name=None):
+    def app_start_uiautomator2(self, package_name=None, activity_name=None, allow_failure=False):
         """
         Args:
             package_name (str):
@@ -356,12 +356,16 @@ class Uiautomator2(Connection):
         if not activity_name:
             activity_name = DICT_PACKAGE_TO_ACTIVITY.get(package_name)
 
-        try:
-            self.u2.app_start(package_name, activity_name)
-        except u2.exceptions.BaseError as e:
-            # BaseError: package "com.bilibili.azurlane" not found
-            logger.error(e)
-            raise PackageNotInstalled(package_name)
+        if activity_name:
+            if self._app_start_u2_am(package_name, activity_name, allow_failure):
+                return True
+        if self._app_start_u2_monkey(package_name, allow_failure):
+            return True
+        if self._app_start_u2_am(package_name, activity_name, allow_failure):
+            return True
+
+        logger.error('app_start_uiautomator2: All trials failed')
+        return False
 
     @retry
     def app_stop_uiautomator2(self, package_name=None):

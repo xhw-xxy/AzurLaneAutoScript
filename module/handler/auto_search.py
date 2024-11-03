@@ -160,7 +160,7 @@ class AutoSearchHandler(EnemySearchingHandler):
             logger.info('Selected to the correct auto search setting')
             return True
         else:
-            self.device.click(self.AUTO_SEARCH_SETTINGS[target_index])
+            self.device.click(AUTO_SEARCH_SETTINGS[target_index])
             return False
 
     def auto_search_setting_ensure(self, setting, skip_first_screenshot=True):
