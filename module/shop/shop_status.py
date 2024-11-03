@@ -4,6 +4,7 @@ from module.shop.assets import *
 from module.ui.ui import UI
 from module.log_res.log_res import LogRes
 
+
 if server.server != 'jp':
     OCR_SHOP_GOLD_COINS = Digit(SHOP_GOLD_COINS, letter=(239, 239, 239), name='OCR_SHOP_GOLD_COINS')
     OCR_SHOP_GEMS = Digit(SHOP_GEMS, letter=(255, 243, 82), name='OCR_SHOP_GEMS')
