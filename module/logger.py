@@ -5,15 +5,12 @@ import sys
 from typing import Callable, List
 
 from rich.console import Console, ConsoleOptions, ConsoleRenderable, NewLine
-from rich.highlighter import NullHighlighter, RegexHighlighter
+from rich.highlighter import RegexHighlighter, NullHighlighter
 from rich.logging import RichHandler
 from rich.rule import Rule
 from rich.style import Style
 from rich.theme import Theme
 from rich.traceback import Traceback
-
-sys.stdout.reconfigure(encoding='utf-8')
-sys.stderr.reconfigure(encoding='utf-8')
 
 
 def empty_function(*args, **kwargs):
@@ -47,9 +44,9 @@ class RichRenderableHandler(RichHandler):
         message = self.format(record)
         traceback = None
         if (
-                self.rich_tracebacks
-                and record.exc_info
-                and record.exc_info != (None, None, None)
+            self.rich_tracebacks
+            and record.exc_info
+            and record.exc_info != (None, None, None)
         ):
             exc_type, exc_value, exc_traceback = record.exc_info
             assert exc_type is not None
@@ -94,7 +91,6 @@ class HTMLConsole(Console):
     Force full feature console
     but not working lol :(
     """
-
     @property
     def options(self) -> ConsoleOptions:
         return ConsoleOptions(
@@ -134,6 +130,7 @@ WEB_THEME = Theme({
     "web.time": Style(color="cyan"),
     "rule.text": Style(bold=True),
 })
+
 
 # Logger init
 logger_debug = False
@@ -252,7 +249,7 @@ def set_func_logger(func):
 
 
 def _get_renderables(
-        self: Console, *objects, sep=" ", end="\n", justify=None, emoji=None, markup=None, highlight=None,
+    self: Console, *objects, sep=" ", end="\n", justify=None, emoji=None, markup=None, highlight=None,
 ) -> List[ConsoleRenderable]:
     """
     Refer to rich.console.Console.print()

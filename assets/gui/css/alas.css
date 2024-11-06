@@ -117,13 +117,6 @@ footer {
     margin-bottom: .25rem !important;
 }
 
-.status-point {
-    margin: 37% 50% 63% 50%;
-    width: .75rem;
-    height: .75rem;
-    border-radius: 50%;
-}
-
 .hr-task-group-box {
     display: flex;
     align-items: center;
@@ -138,6 +131,13 @@ footer {
 .hr-task-group-text {
     margin: 0 0.5rem;
     font-size: 0.875rem;
+}
+
+.status-point {
+    margin: 37% 50% 63% 50%;
+    width: .75rem;
+    height: .75rem;
+    border-radius: 50%;
 }
 
 input[type="checkbox"] {
@@ -295,7 +295,7 @@ pre.rich-traceback-code {
 }
 
 *[style*="--header-text--"] {
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: bold;
     margin: auto !important;
 }
