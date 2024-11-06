@@ -151,34 +151,34 @@ class CampaignStatus(UI):
                 logger.warning('Get oil timeout')
                 break
 
-            if not self.appear(OCR_OIL_CHECK, offset=(10, 2)):
-                logger.info('No oil icon')
-                continue
-
-            amount = self._get_oil()
-            if amount >= 100:
-                break
-
-        return amount
         #     if not self.appear(OCR_OIL_CHECK, offset=(10, 2)):
         #         logger.info('No oil icon')
-        #         self.device.sleep(1)
+        #         continue
         #
-        #     if timeout.reached():
-        #         logger.warning('Get oil timeout')
+        #     amount = self._get_oil()
+        #     if amount >= 100:
         #         break
         #
-        #     _oil = {
-        #         'Value': self._get_num(OCR_OIL, 'OCR_OIL'),
-        #         'Limit': self._get_num(OCR_OIL_LIMIT, 'OCR_OIL_LIMIT')
-        #     }
-        #     if _oil['Value'] >= 100:
-        #         break
-        # LogRes(self.config).Oil = _oil
-        # if update:
-        #     self.config.update()
-        #
-        # return _oil['Value']
+        # return amount
+            if not self.appear(OCR_OIL_CHECK, offset=(10, 2)):
+                logger.info('No oil icon')
+                self.device.sleep(1)
+
+            if timeout.reached():
+                logger.warning('Get oil timeout')
+                break
+
+            _oil = {
+                'Value': self._get_num(OCR_OIL, 'OCR_OIL'),
+                'Limit': self._get_num(OCR_OIL_LIMIT, 'OCR_OIL_LIMIT')
+            }
+            if _oil['Value'] >= 100:
+                break
+        LogRes(self.config).Oil = _oil
+        if update:
+            self.config.update()
+
+        return _oil['Value']
 
     def is_balancer_task(self):
         """

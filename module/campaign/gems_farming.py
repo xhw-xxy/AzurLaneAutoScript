@@ -4,7 +4,7 @@ from module.campaign.run import CampaignRun
 from module.combat.assets import BATTLE_PREPARATION
 from module.equipment.assets import *
 from module.equipment.equipment_change import EquipmentChange
-from module.equipment.fleet_equipment import OCR_FLEET_INDEX
+from module.equipment.fleet_equipment import OCR_FLEET_INDEX,FleetEquipment
 from module.exception import CampaignEnd, ScriptError, RequestHumanTakeover
 from module.handler.assets import AUTO_SEARCH_MAP_OPTION_OFF
 from module.logger import logger
@@ -77,7 +77,7 @@ class GemsCampaignOverride(CampaignBase):
             raise CampaignEnd('Emotion withdraw')
 
 
-class GemsFarming(CampaignRun, Dock, EquipmentChange):
+class GemsFarming(CampaignRun, FleetEquipment, Dock):
 
     def event_hard_mode_override(self):
         HARDMODEMAPS = [
@@ -140,6 +140,13 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
     @property
     def change_vanguard_equip(self):
         return 'equip' in self.config.GemsFarming_ChangeVanguard
+
+    @property
+    def fleet_to_attack(self):
+        if self.config.Fleet_FleetOrder == 'fleet1_standby_fleet2_all':
+            return self.config.Fleet_Fleet2
+        else:
+            return self.config.Fleet_Fleet1
 
     def _fleet_detail_enter(self):
         """
