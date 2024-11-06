@@ -860,77 +860,53 @@ TurnOffForcedOnSettings:
 Oil:
   Value: 0
   Limit: 0
-  Color:
-    value: ^000000
-    display: hide
+  Color: ^000000
   Record: 2020-01-01 00:00:00
 Coin:
   Value: 0
   Limit: 0
-  Color:
-    value: ^000000
-    display: hide
+  Color: ^FFAA33
   Record: 2020-01-01 00:00:00
 Gem:
   Value: 0
-  Color:
-    value: ^000000
-    display: hide
+  Color: ^FF3333
   Record: 2020-01-01 00:00:00
 Pt:
   Value: 0
-  Color:
-    value: ^000000
-    display: hide
+  Color: ^00BFFF
   Record: 2020-01-01 00:00:00
 YellowCoin:
   Value: 0
-  Color:
-    value: ^000000
-    display: hide
+  Color: ^FF8800
   Record: 2020-01-01 00:00:00
 PurpleCoin:
   Value: 0
-  Color:
-    value: ^000000
-    display: hide
+  Color: ^7700BB
   Record: 2020-01-01 00:00:00
 ActionPoint:
   Value: 0
   Total: 0
-  Color:
-    value: ^000000
-    display: hide
+  Color: ^0000FF
   Record: 2020-01-01 00:00:00
 Merit:
   Value: 0
-  Color:
-    value: ^000000
-    display: hide
+  Color: ^FFFF00
   Record: 2020-01-01 00:00:00
 Cube:
   Value: 0
-  Color:
-    value: ^000000
-    display: hide
+  Color: ^33FFFF
   Record: 2020-01-01 00:00:00
 Core:
   Value: 0
-  Color:
-    value: ^000000
-    display: hide
+  Color: ^AAAAAA
   Record: 2020-01-01 00:00:00
 Medal:
   Value: 0
-  Color:
-    value: ^000000
-    display: hide
+  Color: ^FFDD00
   Record: 2020-01-01 00:00:00
 GuildCoin:
   Value: 0
-  Color:
-    value: ^000000
-    display: hide
+  Color: ^AAAAAA
   Record: 2020-01-01 00:00:00
 
 
