@@ -1,3 +1,4 @@
+import datetime
 from datetime import timedelta
 from module.config.utils import get_server_last_update
 from module.exercise.assets import *
