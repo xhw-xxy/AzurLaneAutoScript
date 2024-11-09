@@ -21,11 +21,11 @@ jobs:
       
       - name: Merge upstream changes
         run: |
-          git checkout main
-          git merge upstream/main
+          git checkout master
+          git merge upstream/master
       
       - name: Push changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git push origin main
+          git push origin master
