@@ -14,6 +14,12 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Set up Git user
+        run: |
+          git config --global user.email "yo946875649@gmail.com"
+          git config --global user.name "xxy"
+
+
       - name: Add upstream repository
         run: |
           git remote add upstream https://github.com/LmeSzinc/AzurLaneAutoScript.git
