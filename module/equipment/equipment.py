@@ -454,11 +454,14 @@ class EquipmentNew(StorageHandler):
 
             if confirm_timer.reached() and self.handle_popup_confirm('EQUIPMENT_TAKE_OFF'):
                 confirm_timer.reset()
+                off_timer.reset()
+                bar_timer.reset()
                 continue
 
             if off_timer.reached():
                 if not self.info_bar_count() and self.appear_then_click(EQUIP_OFF, offset=(20, 20)):
                     off_timer.reset()
+                    bar_timer.reset()
                     continue
 
             if bar_timer.reached():
@@ -467,7 +470,8 @@ class EquipmentNew(StorageHandler):
                     bar_timer.reset()
                     continue
 
-    @equip_assets_override("new")
+        logger.info('Equipment take off ended')
+
     def fleet_equipment_take_off(self, enter, long_click, out):
         """
         Args:
@@ -489,6 +493,7 @@ class EquipmentNew(StorageHandler):
 
     @equip_assets_override("new")
     def ship_equipment_take_on_preset(self, index, skip_first_screenshot=True):
+        logger.info('Equipment take on preset')
         bar_timer = Timer(5)
         on_timer = Timer(5)
 
@@ -519,9 +524,11 @@ class EquipmentNew(StorageHandler):
                     self.device.click(EQUIP_3)
 
                 on_timer.reset()
+                bar_timer.reset()
                 continue
 
-    @equip_assets_override("new")
+        logger.info('Equipment take on ended')
+
     def fleet_equipment_take_on_preset(self, preset_record, enter, long_click, out):
         """
         Args:
