@@ -4,7 +4,6 @@ from module.logger import logger
 from module.os_combat.assets import *
 from module.os_handler.assets import *
 from module.os_handler.map_event import MapEventHandler
-from module.base.timer import Timer
 
 
 class ContinuousCombat(Exception):
@@ -77,7 +76,9 @@ class Combat(Combat_, MapEventHandler):
                 continue
 
             # End
-            if self.is_combat_executing():
+            pause = self.is_combat_executing()
+            if pause:
+                logger.attr('BattleUI', pause)
                 # if emotion_reduce:
                 #     self.emotion.reduce(fleet_index)
                 break
@@ -236,7 +237,9 @@ class Combat(Combat_, MapEventHandler):
             # End
             if self.handle_os_auto_search_map_option(drop=drop):
                 break
-            if self.is_combat_executing():
+            pause = self.is_combat_executing()
+            if pause:
+                logger.attr('BattleUI', pause)
                 break
             if self.is_in_map():
                 break
@@ -245,25 +248,14 @@ class Combat(Combat_, MapEventHandler):
         self.submarine_call_reset()
         self.device.stuck_record_clear()
         self.device.click_record_clear()
-        self.combat_auto_reset()
-        self.combat_manual_reset()
         submarine_mode = 'do_not_use'
         if self.config.Submarine_Fleet:
             submarine_mode = self.config.Submarine_Mode
-        auto = 'combat_auto'
-        if self.config.OpsiFleet_FleetMode:
-            auto = self.config.OpsiFleet_FleetMode
-        confirm_timer = Timer(10)
-        confirm_timer.start()
 
         success = True
         while 1:
             self.device.screenshot()
 
-            if self.handle_combat_auto(auto):
-                continue
-            if self.handle_combat_manual(auto):
-                continue
             if self.handle_submarine_call(submarine_mode):
                 continue
             # Don't change auto search option if failed

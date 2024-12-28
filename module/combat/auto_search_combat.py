@@ -83,18 +83,12 @@ class AutoSearchCombat(MapOperation, Combat, CampaignStatus):
             if not checked:
                 logger.info(f'Fleet: {self.fleet_show_index}, fleet_current_index: {self.fleet_current_index}')
                 checked = True
-                if self.__getattribute__("battle_count") != 0:
-                    self.lv_get(after_battle=True)
-                else:
-                    logger.warning("Skip getting ship level when BATTLE_0")
+                self.lv_get(after_battle=True)
         else:
             # Fleet changed
             logger.info(f'Fleet: {self.fleet_show_index}, fleet_current_index: {self.fleet_current_index}')
             checked = True
-            if self.__getattribute__("battle_count") != 0:
-                self.lv_get(after_battle=False)
-            else:
-                logger.warning("Skip getting ship level when BATTLE_0")
+            self.lv_get(after_battle=False)
 
         return checked
 
@@ -104,7 +98,7 @@ class AutoSearchCombat(MapOperation, Combat, CampaignStatus):
         This will set auto_search_oil_limit_triggered.
         """
         if not checked:
-            oil = self.get_oil()
+            oil = self._get_oil()
             if oil == 0:
                 logger.warning('Oil not found')
             else:
@@ -243,7 +237,9 @@ class AutoSearchCombat(MapOperation, Combat, CampaignStatus):
             # End
             if self.is_in_auto_search_menu() or self._handle_auto_search_menu_missing():
                 raise CampaignEnd
-            if self.is_combat_executing():
+            pause = self.is_combat_executing()
+            if pause:
+                logger.attr('BattleUI', pause)
                 break
 
         logger.info('Auto Search combat execute')

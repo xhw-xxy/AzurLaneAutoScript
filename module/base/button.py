@@ -327,14 +327,20 @@ class Button(Resource):
 
         Args:
             image: Screenshot.
-            threshold: Default to 10.
+            offset (int, tuple): Detection area offset.
+            similarity (float): 0-1.
+            threshold (int): Default to 30.
 
         Returns:
-            bool:
+            bool.
         """
-        diff = np.subtract(self.button, self._button)[:2]
-        area = area_offset(self.area, offset=diff)
-        return color_similar(color1=get_color(image, area), color2=self.color, threshold=threshold)
+        if self.match_luma(image, offset=offset, similarity=similarity):
+            diff = np.subtract(self.button, self._button)[:2]
+            area = area_offset(self.area, offset=diff)
+            color = get_color(image, area)
+            return color_similar(color1=color, color2=self.color, threshold=threshold)
+        else:
+            return False
 
     def crop(self, area, image=None, name=None):
         """

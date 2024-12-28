@@ -12,8 +12,8 @@ from module.ui.switch import Switch
 from module.equipment.assets_override import equip_assets_override
 
 equipping_filter = Switch('Equiping_filter')
-equipping_filter.add_status('on', check_button=EQUIPPING_ON)
-equipping_filter.add_status('off', check_button=EQUIPPING_OFF)
+equipping_filter.add_state('on', check_button=EQUIPPING_ON)
+equipping_filter.add_state('off', check_button=EQUIPPING_OFF)
 
 SWIPE_DISTANCE = 250
 SWIPE_RANDOM_RANGE = (-40, -20, 40, 20)
@@ -527,8 +527,7 @@ class EquipmentNew(StorageHandler):
                 bar_timer.reset()
                 continue
 
-        logger.info('Equipment take on ended')
-
+    @equip_assets_override("new")
     def fleet_equipment_take_on_preset(self, preset_record, enter, long_click, out):
         """
         Args:

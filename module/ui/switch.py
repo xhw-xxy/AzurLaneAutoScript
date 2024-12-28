@@ -57,7 +57,7 @@ class Switch:
         Returns:
             bool
         """
-        for data in self.status_list:
+        for data in self.state_list:
             if main.appear(data['check_button'], offset=data['offset']):
                 return True
 
