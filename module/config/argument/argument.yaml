@@ -485,11 +485,15 @@ Reward:
   CollectExp: true
   CollectMission: true
   CollectWeeklyMission: true
+Awaken:
+  LevelCap:
+    value: level120
+    option: [ level120, level125 ]
 GeneralShop:
   UseGems: false
   Refresh: false
   BuySkinBox: false
-  ConsumeCoins: 550000
+  ConsumeCoins: false
   Filter: |-
     BookRedT3 > BookYellowT3 > BookBlueT3 > BookRedT2
     > Cube

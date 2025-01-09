@@ -12,6 +12,7 @@ from module.base.decorator import cached_property, del_cached_property, has_cach
 from module.base.timer import Timer
 from module.base.utils import ensure_time
 from module.config.utils import deep_get
+from module.device.env import IS_WINDOWS
 from module.device.method.minitouch import insert_swipe, random_rectangle_point
 from module.device.method.pool import JobTimeout, WORKER_POOL
 from module.device.method.utils import RETRY_TRIES, retry_sleep
@@ -422,7 +423,7 @@ class NemuIpcImpl:
         if self.connect_id == 0:
             self.connect()
 
-        ret = self.ev_run_sync(
+        ret = self.run_func(
             self.lib.nemu_input_event_touch_up,
             self.connect_id, self.display_id
         )
@@ -500,6 +501,8 @@ class NemuIpc(Platform):
             raise RequestHumanTakeover
 
     def nemu_ipc_available(self) -> bool:
+        if not IS_WINDOWS:
+            return False
         if not self.is_mumu_family:
             return False
         # >= 4.0 has no info in getprop
