@@ -35,7 +35,7 @@ DOCK_SCROLL = Scroll(DOCK_SCROLL, color=(247, 211, 66), name='DOCK_SCROLL')
 OCR_DOCK_SELECTED = DigitCounter(DOCK_SELECTED, threshold=64, name='OCR_DOCK_SELECTED')
 
 
-class DockOld(Equipment):
+class Dock(Equipment):
     def handle_dock_cards_loading(self):
         # Poor implementation.
         self.device.sleep((1, 1.5))
