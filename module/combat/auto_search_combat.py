@@ -36,7 +36,7 @@ class AutoSearchCombat(MapOperation, Combat, CampaignStatus):
         """
         Pages:
             in: in_map, MAP_OFFENSIVE
-            out: combat_appear
+            out: is_combat_loading
         """
         self.interval_reset(AUTO_SEARCH_MAP_OPTION_ON)
         while 1:

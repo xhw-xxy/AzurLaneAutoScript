@@ -36,14 +36,6 @@ class SuffixOcr(Ocr):
         if len(left):
             image = image[:, left[-1] - look_back:]
 
-        if server.server in ['jp']:
-            # slice top and bottom part to get clearer roman digits
-            # will need to pad white background for better recognization
-            image = image[8:-10, :]
-            cv2.normalize(image, image, -55, 255, cv2.NORM_MINMAX)
-            image = (image > 80).astype(np.uint8) * 255
-            image = np.pad(image, ((0, 1), (0, 0)), mode='edge')
-            image = np.pad(image, ((4, 3), (0, 0)), mode='constant', constant_values=255)
         return image
 
 
