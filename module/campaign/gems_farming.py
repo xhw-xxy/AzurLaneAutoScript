@@ -141,6 +141,13 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
     def change_vanguard_equip(self):
         return 'equip' in self.config.GemsFarming_ChangeVanguard
 
+    @property
+    def fleet_to_attack(self):
+        if self.config.Fleet_FleetOrder == 'fleet1_standby_fleet2_all':
+            return self.config.Fleet_Fleet2
+        else:
+            return self.config.Fleet_Fleet1
+
     def _fleet_detail_enter(self):
         """
         Enter GEMS_FLEET page
