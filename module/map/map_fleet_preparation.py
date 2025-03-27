@@ -127,7 +127,7 @@ class FleetOperator:
             stage = self.main.config.Campaign_Name
             logger.critical(f'Stage "{stage}" is a hard mode, '
                             f'please prepare your fleet "{str(self)}" in game before running Alas')
-            raise RequestHumanTakeover('Hard not satisfied', str(self))
+            raise RequestHumanTakeover
 
     def clear(self, skip_first_screenshot=True):
         """
@@ -344,10 +344,14 @@ class FleetPreparation(InfoHandler):
 
         # Check if submarine is empty again.
         if submarine.allow():
+            logger.attr('map_allow_submarine', True)
             if self.config.Submarine_Fleet:
                 pass
             else:
                 submarine.clear()
+        else:
+            logger.attr('map_allow_submarine', False)
+            self.config.SUBMARINE = 0
 
         if self.appear(FLEET_1_CLEAR, offset=(-20, -80, 20, 5)):
             AUTO_SEARCH_SET_MOB.load_offset(FLEET_1_CLEAR)
