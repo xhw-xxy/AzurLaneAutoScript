@@ -25,7 +25,7 @@ class ManualConfig:
     > SmallGame
     > Sos > EventSp > EventA > EventB > EventC > EventD
     > RaidDaily > CoalitionSp > WarArchives > MaritimeEscort
-    > Event > Event2 > Event3 > Raid > Coalition > Main > Main2 > Main3
+    > Event > Event2 > Raid > Hospital > Coalition > Main > Main2 > Main3
     > OpsiMeowfficerFarming
     > GemsFarming
     > OpsiHazard1Leveling
