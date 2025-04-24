@@ -6,10 +6,11 @@ from cached_property import cached_property
 
 from deploy.utils import DEPLOY_TEMPLATE, poor_yaml_read, poor_yaml_write
 from module.base.timer import timer
+from module.config.deep import deep_default, deep_get, deep_iter, deep_pop, deep_set
 from module.config.env import IS_ON_PHONE_CLOUD
-from module.config.redirect_utils.utils import *
 from module.config.server import VALID_CHANNEL_PACKAGE, VALID_PACKAGE, VALID_SERVER_LIST, to_package, to_server
 from module.config.utils import *
+from module.config.redirect_utils.utils import *
 
 CONFIG_IMPORT = '''
 import datetime
@@ -36,6 +37,7 @@ RAIDS = ['Raid', 'RaidDaily']
 WAR_ARCHIVES = ['WarArchives']
 COALITIONS = ['Coalition', 'CoalitionSp']
 MARITIME_ESCORTS = ['MaritimeEscort']
+HOSPITAL = ['Hospital']
 
 
 class Event:
@@ -587,6 +589,8 @@ class ConfigUpdater:
         #  'GemsFarming.GemsFarming.ChangeVanguard',
         #  change_ship_redirect),
         # ('Alas.DropRecord.API', 'Alas.DropRecord.API', api_redirect2)
+        # 2025.04.17
+        ('Coalition.Coalition.Mode', 'Coalition.Coalition.Mode', coalition_to_frostfall)
     ]
     # redirection += [
     #     (
