@@ -10,7 +10,6 @@ from module.retire.assets import *
 from module.ui.scroll import Scroll
 from module.ui.setting import Setting
 from module.ui.switch import Switch
-from module.ui.ui import UI
 
 DOCK_SORTING = Switch('Dork_sorting')
 DOCK_SORTING.add_state('Ascending', check_button=SORT_ASC, click_button=SORTING_CLICK)
@@ -36,10 +35,23 @@ OCR_DOCK_SELECTED = DigitCounter(DOCK_SELECTED, threshold=64, name='OCR_DOCK_SEL
 
 
 class Dock(Equipment):
-    def handle_dock_cards_loading(self):
-        # Poor implementation.
-        self.device.sleep((1, 1.5))
-        self.device.screenshot()
+    def handle_dock_cards_loading(self, skip_first_screenshot=True):
+        # Poor implementation
+        # confirm_timer method cannot be used
+        timeout = Timer(1.2, count=1).start()
+        while 1:
+            if skip_first_screenshot:
+                skip_first_screenshot = False
+            else:
+                self.device.screenshot()
+
+            # Quick exit if dock is empty
+            if self.appear(DOCK_EMPTY):
+                logger.info('Dock empty')
+                break
+            # Otherwise we just wait 1.2s
+            if timeout.reached():
+                break
 
     def dock_favourite_set(self, enable=False, wait_loading=True):
         """
