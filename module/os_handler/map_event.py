@@ -150,24 +150,24 @@ class MapEventHandler(EnemySearchingHandler):
             drop (DropImage):
 
         Returns:
-            str: Event that handled
+            bool: If clicked to handle any map event.
         """
         if self.handle_map_get_items(drop=drop):
-            return 'map_get_items'
+            return True
         if self.handle_os_game_tips():
-            return 'os_game_tips'
+            return True
         if self.handle_map_archives(drop=drop):
-            return 'map_archives'
+            return True
         if self.handle_guild_popup_cancel():
-            return 'guild_popup_cancel'
+            return True
         if self.handle_ash_popup():
-            return 'ash_popup'
+            return True
         if self.handle_urgent_commission(drop=drop):
-            return 'urgent_commission'
+            return True
         if self.handle_story_skip():
-            return 'story_skip'
+            return True
 
-        return ''
+        return False
 
     _os_in_map_confirm_timer = Timer(1.5, count=3)
 
