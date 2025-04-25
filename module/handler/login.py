@@ -9,32 +9,34 @@ from uiautomator2.xpath import XPath, XPathSelector
 import module.config.server as server
 from module.base.timer import Timer
 from module.base.utils import color_similarity_2d, crop, random_rectangle_point
-from module.exception import (GameStuckError, GameTooManyClickError,
-                              RequestHumanTakeover)
 from module.handler.assets import *
 from module.logger import logger
 from module.map.assets import *
 from module.ui.assets import *
 from module.ui.page import page_campaign_menu
 from module.ui.ui import UI
-from module.gg_handler.gg_handler import GGHandler
 
 
 class LoginHandler(UI):
-    _app_u2_family = ['uiautomator2', 'minitouch', 'scrcpy', 'MaaTouch']
-    have_been_reset = False
-
     def _handle_app_login(self):
         """
         Pages:
             in: Any page
             out: page_main
+
+        Raises:
+            GameStuckError:
+            GameTooManyClickError:
+            GameNotRunningError:
         """
         logger.hr('App login')
-        GGHandler(config=self.config, device=self.device).handle_restart()
+
         confirm_timer = Timer(1.5, count=4).start()
         orientation_timer = Timer(5)
         login_success = False
+        self.device.stuck_record_clear()
+        self.device.click_record_clear()
+
         while 1:
             # Watch device rotation
             if not login_success and orientation_timer.reached():
@@ -89,7 +91,7 @@ class LoginHandler(UI):
             # Always goto page_main
             if self.appear_then_click(GOTO_MAIN, offset=(30, 30), interval=5):
                 continue
-        
+
         return True
 
     _user_agreement_timer = Timer(1, count=2)
@@ -127,49 +129,34 @@ class LoginHandler(UI):
             bool: If login success
 
         Raises:
-            RequestHumanTakeover: If login failed more than 3
+            GameStuckError:
+            GameTooManyClickError:
+            GameNotRunningError:
         """
-        for _ in range(3):
-            self.device.stuck_record_clear()
-            self.device.click_record_clear()
-            try:
-                self._handle_app_login()
-                return True
-            except (GameTooManyClickError, GameStuckError) as e:
-                logger.warning(e)
-                self.device.app_stop()
-                self.device.app_start()
-                continue
-
-        logger.critical('Login failed more than 3')
-        logger.critical('Azur Lane server may be under maintenance, or you may lost network connection')
-        raise GameStuckError
+        logger.info('handle_app_login')
+        self.device.screenshot_interval_set(1.0)
+        try:
+            self._handle_app_login()
+        finally:
+            self.device.screenshot_interval_set()
 
     def app_stop(self):
-        if self.config.Emulator_ControlMethod in self._app_u2_family and not self.have_been_reset:
-            GGHandler(config=self.config, device=self.device).handle_u2_restart()
-            self.have_been_reset = True
         logger.hr('App stop')
         self.device.app_stop()
 
     def app_start(self):
-        if self.config.Emulator_ControlMethod in self._app_u2_family and not self.have_been_reset:
-            GGHandler(config=self.config, device=self.device).handle_u2_restart()
-            self.have_been_reset = True
         logger.hr('App start')
         self.device.app_start()
         self.handle_app_login()
         # self.ensure_no_unfinished_campaign()
 
     def app_restart(self):
-        if self.config.Emulator_ControlMethod in self._app_u2_family and not self.have_been_reset:
-            GGHandler(config=self.config, device=self.device).handle_u2_restart()
-            self.have_been_reset = True
         logger.hr('App restart')
         self.device.app_stop()
         self.device.app_start()
         self.handle_app_login()
         # self.ensure_no_unfinished_campaign()
+        self.config.task_delay(server_update=True)
 
     def ensure_no_unfinished_campaign(self, confirm_wait=3):
         """

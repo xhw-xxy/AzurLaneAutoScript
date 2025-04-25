@@ -237,12 +237,16 @@ Coalition:
   Campaign:
     Event:
       type: state
+    Name: dynamic
     Mode: normal
     UseClearMode: true
     UseFleetLock: true
     UseAutoSearch: false
     Use2xBook: false
     AmbushEvade: true
+  Coalition:
+    Mode:
+      option: [ tc1, tc2, tc3, ex ]
   StopCondition:
     MapAchievement: non_stop
     StageIncrease: false
@@ -271,7 +275,7 @@ CoalitionSp:
     AmbushEvade: true
   Coalition:
     # CoalitionSp hard-codes Mode='sp'
-    Mode: hard
+    Mode: sp
   StopCondition:
     MapAchievement: non_stop
     StageIncrease: false
