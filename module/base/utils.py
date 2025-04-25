@@ -990,16 +990,19 @@ def extract_white_letters(image, threshold=128):
     # return cv2.multiply(cv2.add(maximum, cv2.subtract(maximum, minimum)), 255.0 / threshold)
     r, g, b = cv2.split(cv2.subtract((255, 255, 255, 0), image))
     maximum = cv2.max(r, g)
-    cv2.max(maximum, b, dst=maximum)
-    cv2.convertScaleAbs(maximum, alpha=0.5, dst=maximum)
     cv2.min(r, g, dst=r)
+    cv2.max(maximum, b, dst=maximum)
     cv2.min(r, b, dst=r)
+    # minimum = r
+
+    cv2.convertScaleAbs(maximum, alpha=0.5, dst=maximum)
     cv2.convertScaleAbs(r, alpha=0.5, dst=r)
-    minimum = r
-    cv2.subtract(maximum, minimum, dst=minimum)
-    cv2.add(maximum, minimum, dst=maximum)
-    cv2.convertScaleAbs(maximum, alpha=255.0 / threshold, dst=maximum)
+    cv2.subtract(maximum, r, dst=r)
+    cv2.add(maximum, r, dst=maximum)
+    if threshold != 255:
+        cv2.convertScaleAbs(maximum, alpha=255.0 / threshold, dst=maximum)
     return maximum
+
 
 
 def color_mapping(image, max_multiply=2):
