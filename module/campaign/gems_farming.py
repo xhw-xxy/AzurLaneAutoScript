@@ -12,8 +12,7 @@ from module.map.assets import (FLEET_ENTER_FLAGSHIP_HARD_1,
                                FLEET_ENTER_FLAGSHIP_HARD_2, FLEET_ENTER_HARD_1, FLEET_ENTER_HARD_2,
                                FLEET_ENTER_FLAGSHIP_HARD_1_3, FLEET_ENTER_FLAGSHIP_HARD_2_3, FLEET_ENTER_HARD_1_3,
                                FLEET_ENTER_HARD_2_3)
-from module.retire.assets import (
-                                  DOCK_SHIP_DOWN)
+from module.retire.assets import (DOCK_SHIP_DOWN)
 from module.map.assets import FLEET_PREPARATION, MAP_PREPARATION
 from module.retire.assets import (
     DOCK_CHECK,
