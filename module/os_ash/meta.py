@@ -172,11 +172,14 @@ class OpsiAshBeacon(Meta):
             else:
                 self.device.screenshot()
 
+            # End
+            if not self.appear(BEACON_REWARD, offset=(30, 30)):
+                if self._in_meta_page():
+                    break
+
             if self.appear_then_click(BEACON_REWARD, offset=(30, 30), interval=2):
                 logger.info('Reap meta rewards')
                 continue
-            if self._in_meta_page():
-                break
             # Finish random events
             if self.handle_map_event():
                 continue
@@ -245,7 +248,7 @@ class OpsiAshBeacon(Meta):
         In beacon:
             ask for help if needed
         In dossier:
-            [cn]: auto attack if needed
+            ['cn', 'en']: auto attack if needed
             others: do nothing this version
         """
         # Page beacon or dossier
