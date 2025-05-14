@@ -12,7 +12,6 @@ from module.os_handler.map_event import MapEventHandler
 from module.statistics.item import Item, ItemGrid
 from module.ui.assets import OS_CHECK
 from module.ui.ui import UI
-from module.config.utils import deep_get
 from module.log_res.log_res import LogRes
 
 OCR_ACTION_POINT_REMAIN = Digit(ACTION_POINT_REMAIN, letter=(255, 219, 66), name='OCR_ACTION_POINT_REMAIN')
@@ -351,8 +350,11 @@ class ActionPointHandler(UI, MapEventHandler):
                 self.device.screenshot()
 
             # End
-            if self.appear(OS_CHECK, offset=(20, 20)):
-                break
+            # sometimes you have action point popup without black-blurred background
+            # ACTION_POINT_CANCEL and OS_CHECK both appears
+            if not self.appear(ACTION_POINT_CANCEL, offset=(20, 20)):
+                if self.appear(OS_CHECK, offset=(20, 20)):
+                    break
             # Click
             if self.appear_then_click(ACTION_POINT_CANCEL, offset=(20, 20), interval=3):
                 continue
