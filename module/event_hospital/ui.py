@@ -1,8 +1,8 @@
 from module.combat.assets import BATTLE_PREPARATION
 from module.event_hospital.assets import *
 from module.logger import logger
-from module.map.assets import FLEET_PREPARATION
 from module.minigame.assets import BACK
+from module.raid.assets import RAID_FLEET_PREPARATION
 from module.ui.page import page_hospital
 from module.ui.ui import UI
 
@@ -17,6 +17,10 @@ class HospitalUI(UI):
             bool: If clicked
         """
         if self.appear_then_click(GET_CLUE, offset=(20, 20), interval=1):
+            return True
+        if self.appear(GET_CLUE_TEXT, offset=(20, 20), interval=1):
+            logger.info(f'{GET_CLUE_TEXT} -> {GET_CLUE}')
+            self.device.click(GET_CLUE)
             return True
         return False
 
@@ -35,8 +39,8 @@ class HospitalUI(UI):
             logger.info(f'{BATTLE_PREPARATION} -> {BACK}')
             self.device.click(BACK)
             return True
-        if self.appear(FLEET_PREPARATION, offset=(20, 50), interval=2):
-            logger.info(f'{FLEET_PREPARATION} -> {BACK}')
+        if self.appear(RAID_FLEET_PREPARATION, offset=(30, 30), interval=2):
+            logger.info(f'{RAID_FLEET_PREPARATION} -> {BACK}')
             self.device.click(BACK)
             return True
         if self.handle_get_clue():
