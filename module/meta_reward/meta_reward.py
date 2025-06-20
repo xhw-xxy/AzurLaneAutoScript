@@ -82,6 +82,8 @@ class BeaconReward(Combat, UI):
         """
         if self.appear(SYNC_REWARD_NOTICE, threshold=30, interval=interval):
             return True
+        elif self.appear(SYNC_TAP, threshold=30, interval=interval):
+            return True
         else:
             return False
 
