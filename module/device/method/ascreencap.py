@@ -2,7 +2,6 @@ import os
 import time
 from functools import wraps
 
-import lz4.block
 from adbutils.errors import AdbError
 
 from module.base.utils import *
