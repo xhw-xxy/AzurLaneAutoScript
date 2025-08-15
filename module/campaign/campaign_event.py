@@ -2,12 +2,12 @@ import re
 from datetime import datetime
 
 from module.campaign.campaign_status import CampaignStatus
-from module.config.config_updater import EVENTS, RAIDS, COALITIONS, GEMS_FARMINGS, MARITIME_ESCORTS
+from module.config.config_updater import COALITIONS, EVENTS, GEMS_FARMINGS, HOSPITAL, MARITIME_ESCORTS, RAIDS
 from module.config.utils import DEFAULT_TIME
 from module.exception import RequireRestartGame
 from module.logger import logger
 from module.ui.assets import CAMPAIGN_MENU_NO_EVENT
-from module.ui.page import page_event, page_campaign_menu, page_sp, page_coalition
+from module.ui.page import page_campaign_menu, page_coalition, page_event, page_sp
 from module.war_archives.assets import WAR_ARCHIVES_CAMPAIGN_CHECK
 
 
