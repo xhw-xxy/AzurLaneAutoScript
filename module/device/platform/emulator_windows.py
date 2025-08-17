@@ -89,8 +89,8 @@ class Emulator(EmulatorBase):
                 return cls.NoxPlayer64
             else:
                 return cls.NoxPlayer
-        if exe in ['bluestacks.exe', 'bluestacksgp.exe']:
-            if dir1 in ['bluestacks', 'bluestacks_cn', 'bluestackscn']:
+        if exe == 'bluestacks.exe':
+            if dir1 in ['bluestacks', 'bluestacks_cn']:
                 return cls.BlueStacks4
             elif dir1 in ['bluestacks_nxt', 'bluestacks_nxt_cn']:
                 return cls.BlueStacks5
@@ -471,9 +471,8 @@ class EmulatorManager(EmulatorManagerBase):
             try:
                 exe = proc.cmdline()
                 exe = exe[0].replace(r'\\', '/').replace('\\', '/')
-            except (psutil.AccessDenied, psutil.NoSuchProcess, IndexError):
+            except (psutil.AccessDenied, IndexError):
                 # psutil.AccessDenied
-                # NoSuchProcess: process no longer exists (pid=xxx)
                 continue
 
             if Emulator.is_emulator(exe):

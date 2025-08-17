@@ -116,7 +116,7 @@ class CampaignOcr(ModuleBase):
 
     @cached_property
     def _stage_image(self):
-        return crop(self.device.image, self._stage_detect_area, copy=False)
+        return crop(self.device.image, self._stage_detect_area)
 
     @cached_property
     def _stage_image_gray(self):
@@ -283,8 +283,6 @@ class CampaignOcr(ModuleBase):
         del_cached_property(self, '_stage_image')
         del_cached_property(self, '_stage_image_gray')
         buttons = self.campaign_extract_name_image(image)
-        del_cached_property(self, '_stage_image')
-        del_cached_property(self, '_stage_image_gray')
         if len(buttons) == 0:
             logger.info('No stage found.')
             raise CampaignNameError

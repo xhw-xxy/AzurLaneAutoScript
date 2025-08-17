@@ -89,7 +89,7 @@ class LoginHandler(UI):
             # Always goto page_main
             if self.appear_then_click(GOTO_MAIN, offset=(30, 30), interval=5):
                 continue
-
+        
         return True
 
     _user_agreement_timer = Timer(1, count=2)
@@ -236,8 +236,7 @@ class LoginHandler(UI):
                 XPS('//*[@content-desc="请滑动阅读协议内容"]', xp, hierarchy)])
 
             test_image_original = self.device.image
-            image_handle_crop = crop(
-                test_image_original, (start_padding_results[2], 0, start_margin_results[2], 720), copy=False)
+            image_handle_crop = crop(test_image_original, (start_padding_results[2], 0, start_margin_results[2], 720))
             # Image.fromarray(image_handle_crop).show()
             sims = color_similarity_2d(image_handle_crop, color=(182, 189, 202))
             points = np.sum(sims >= 255)

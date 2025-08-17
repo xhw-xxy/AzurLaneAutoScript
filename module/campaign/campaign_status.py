@@ -162,8 +162,8 @@ class CampaignStatus(UI):
             'Event',
             'Event2',
             'Event3',
-            'Coalition',
-            'Coalition_sp',
+            'coalition',
+            'coalition_sp',
             'Raid',
             'GemsFarming',
         ]

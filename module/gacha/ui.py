@@ -103,15 +103,17 @@ class GachaUI(UI):
     def _construct_bottom_navbar(self):
         """
         limited 4 options
-            event.
-            light.
-            heavy.
-            special.
+            build.
+            limited_build.
+            orders.
+            shop.
+            retire.
 
         regular 3 options
-            light.
-            heavy.
-            special.
+            build.
+            orders.
+            shop.
+            retire.
         """
         construct_bottom_navbar = ButtonGrid(
             origin=(262, 615), delta=(209, 0),

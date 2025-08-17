@@ -1,3 +1,4 @@
+from typing import List, Tuple
 from module.base.button import ButtonGrid
 from module.base.timer import Timer
 from module.logger import logger
@@ -147,19 +148,12 @@ class MeowfficerCollect(MeowfficerBase):
         Handle skip transitions; proceeds slowly
         with caution to prevent unintentional actions
         """
-
-        def additional():
-            if self.appear(MEOWFFICER_TRAIN_EVALUATE, offset=(20, 20), interval=3):
-                self.device.click(MEOWFFICER_TRAIN_EVALUATE)
-                return True
-            return False
-
         # Trigger lock popup appearance to initiate sequence
         self.ui_click(MEOWFFICER_TRAIN_CLICK_SAFE_AREA,
-                      appear_button=MEOWFFICER_GET_CHECK, check_button=MEOWFFICER_CONFIRM, additional=additional,
+                      appear_button=MEOWFFICER_GET_CHECK, check_button=MEOWFFICER_CONFIRM,
                       offset=(40, 40), retry_wait=3, skip_first_screenshot=True)
 
-        self.ui_click(MEOWFFICER_CANCEL, check_button=self._meow_check_popup_exit, additional=additional,
+        self.ui_click(MEOWFFICER_CANCEL, check_button=self._meow_check_popup_exit,
                       offset=(40, 20), retry_wait=3, skip_first_screenshot=True)
         self.device.click_record.pop()
         self.device.click_record.pop()
@@ -210,9 +204,6 @@ class MeowfficerCollect(MeowfficerBase):
                 continue
             elif self.appear(MEOWFFICER_CANCEL, offset=(40, 20), interval=3):
                 self.device.click(MEOWFFICER_CONFIRM)
-                continue
-            if self.appear(MEOWFFICER_TRAIN_EVALUATE, offset=(20, 20), interval=3):
-                self.device.click(MEOWFFICER_TRAIN_EVALUATE)
                 continue
 
         self.device.click_record.pop()

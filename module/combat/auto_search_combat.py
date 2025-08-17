@@ -189,9 +189,8 @@ class AutoSearchCombat(MapOperation, Combat, CampaignStatus):
 
             if self.is_auto_search_running():
                 checked_fleet = self.auto_search_watch_fleet(checked_fleet)
-                if not checked_oil or not checked_coin:
-                    checked_oil = self.auto_search_watch_oil(checked_oil)
-                    checked_coin = self.auto_search_watch_coin(checked_coin)
+                checked_oil = self.auto_search_watch_oil(checked_oil)
+                checked_coin = self.auto_search_watch_coin(checked_coin)
             if self.handle_retirement():
                 self.map_offensive_auto_search()
                 # Map offensive ends at is_combat_loading

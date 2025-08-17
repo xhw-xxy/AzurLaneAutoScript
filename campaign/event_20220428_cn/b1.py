@@ -89,7 +89,6 @@ class Config:
         'distance': 50,
         'wlen': 1000
     }
-    HOMO_CANNY_THRESHOLD = (50, 75)
     HOMO_EDGE_COLOR_RANGE = (0, 49)
     HOMO_EDGE_HOUGHLINES_THRESHOLD = 300
     MAP_ENSURE_EDGE_INSIGHT_CORNER = 'bottom-right'
