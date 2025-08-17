@@ -1,8 +1,6 @@
 import typing as t
 from datetime import datetime, timedelta
 
-import module.config.server as server
-
 from module.base.timer import Timer
 from module.config.config import Function
 from module.config.utils import get_server_next_update
@@ -12,11 +10,9 @@ from module.ocr.ocr import Digit
 from module.os_handler.assets import *
 from module.os_shop.assets import OS_SHOP_CHECK, OS_SHOP_PURPLE_COINS, SHOP_PURPLE_COINS, SHOP_YELLOW_COINS
 from module.ui.ui import UI
+from module.log_res.log_res import LogRes
 
-if server.server != 'jp':
-    OCR_SHOP_YELLOW_COINS = Digit(SHOP_YELLOW_COINS, letter=(239, 239, 239), threshold=160, name='OCR_SHOP_YELLOW_COINS')
-else:
-    OCR_SHOP_YELLOW_COINS = Digit(SHOP_YELLOW_COINS, letter=(201, 201, 201), threshold=200, name='OCR_SHOP_YELLOW_COINS')
+OCR_SHOP_YELLOW_COINS = Digit(SHOP_YELLOW_COINS, letter=(239, 239, 239), threshold=160, name='OCR_SHOP_YELLOW_COINS')
 OCR_SHOP_PURPLE_COINS = Digit(SHOP_PURPLE_COINS, letter=(255, 255, 255), name='OCR_SHOP_PURPLE_COINS')
 OCR_OS_SHOP_PURPLE_COINS = Digit(OS_SHOP_PURPLE_COINS, letter=(255, 255, 255), name='OCR_OS_SHOP_PURPLE_COINS')
 
@@ -81,6 +77,7 @@ class OSStatus(UI):
                 continue
             else:
                 break
+        LogRes(self.config).YellowCoin = yellow_coins
 
         return yellow_coins
 
@@ -94,3 +91,15 @@ class OSStatus(UI):
         self._shop_yellow_coins = self.get_yellow_coins()
         self._shop_purple_coins = self.get_purple_coins()
         logger.info(f'Yellow coins: {self._shop_yellow_coins}, purple coins: {self._shop_purple_coins}')
+
+    def get_currency_coins(self, item):
+        return self._shop_yellow_coins - (
+            self.config.OS_CL1_YELLOW_COINS_PRESERVE if self.is_cl1_enabled else
+            self.config.OS_NORMAL_YELLOW_COINS_PRESERVE
+        ) if item.cost == 'YellowCoins' \
+            else self._shop_purple_coins - self.config.OS_NORMAL_PURPLE_COINS_PRESERVE
+
+    def is_coins_both_not_enough(self):
+        return self._shop_yellow_coins < (self.config.OS_CL1_YELLOW_COINS_PRESERVE if self.is_cl1_enabled else
+                                          self.config.OS_NORMAL_YELLOW_COINS_PRESERVE) \
+            and self._shop_purple_coins < self.config.OS_NORMAL_PURPLE_COINS_PRESERVE

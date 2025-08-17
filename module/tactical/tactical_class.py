@@ -20,10 +20,7 @@ from module.ui.page import page_reward
 from module.ui_white.assets import REWARD_2_WHITE, REWARD_GOTO_TACTICAL_WHITE
 
 SKILL_GRIDS = ButtonGrid(origin=(315, 140), delta=(621, 132), button_shape=(621, 119), grid_shape=(1, 3), name='SKILL')
-if server.server != 'jp':
-    SKILL_LEVEL_GRIDS = SKILL_GRIDS.crop(area=(406, 98, 618, 116), name='EXP')
-else:
-    SKILL_LEVEL_GRIDS = SKILL_GRIDS.crop(area=(406, 98, 621, 118), name='EXP')
+SKILL_LEVEL_GRIDS = SKILL_GRIDS.crop(area=(406, 98, 618, 116), name='EXP')
 
 
 class ExpOnBookSelect(DigitCounter):
@@ -52,9 +49,6 @@ class ExpOnBookSelect(DigitCounter):
         if server.server == 'en':
             # Bold `Next:`
             image = image_left_strip(image, threshold=105, length=46)
-        elif server.server == 'jp':
-            # Wide `Next:`
-            image = image_left_strip(image, threshold=105, length=55)
         else:
             image = image_left_strip(image, threshold=105, length=42)
         return image
@@ -87,9 +81,6 @@ class ExpOnSkillSelect(Ocr):
         if server.server == 'en':
             # Bold `Next:`
             image = image_left_strip(image, threshold=105, length=46)
-        elif server.server == 'jp':
-            # Wide `Next:`
-            image = image_left_strip(image, threshold=105, length=53)
         else:
             image = image_left_strip(image, threshold=105, length=42)
         return image
@@ -243,22 +234,17 @@ class RewardTacticalClass(Dock):
             book (Book):
             skip_first_screenshot (bool):
         """
-        logger.info(f'Book select {book}')
-        interval = Timer(2, count=6)
         while 1:
             if skip_first_screenshot:
                 skip_first_screenshot = False
             else:
                 self.device.screenshot()
 
-            # End
-            if book.check_selected(self.device.image):
-                break
-
-            if interval.reached():
+            if not book.check_selected(self.device.image):
                 self.device.click(book.button)
-                interval.reset()
-                continue
+                self.device.sleep((0.3, 0.5))
+            else:
+                break
 
     def _tactical_books_filter_exp(self):
         """
@@ -335,11 +321,9 @@ class RewardTacticalClass(Dock):
             else:
                 logger.info('Choose first book')
                 self._tactical_book_select(first)
-            logger.info(f'_tactical_books_choose -> {TACTICAL_CLASS_START}')
             self.device.click(TACTICAL_CLASS_START)
         else:
             logger.info('Cancel tactical')
-            logger.info(f'_tactical_books_choose -> {TACTICAL_CLASS_CANCEL}')
             self.device.click(TACTICAL_CLASS_CANCEL)
         return True
 
@@ -364,8 +348,6 @@ class RewardTacticalClass(Dock):
         offset = (slot * 220 - 20, -20, slot * 220 + 20, 20)
         if self.appear(RAPID_TRAINING, offset=offset, interval=1):
             self.device.click(RAPID_TRAINING)
-            # Clear interval to enter _tactical_books_choose fast
-            self.interval_clear(TACTICAL_CLASS_CANCEL, interval=2)
             return True
 
         return False
@@ -426,18 +408,15 @@ class RewardTacticalClass(Dock):
                 # Tactical page, has empty position
                 if self.appear_then_click(ADD_NEW_STUDENT, offset=(800, 20), interval=1):
                     self.interval_reset([TACTICAL_CHECK, RAPID_TRAINING])
-                    self.interval_clear([POPUP_CONFIRM, POPUP_CANCEL, GET_MISSION, DOCK_CHECK, SKILL_CONFIRM])
+                    self.interval_clear([POPUP_CONFIRM, POPUP_CANCEL, GET_MISSION])
                     continue
             if self.handle_rapid_training():
                 self.interval_reset(TACTICAL_CHECK)
-                self.interval_clear([POPUP_CONFIRM, POPUP_CANCEL, GET_MISSION, DOCK_CHECK, SKILL_CONFIRM])
+                self.interval_clear([POPUP_CONFIRM, POPUP_CANCEL, GET_MISSION])
                 continue
 
             # Get finish time
-            # sometimes you have TACTICAL_CHECK without black-blurred background
-            # TACTICAL_CLASS_CANCEL and TACTICAL_CHECK appears
-            if not self.appear(TACTICAL_CLASS_CANCEL, offset=(20, 20)) \
-                    and self.appear(TACTICAL_CHECK, offset=(20, 20), interval=2):
+            if self.appear(TACTICAL_CHECK, offset=(20, 20), interval=2):
                 self.interval_clear([POPUP_CONFIRM, POPUP_CANCEL, GET_MISSION])
                 if book_empty:
                     self.device.click(BACK_ARROW)
@@ -461,16 +440,12 @@ class RewardTacticalClass(Dock):
 
             # Popups
             if self.appear_then_click(REWARD_2, offset=(20, 20), interval=3):
-                self.interval_reset(REWARD_2_WHITE)
                 continue
             if self.appear_then_click(REWARD_2_WHITE, offset=(20, 20), interval=3):
-                self.interval_reset(REWARD_2)
                 continue
             if self.appear_then_click(REWARD_GOTO_TACTICAL, offset=(20, 20), interval=3):
-                self.interval_reset(REWARD_GOTO_TACTICAL_WHITE)
                 continue
             if self.appear_then_click(REWARD_GOTO_TACTICAL_WHITE, offset=(20, 20), interval=3):
-                self.interval_reset(REWARD_GOTO_TACTICAL)
                 continue
             if self.ui_main_appear_then_click(page_reward, interval=3):
                 continue
@@ -496,9 +471,6 @@ class RewardTacticalClass(Dock):
                 else:
                     study_finished = True
                 continue
-            # 2025.05.29 game tips that infos skin feature when you enter dock
-            if self.handle_game_tips():
-                return True
             if self.appear(DOCK_CHECK, offset=(20, 20), interval=3):
                 if self.dock_selected():
                     # When you click a ship from page_main -> dock,
@@ -506,7 +478,6 @@ class RewardTacticalClass(Dock):
                     # so we need click BACK_ARROW to clear selected state
                     logger.info('Having pre-selected ship in dock, re-enter')
                     self.device.click(BACK_ARROW)
-                    self.interval_reset([BOOK_EMPTY_POPUP, DOCK_CHECK], interval=3)
                     continue
                 # If not enable or can not fina a suitable ship
                 if self.config.AddNewStudent_Enable:
@@ -519,7 +490,7 @@ class RewardTacticalClass(Dock):
                     logger.info('Not going to learn skill but in dock, close it')
                     study_finished = True
                     self.device.click(BACK_ARROW)
-                self.interval_reset([BOOK_EMPTY_POPUP, DOCK_CHECK], interval=3)
+                self.interval_reset([BOOK_EMPTY_POPUP])
                 continue
             if self.appear(SKILL_CONFIRM, offset=(20, 20), interval=3):
                 # If not enable or can not find a skill
@@ -533,7 +504,7 @@ class RewardTacticalClass(Dock):
                     logger.info('Not going to learn skill but having SKILL_CONFIRM, close it')
                     study_finished = True
                     self.device.click(BACK_ARROW)
-                self.interval_reset([BOOK_EMPTY_POPUP, SKILL_CONFIRM], interval=3)
+                self.interval_reset([BOOK_EMPTY_POPUP])
                 continue
             if self.appear(TACTICAL_META, offset=(200, 20), interval=3):
                 # If meta's skill page, it's inappropriate
@@ -617,25 +588,27 @@ class RewardTacticalClass(Dock):
     def select_suitable_ship(self):
         logger.hr(f'Select suitable ship')
 
-        # Set if favorite from config
-        self.dock_favourite_set(enable=self.config.AddNewStudent_Favorite, wait_loading=False)
-
         # reset filter
         self.dock_filter_set()
 
+        # Set if favorite from config
+        while 1:
+            self.device.screenshot()
+            self.dock_favourite_set(enable=self.config.AddNewStudent_Favorite)
+
         # No ship in dock
-        if self.appear(DOCK_EMPTY, offset=(30, 30)):
-            logger.info('Dock is empty or favorite ships is empty')
-            return False
+            if self.appear(DOCK_EMPTY, offset=(30, 30)):
+                logger.info('Dock is empty or favorite ships is empty')
+                return False
 
         # Ship cards may slow to show, like:
         # [0, 0, 120, 120, 120, 120, 0, 0, 0, 0, 0, 0, 0, 0]
         # [12, 0, 0, 120, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         # Wait until they turn into
         # [120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120]
-        level_ocr = LevelOcr(CARD_LEVEL_GRIDS.buttons, name='DOCK_LEVEL_OCR', threshold=64)
-        timeout = Timer(1, count=1).start()
-        while 1:
+            level_ocr = LevelOcr(CARD_LEVEL_GRIDS.buttons, name='DOCK_LEVEL_OCR', threshold=64)
+            timeout = Timer(1, count=1).start()
+
             list_level = level_ocr.ocr(self.device.image)
             first_ship = next((i for i, x in enumerate(list_level) if x > 0), len(list_level))
             first_empty = next((i for i, x in enumerate(list_level) if x == 0), len(list_level))
@@ -644,7 +617,6 @@ class RewardTacticalClass(Dock):
                 break
             if first_empty >= first_ship:
                 break
-            self.device.screenshot()
 
         should_select_button = None
         for button, level in list(zip(CARD_GRIDS.buttons, list_level))[self.dock_select_index:]:

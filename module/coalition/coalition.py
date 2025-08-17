@@ -6,7 +6,7 @@ from module.coalition.combat import CoalitionCombat
 from module.exception import ScriptError, ScriptEnd
 from module.logger import logger
 from module.ocr.ocr import Digit
-
+from  module.log_res.log_res import LogRes
 
 class AcademyPtOcr(Digit):
     def __init__(self, *args, **kwargs):
@@ -37,14 +37,13 @@ class Coalition(CoalitionCombat, CampaignEvent):
             ocr = Digit(FROSTFALL_OCR_PT, name='OCR_PT', letter=(198, 158, 82), threshold=128)
         elif event == 'coalition_20240627':
             ocr = AcademyPtOcr(ACADEMY_PT_OCR, name='OCR_PT', letter=(255, 255, 255), threshold=128)
-        elif event == 'coalition_20250626':
-            # use generic ocr model
-            ocr = Digit(NEONCITY_PT_OCR, name='OCR_PT', lang='cnocr', letter=(208, 208, 208), threshold=128)
         else:
             logger.error(f'ocr object is not defined in event {event}')
             raise ScriptError
 
         pt = ocr.ocr(self.device.image)
+        LogRes(self.config).Pt = pt
+        self.config.update()
         return pt
 
     def triggered_stop_condition(self, oil_check=False, pt_check=False):
@@ -103,15 +102,10 @@ class Coalition(CoalitionCombat, CampaignEvent):
             self.config.override(
                 Coalition_Fleet='multi',
             )
-        try:
-            self.emotion.check_reduce(battle=self.coalition_get_battles(event, stage))
-        except ScriptEnd:
-            self.coalition_map_exit(event)
-            raise
+        self.emotion.check_reduce(battle=self.coalition_get_battles(event, stage))
 
         self.enter_map(event=event, stage=stage, mode=fleet)
         if self.triggered_stop_condition(oil_check=True):
-            self.coalition_map_exit(event)
             raise ScriptEnd
         self.coalition_combat()
 

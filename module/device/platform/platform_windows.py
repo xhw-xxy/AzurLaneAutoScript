@@ -54,9 +54,7 @@ class PlatformWindows(PlatformBase, EmulatorManager):
         """
         command = command.replace(r"\\", "/").replace("\\", "/").replace('"', '"')
         logger.info(f'Execute: {command}')
-        # `close_fds` only work on Windows
-        # `start_new_session` to avoid emulator getting tree-killed when Alas gets killed
-        return subprocess.Popen(command, close_fds=True, start_new_session=True)
+        return subprocess.Popen(command, close_fds=True)  # only work on Windows
 
     @classmethod
     def kill_process_by_regex(cls, regex: str) -> int:
@@ -93,19 +91,18 @@ class PlatformWindows(PlatformBase, EmulatorManager):
             self.execute(f'"{exe}" -m {instance.name}')
         elif instance == Emulator.MuMuPlayer12:
             # MuMuPlayer.exe -v 0
-            # MuMuNxMain.exe -v 0
             if instance.MuMuPlayer12_id is None:
                 logger.warning(f'Cannot get MuMu instance index from name {instance.name}')
             self.execute(f'"{exe}" -v {instance.MuMuPlayer12_id}')
         elif instance == Emulator.LDPlayerFamily:
-            # ldconsole.exe launch --index 0
-            self.execute(f'"{Emulator.single_to_console(exe)}" launch --index {instance.LDPlayer_id}')
+            # LDPlayer.exe index=0
+            self.execute(f'"{exe}" index={instance.LDPlayer_id}')
         elif instance == Emulator.NoxPlayerFamily:
             # Nox.exe -clone:Nox_1
             self.execute(f'"{exe}" -clone:{instance.name}')
         elif instance == Emulator.BlueStacks5:
-            # HD-Player.exe --instance Pie64
-            self.execute(f'"{exe}" --instance {instance.name}')
+            # HD-Player.exe -instance Pie64
+            self.execute(f'"{exe}" -instance {instance.name}')
         elif instance == Emulator.BlueStacks4:
             # Bluestacks.exe -vmname Android_1
             self.execute(f'"{exe}" -vmname {instance.name}')
@@ -149,12 +146,12 @@ class PlatformWindows(PlatformBase, EmulatorManager):
                 rf')'
             )
         elif instance == Emulator.MuMuPlayer12:
-            # MuMuManager.exe api -v 1 shutdown_player
+            # E:\Program Files\Netease\MuMu Player 12\shell\MuMuManager.exe api -v 1 shutdown_player
             if instance.MuMuPlayer12_id is None:
                 logger.warning(f'Cannot get MuMu instance index from name {instance.name}')
             self.execute(f'"{Emulator.single_to_console(exe)}" api -v {instance.MuMuPlayer12_id} shutdown_player')
         elif instance == Emulator.LDPlayerFamily:
-            # ldconsole.exe quit --index 0
+            # E:\Program Files\leidian\LDPlayer9\dnconsole.exe quit --index 0
             self.execute(f'"{Emulator.single_to_console(exe)}" quit --index {instance.LDPlayer_id}')
         elif instance == Emulator.NoxPlayerFamily:
             # Nox.exe -clone:Nox_1 -quit
@@ -238,7 +235,7 @@ class PlatformWindows(PlatformBase, EmulatorManager):
             logger.info(f'Found azurlane packages: {m}')
 
         interval = Timer(0.5).start()
-        timeout = Timer(180).start()
+        timeout = Timer(300).start()
         new_window = 0
         while 1:
             interval.wait()

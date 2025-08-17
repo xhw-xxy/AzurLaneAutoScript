@@ -15,17 +15,16 @@ class ManualConfig:
     > Exercise
     > Dorm > Meowfficer > Guild > Gacha
     > Reward
-    > ShopFrequent > ShopOnce > Shipyard > Freebies
-    > PrivateQuarters
+    > ShopFrequent > ShopOnce > Shipyard > Freebies > Minigame
     > OpsiExplore
-    > Minigame > Awaken
     > OpsiAshBeacon
     > OpsiDaily > OpsiShop > OpsiVoucher
     > OpsiAbyssal > OpsiStronghold > OpsiObscure > OpsiArchive
-    > Daily > Hard > OpsiAshBeacon > OpsiAshAssist > OpsiMonthBoss
+    > Daily > Hard > OpsiAshBeacon > OpsiAshAssist  > OpsiMonthBoss
+    > SmallGame
     > Sos > EventSp > EventA > EventB > EventC > EventD
     > RaidDaily > CoalitionSp > WarArchives > MaritimeEscort
-    > Event > Event2 > Raid > Hospital > Coalition > Main > Main2 > Main3
+    > Event > Event2 > Event3 > Raid > Coalition > Main > Main2 > Main3
     > OpsiMeowfficerFarming
     > GemsFarming
     > OpsiHazard1Leveling
@@ -41,7 +40,9 @@ class ManualConfig:
     """
     module.base
     """
+    COLOR_SIMILAR_THRESHOLD = 10
     BUTTON_OFFSET = 30
+    BUTTON_MATCH_SIMILARITY = 0.85
     WAIT_BEFORE_SAVING_SCREEN_SHOT = 1
 
     """
@@ -59,8 +60,7 @@ class ManualConfig:
     STAGE_ENTRANCE = ['normal']  # normal, blue, half
     # Set stage='TH' and run_count=100, to run TH1~TH5 in cycle
     STAGE_LOOP_ALIAS = {
-        ('event_20221124_cn', 'TH'): 'TH1 > TH2 > TH3 > TH4 > TH5',
-        ('event_20250724_cn', 'TS'): 'TS1 > TS2 > TS3 > TS4 > TS5',
+        ('event_20221124_cn', 'TH'): 'TH1 > TH2 > TH3 > TH4 > TH5'
     }
 
     """
@@ -98,7 +98,7 @@ class ManualConfig:
     """
     module.campaign.gems_farming
     """
-    GEMS_EMOTION_TRIGGERED = False
+    GEMS_EMOTION_TRIGGRED = False
 
     """
     module.handler
@@ -114,17 +114,7 @@ class ManualConfig:
     """
     module.map.fleet
     """
-    MAP_HAS_MODE_SWITCH = False  # event_20240725_cn has mode switch in map preparation
-    # Events from 20240725 to 20241219 introduced new chapter switches
-    MAP_CHAPTER_SWITCH_20241219 = False
-    MAP_CHAPTER_SWITCH_20241219_SP = False
-    # Since event_20241219_cn chapter B unlocks event startup
-    # which means chapter AB are continuous
-    STAGE_INCREASE_AB = False
-    # Insert anything to STAGE_INCREASE
-    STAGE_INCREASE_CUSTOM = ''
     MAP_HAS_CLEAR_PERCENTAGE = True
-    MAP_CLEAR_PERCENTAGE_SHORT = False
     MAP_HAS_WALK_SPEEDUP = False
     MAP_HAS_AMBUSH = True
     MAP_HAS_FLEET_STEP = False
@@ -150,8 +140,6 @@ class ManualConfig:
     MAP_ENEMY_GENRE_SIMILARITY = 0.85
     MAP_SIREN_MOVE_WAIT = 1.5  # The enemy moving takes about 1.2 ~ 1.5s.
     MAP_SIREN_COUNT = 0
-    MAP_SIREN_HAS_BOSS_ICON = False  # Anonymous siren with small boss icon at bottom-right
-    MAP_SIREN_HAS_BOSS_ICON_SMALL = False
     MAP_HAS_MYSTERY = True
     MAP_MYSTERY_MAP_CLICK = True
     MAP_MYSTERY_HAS_CARRIER = False
@@ -192,7 +180,7 @@ class ManualConfig:
     # Use the green arrow on current fleet to decide if fleet arrived a certain grid
     MAP_WALK_USE_CURRENT_FLEET = False
     # Optimize walk path, reducing ambushes
-    MAP_WALK_TURNING_OPTIMIZE = True
+    MAP_WALK_OPTIMIZE = True
     # Optimize swipe path, reducing swipes turn info clicks.
     MAP_SWIPE_OPTIMIZE = True
     # Swipe after boss appear. Could avoid map detection error when camera is on edge.
@@ -366,6 +354,7 @@ class ManualConfig:
     """
     DOCK_FULL_TRIGGERED = False
     GET_SHIP_TRIGGERED = False
+    RETIRE_KEEP_COMMON_CV = False
     COMMON_CV_THRESHOLD = 0.9
 
     """

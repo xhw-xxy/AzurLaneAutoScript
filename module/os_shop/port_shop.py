@@ -40,7 +40,7 @@ class PortShop(OSStatus, OSShopUI, Selector, MapEventHandler):
     def os_shop_items(self) -> ItemGrid:
         os_shop_items = ItemGrid(
             grids=None, templates={}, amount_area=(77, 77, 96, 96),
-            counter_area=(70, 167, 134, 186), price_area=(52, 132, 130, 165)
+            counter_area=(85, 170, 134, 186), price_area=(52, 132, 130, 165)
         )
         os_shop_items.load_template_folder('./assets/shop/os')
         os_shop_items.load_cost_template_folder('./assets/shop/os_cost')
@@ -127,7 +127,6 @@ class PortShop(OSStatus, OSShopUI, Selector, MapEventHandler):
         self.device.click_record.clear()
 
         for i in range(4):
-            logger.hr(f'OpsiShop scan {i}')
             self.os_shop_side_navbar_ensure(upper=i + 1)
             pre_pos, cur_pos = self.init_slider()
 
@@ -151,7 +150,7 @@ class PortShop(OSStatus, OSShopUI, Selector, MapEventHandler):
                     logger.info('OS shop reach bottom, stop')
                     break
                 else:
-                    OS_SHOP_SCROLL.next_page(main=self, page=0.5, skip_first_screenshot=False)
+                    OS_SHOP_SCROLL.next_page(main=self, page=0.5)
                     cur_pos = OS_SHOP_SCROLL.cal_position(main=self)
                     continue
             self.device.click_record.clear()

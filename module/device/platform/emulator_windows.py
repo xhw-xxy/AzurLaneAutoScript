@@ -119,7 +119,7 @@ class Emulator(EmulatorBase):
                 return cls.MuMuPlayerX
             else:
                 return cls.MuMuPlayer
-        if exe in ['mumuplayer.exe', 'mumunxmain.exe']:
+        if exe == 'mumuplayer.exe':
             return cls.MuMuPlayer12
         if exe == 'memu.exe':
             return cls.MEmuPlayer
@@ -127,7 +127,7 @@ class Emulator(EmulatorBase):
         return ''
 
     @staticmethod
-    def multi_to_single(exe: str):
+    def multi_to_single(exe):
         """
         Convert a string that might be a multi-instance manager to its single instance executable.
 
@@ -154,33 +154,6 @@ class Emulator(EmulatorBase):
             yield exe.replace('MEmuConsole.exe', 'MEmu.exe')
         else:
             yield exe
-
-    @staticmethod
-    def single_to_console(exe: str):
-        """
-        Convert a string that might be a single instance executable to its console.
-
-        Args:
-            exe (str): Path to emulator executable
-
-        Returns:
-            str: Path to emulator console
-        """
-        if 'MuMuPlayer.exe' in exe:
-            return exe.replace('MuMuPlayer.exe', 'MuMuManager.exe')
-        # MuMuPlayer12 5.0
-        elif 'MuMuPlayer.exe' in exe:
-            return exe.replace('MuMuNxMain.exe', 'MuMuManager.exe')
-        elif 'LDPlayer.exe' in exe:
-            return exe.replace('LDPlayer.exe', 'ldconsole.exe')
-        elif 'dnplayer.exe' in exe:
-            return exe.replace('dnplayer.exe', 'ldconsole.exe')
-        elif 'Bluestacks.exe' in exe:
-            return exe.replace('Bluestacks.exe', 'bsconsole.exe')
-        elif 'MEmu.exe' in exe:
-            return exe.replace('MEmu.exe', 'memuc.exe')
-        else:
-            return exe
 
     @staticmethod
     def vbox_file_to_serial(file: str) -> str:
@@ -251,7 +224,7 @@ class Emulator(EmulatorBase):
         elif self == Emulator.BlueStacks4:
             # ../Engine/Android
             regex = re.compile(r'^Android')
-            for folder in self.list_folder('./Engine/ProgramData/Engine', is_dir=True):
+            for folder in self.list_folder('../Engine', is_dir=True):
                 folder = os.path.basename(folder)
                 res = regex.match(folder)
                 if not res:
@@ -302,23 +275,12 @@ class Emulator(EmulatorBase):
             for folder in self.list_folder('../vms', is_dir=True):
                 for file in iter_folder(folder, ext='.nemu'):
                     serial = Emulator.vbox_file_to_serial(file)
-                    name = os.path.basename(folder)
                     if serial:
                         yield EmulatorInstance(
                             serial=serial,
-                            name=name,
+                            name=os.path.basename(folder),
                             path=self.path,
                         )
-                    # Fix for MuMu12 v4.0.4, default instance of which has no forward record in vbox config
-                    else:
-                        instance = EmulatorInstance(
-                            serial=serial,
-                            name=name,
-                            path=self.path,
-                        )
-                        if instance.MuMuPlayer12_id:
-                            instance.serial = f'127.0.0.1:{16384 + 32 * instance.MuMuPlayer12_id}'
-                            yield instance
         elif self == Emulator.MEmuPlayer:
             # ./MemuHyperv VMs/{name}/{name}.memu
             for folder in self.list_folder('./MemuHyperv VMs', is_dir=True):
@@ -464,9 +426,7 @@ class EmulatorManager(EmulatorManagerBase):
             'leidian9',
             'Nemu',
             'Nemu9',
-            'MuMuPlayer',
-            'MuMuPlayer-12.0',
-            'MuMu Player 12.0',
+            'MuMuPlayer-12.0'
             'MEmu',
         ]
         for path in known_uninstall_registry_path:
@@ -511,10 +471,9 @@ class EmulatorManager(EmulatorManagerBase):
             try:
                 exe = proc.cmdline()
                 exe = exe[0].replace(r'\\', '/').replace('\\', '/')
-            except (psutil.AccessDenied, psutil.NoSuchProcess, IndexError, OSError):
+            except (psutil.AccessDenied, psutil.NoSuchProcess, IndexError):
                 # psutil.AccessDenied
                 # NoSuchProcess: process no longer exists (pid=xxx)
-                # OSError: [WinError 87] 参数错误。: '(originated from ReadProcessMemory)'
                 continue
 
             if Emulator.is_emulator(exe):

@@ -4,13 +4,12 @@ from copy import deepcopy
 
 from cached_property import cached_property
 
-from deploy.utils import DEPLOY_TEMPLATE, poor_yaml_read, poor_yaml_write
+from deploy.Windows.utils import DEPLOY_TEMPLATE, poor_yaml_read, poor_yaml_write
 from module.base.timer import timer
-from module.config.deep import deep_default, deep_get, deep_iter, deep_pop, deep_set
 from module.config.env import IS_ON_PHONE_CLOUD
+from module.config.redirect_utils.utils import *
 from module.config.server import VALID_CHANNEL_PACKAGE, VALID_PACKAGE, VALID_SERVER_LIST, to_package, to_server
 from module.config.utils import *
-from module.config.redirect_utils.utils import *
 
 CONFIG_IMPORT = '''
 import datetime
@@ -31,13 +30,13 @@ ARCHIVES_PREFIX = {
     'tw': '檔案 '
 }
 MAINS = ['Main', 'Main2', 'Main3']
-EVENTS = ['Event', 'Event2', 'EventA', 'EventB', 'EventC', 'EventD', 'EventSp']
+EVENTS = ['Event', 'Event2', 'Event3', 'EventA', 'EventB', 'EventC', 'EventD', 'EventSp']
+EVENT_DAILY = ['EventA', 'EventB', 'EventC', 'EventD', 'EventSp']
 GEMS_FARMINGS = ['GemsFarming']
 RAIDS = ['Raid', 'RaidDaily']
 WAR_ARCHIVES = ['WarArchives']
 COALITIONS = ['Coalition', 'CoalitionSp']
 MARITIME_ESCORTS = ['MaritimeEscort']
-HOSPITAL = ['Hospital']
 
 
 class Event:
@@ -150,6 +149,15 @@ class ConfigGenerator:
         return read_file(filepath_argument('gui'))
 
     @cached_property
+    def dashboard(self):
+        """
+        <dashboard>
+          - <group>
+        """
+        return read_file(filepath_argument('dashboard'))
+
+
+    @cached_property
     @timer
     def args(self):
         """
@@ -163,10 +171,12 @@ class ConfigGenerator:
         """
         # Construct args
         data = {}
-        for path, groups in deep_iter(self.task, depth=3):
-            if 'tasks' not in path:
+        # Add dashboard to args
+        dashboard_and_task = {**self.task, **self.dashboard}
+        for path, groups in deep_iter(dashboard_and_task, depth=3):
+            if 'tasks' not in path and 'Dashboard' not in path:
                 continue
-            task = path[2]
+            task = path[2] if 'tasks' in path else path[0]
             # Add storage to all task
             groups.append('Storage')
             for group in groups:
@@ -384,39 +394,13 @@ class ConfigGenerator:
         Returns:
             list[Event]: From latest to oldest
         """
-
-        def calc_width(text):
-            return len(text) + len(re.findall(
-                r'[\u3000-\u30ff\u3400-\u4dbf\u4e00-\u9fff、！（）]', text))
-
-        lines = []
-        data_lines = []
-        data_widths = []
-        column_width = [4] * 7  # `:---`
         events = []
         with open('./campaign/Readme.md', encoding='utf-8') as f:
             for text in f.readlines():
-                if not re.search(r'^\|.+\|$', text):
-                    # not a table line
-                    lines.append(text)
-                elif re.search(r'^.*\-{3,}.*$', text):
-                    # is a delimiter line
-                    continue
-                else:
-                    line_entries = [x.strip() for x in text.strip('| \n').split('|')]
-                    data_lines.append(line_entries)
-                    data_width = [calc_width(string) for string in line_entries]
-                    data_widths.append(data_width)
-                    column_width = [max(l1, l2) for l1, l2 in zip(column_width, data_width)]
-                    if re.search(r'\d{8}', text):
-                        event = Event(text)
-                        events.append(event)
-        for i, (line, old_width) in enumerate(zip(data_lines, data_widths)):
-            lines.append('| ' + ' | '.join([cell + ' ' * (width - length) for cell, width, length in zip(line, column_width, old_width)]) + ' |\n')
-            if i == 0:
-                lines.append('| ' + ' | '.join([':' + '-' * (width - 1) for width in column_width]) + ' |\n')
-        with open('./campaign/Readme.md', 'w', encoding='utf-8') as f:
-            f.writelines(lines)
+                if re.search(r'\d{8}', text):
+                    event = Event(text)
+                    events.append(event)
+
         return events[::-1]
 
     def insert_event(self):
@@ -427,53 +411,53 @@ class ConfigGenerator:
                                   v
                    args.json -----+-----> args.json
         """
-        for server in ARCHIVES_PREFIX.keys():
-            for event in self.event:
+        for event in self.event:
+            for server in ARCHIVES_PREFIX.keys():
                 name = event.__getattribute__(server)
 
                 def insert(key):
-                    opts = deep_get(self.args, keys=f'{key}.Campaign.Event.option_{server}', default=[])
+                    opts = deep_get(self.args, keys=f'{key}.Campaign.Event.option')
                     if event not in opts:
                         opts.append(event)
-                    deep_set(self.args, keys=f'{key}.Campaign.Event.option_{server}', value=opts)
+                    if name:
+                        deep_default(self.args, keys=f'{key}.Campaign.Event.{server}', value=event)
 
                 if name:
                     if event.is_raid:
-                        if not hasattr(self, f'_{server}_latest_raid_date'):
-                            setattr(self, f'_{server}_latest_raid_date', int(event.date))
-                        if int(event.date) == getattr(self, f'_{server}_latest_raid_date'):
-                            for task in RAIDS:
-                                insert(task)
+                        for task in RAIDS:
+                            insert(task)
                     elif event.is_war_archives:
                         for task in WAR_ARCHIVES:
                             insert(task)
                     elif event.is_coalition:
-                        if not hasattr(self, f'_{server}_latest_coalition_date'):
-                            setattr(self, f'_{server}_latest_coalition_date', int(event.date))
-                        if int(event.date) == getattr(self, f'_{server}_latest_coalition_date'):
-                            for task in COALITIONS:
-                                insert(task)
+                        for task in COALITIONS:
+                            insert(task)
                     else:
-                        if not hasattr(self, f'_{server}_latest_event_date'):
-                            setattr(self, f'_{server}_latest_event_date', int(event.date))
-                        if int(event.date) == getattr(self, f'_{server}_latest_event_date'):
-                            for task in EVENTS + GEMS_FARMINGS:
-                                insert(task)
+                        for task in EVENTS + GEMS_FARMINGS:
+                            insert(task)
 
         for task in EVENTS + GEMS_FARMINGS + WAR_ARCHIVES + RAIDS + COALITIONS:
+            options = deep_get(self.args, keys=f'{task}.Campaign.Event.option')
+            # Remove campaign_main from event list
+            options = [option for option in options if option != 'campaign_main']
+            # Sort options
+            options = sorted(options)
+            deep_set(self.args, keys=f'{task}.Campaign.Event.option', value=options)
+            # Sort latest
             latest = {}
             for server in ARCHIVES_PREFIX.keys():
-                latest[server] = deep_get(self.args, keys=f'{task}.Campaign.Event.option_{server}', default=[])
-            options = set().union(*latest.values())
-            options = sorted([option for option in options if option != 'campaign_main'])
-            deep_set(self.args, keys=f'{task}.Campaign.Event.option', value=options)
+                latest[server] = deep_pop(self.args, keys=f'{task}.Campaign.Event.{server}', default='')
+            bold = sorted(set(latest.values()))
+            deep_set(self.args, keys=f'{task}.Campaign.Event.option_bold', value=bold)
+            for server, event in latest.items():
+                deep_set(self.args, keys=f'{task}.Campaign.Event.{server}', value=event)
 
     @staticmethod
     def generate_deploy_template():
         template = poor_yaml_read(DEPLOY_TEMPLATE)
         cn = {
             'Repository': 'git://git.lyoko.io/AzurLaneAutoScript',
-            'PypiMirror': 'https://mirrors.aliyun.com/pypi/simple',
+            'PypiMirror': 'https://pypi.tuna.tsinghua.edu.cn/simple',
             'Language': 'zh-CN',
         }
         aidlux = {
@@ -514,6 +498,22 @@ class ConfigGenerator:
         update('template-docker-cn', docker, cn)
         update('template-linux', linux)
         update('template-linux-cn', linux, cn)
+
+        tpl = {
+            'Repository': '{{repository}}',
+            'GitExecutable': '{{gitExecutable}}',
+            'PythonExecutable': '{{pythonExecutable}}',
+            'AdbExecutable': '{{adbExecutable}}',
+            'Language': '{{language}}',
+            'Theme': '{{theme}}',
+        }
+        def update(file, *args):
+            new = deepcopy(template)
+            for dic in args:
+                new.update(dic)
+            poor_yaml_write(data=new, file=file)
+
+        update('./webapp/packages/main/public/deploy.yaml.tpl', tpl)
 
     def insert_package(self):
         option = deep_get(self.argument, keys='Emulator.PackageName.option')
@@ -590,12 +590,7 @@ class ConfigUpdater:
         #  'GemsFarming.GemsFarming.ChangeVanguard',
         #  change_ship_redirect),
         # ('Alas.DropRecord.API', 'Alas.DropRecord.API', api_redirect2)
-        # 2025.04.17
-        # ('Coalition.Coalition.Mode', 'Coalition.Coalition.Mode', coalition_to_frostfall),
-        # 2025.06.26
-        ('Coalition.Coalition.Mode', 'Coalition.Coalition.Mode', coalition_to_little_academy),
     ]
-
     # redirection += [
     #     (
     #         (f'{task}.Emotion.CalculateEmotion', f'{task}.Emotion.IgnoreLowEmotionWarn'),
@@ -623,7 +618,8 @@ class ConfigUpdater:
         """
         new = {}
 
-        for keys, data in deep_iter(self.args, depth=3):
+        def deep_load(keys):
+            data = deep_get(self.args, keys=keys, default={})
             value = deep_get(old, keys=keys, default=data['value'])
             typ = data['type']
             display = data.get('display')
@@ -633,6 +629,9 @@ class ConfigUpdater:
             value = parse_value(value, data=data)
             deep_set(new, keys=keys, value=value)
 
+        for path, _ in deep_iter(self.args, depth=3):
+            deep_load(path)
+
         # AzurStatsID
         if is_template:
             deep_set(new, 'Alas.DropRecord.AzurStatsID', None)
@@ -641,24 +640,22 @@ class ConfigUpdater:
         # Update to latest event
         server = to_server(deep_get(new, 'Alas.Emulator.PackageName', 'cn'))
         if not is_template:
-            for task in EVENTS + RAIDS + COALITIONS:
-                opts = deep_get(self.args, keys=f'{task}.Campaign.Event.option_{server}', default=[])
-                if not deep_get(new, keys=f'{task}.Campaign.Event', default='campaign_main') in opts:
-                    deep_set(new,
-                             keys=f'{task}.Campaign.Event',
-                             value=opts[0])
-
+            # for task in EVENTS + RAIDS + COALITIONS:
+            for task in RAIDS + COALITIONS + EVENT_DAILY:
+                deep_set(new,
+                         keys=f'{task}.Campaign.Event',
+                         value=deep_get(self.args, f'{task}.Campaign.Event.{server}'))
             for task in ['GemsFarming']:
                 if deep_get(new, keys=f'{task}.Campaign.Event', default='campaign_main') != 'campaign_main':
                     deep_set(new,
                              keys=f'{task}.Campaign.Event',
-                             value=deep_get(self.args, f'{task}.Campaign.Event.option_{server}')[0])
+                             value=deep_get(self.args, f'{task}.Campaign.Event.{server}'))
         # War archive does not allow campaign_main
         for task in WAR_ARCHIVES:
             if deep_get(new, keys=f'{task}.Campaign.Event', default='campaign_main') == 'campaign_main':
                 deep_set(new,
                          keys=f'{task}.Campaign.Event',
-                         value=deep_get(self.args, f'{task}.Campaign.Event.option_{server}')[0])
+                         value=deep_get(self.args, f'{task}.Campaign.Event.{server}'))
 
         # Events does not allow default stage 12-4
         def default_stage(t, stage):
@@ -668,7 +665,7 @@ class ConfigUpdater:
         for task in EVENTS + WAR_ARCHIVES:
             default_stage(task, 'D3')
         for task in COALITIONS:
-            default_stage(task, 'hard')
+            default_stage(task, 'TC-3')
 
         if not is_template:
             new = self.config_redirect(old, new)

@@ -52,10 +52,20 @@ GemsFarming:
 Event:
   Campaign:
     Mode: normal
+#    Event:
+#      type: state
     AmbushEvade: true
 Event2:
   Campaign:
     Mode: normal
+#    Event:
+#      type: state
+    AmbushEvade: true
+Event3:
+  Campaign:
+    Mode: normal
+#    Event:
+#      display: disabled
     AmbushEvade: true
 EventA:
   Scheduler:
@@ -64,6 +74,8 @@ EventA:
     ServerUpdate: 00:00
   Campaign:
     Name: dynamic
+    Event:
+      type: state
     Mode: normal
     Use2xBook: false
     AmbushEvade: true
@@ -80,6 +92,8 @@ EventB:
     ServerUpdate: 00:00
   Campaign:
     Name: dynamic
+    Event:
+      type: state
     Mode: normal
     Use2xBook: false
     AmbushEvade: true
@@ -96,6 +110,8 @@ EventC:
     ServerUpdate: 00:00
   Campaign:
     Name: dynamic
+    Event:
+      type: state
     Mode: normal
     Use2xBook: false
     AmbushEvade: true
@@ -112,6 +128,8 @@ EventD:
     ServerUpdate: 00:00
   Campaign:
     Name: dynamic
+    Event:
+      type: state
     Mode: normal
     Use2xBook: false
     AmbushEvade: true
@@ -128,6 +146,8 @@ EventSp:
     ServerUpdate: 00:00
   Campaign:
     Name: sp
+    Event:
+      type: state
     Mode: normal
     Use2xBook: false
     AmbushEvade: true
@@ -142,6 +162,8 @@ EventSp:
 Raid:
   Campaign:
     Name: dynamic
+    Event:
+      type: state
     Mode: normal
     UseClearMode: true
     UseFleetLock: true
@@ -159,22 +181,6 @@ Raid:
     Fleet2Control: prevent_yellow_face
     Fleet2Recover: not_in_dormitory
     Fleet2Oath: false
-Hospital:
-  StopCondition:
-    RunCount: 0
-    MapAchievement: non_stop
-    StageIncrease: false
-    GetNewShip: false
-    ReachLevel: 0
-  Emotion:
-    Fleet1Control: prevent_yellow_face
-    Fleet1Recover: not_in_dormitory
-    Fleet1Oath: false
-    Fleet2Value: 119
-    Fleet2Record: 2020-01-01 00:00:00
-    Fleet2Control: prevent_yellow_face
-    Fleet2Recover: not_in_dormitory
-    Fleet2Oath: false
 RaidDaily:
   Scheduler:
     SuccessInterval: 30
@@ -182,6 +188,8 @@ RaidDaily:
     ServerUpdate: 00:00
   Campaign:
     Name: dynamic
+    Event:
+      type: state
     Mode: normal
     UseClearMode: true
     UseFleetLock: true
@@ -211,6 +219,8 @@ Coalition:
     FailureInterval: 30
     ServerUpdate: 00:00
   Campaign:
+    Event:
+      type: state
     Name: dynamic
     Mode: normal
     UseClearMode: true
@@ -218,9 +228,6 @@ Coalition:
     UseAutoSearch: false
     Use2xBook: false
     AmbushEvade: true
-  Coalition:
-    Mode:
-      option: [ easy, normal, hard, ex ]
   StopCondition:
     MapAchievement: non_stop
     StageIncrease: false
@@ -239,6 +246,8 @@ CoalitionSp:
     ServerUpdate: 00:00
   Campaign:
     Name: sp
+    Event:
+      type: state
     Mode: normal
     UseClearMode: true
     UseFleetLock: true
@@ -247,7 +256,7 @@ CoalitionSp:
     AmbushEvade: true
   Coalition:
     # CoalitionSp hard-codes Mode='sp'
-    Mode: sp
+    Mode: hard
   StopCondition:
     MapAchievement: non_stop
     StageIncrease: false
@@ -337,11 +346,6 @@ Freebies:
     SuccessInterval: 30
     FailureInterval: 30
     ServerUpdate: 00:00
-PrivateQuarters:
-  Scheduler:
-    SuccessInterval: 30
-    FailureInterval: 30
-    ServerUpdate: 00:00
 
 # ==================== Daily ====================
 
@@ -421,6 +425,9 @@ OpsiStronghold:
     SuccessInterval: 60
     FailureInterval: 60
     ServerUpdate: 00:00
+  OpsiFleet:
+    Fleet: 1
+    Submarine: true
 OpsiMeowfficerFarming:
   Scheduler:
     SuccessInterval: 30
@@ -434,12 +441,40 @@ OpsiHazard1Leveling:
   OpsiFleet:
     Submarine: false
 
-# ==================== Tool ====================
+# ==================== GGHandler ====================
+GGHandler:
+  Timeout:
+    value: 1200
+ChangeShip:
+  Timeout:
+    value: 90
+ChangeAttribute:
+  Timeout:
+    value: 600
 
-EventStory:
-  EventStory:
-    SkipBattle:
-      type: lock
-      value: true
-      option: [ true, ]
-      option_bold: [ true, ]
+# ==================== Dashboard ====================
+Dashboard:
+  Oil:
+    Color: ^000000
+  Coin:
+    Color: ^FFAA33
+  Gem:
+    Color: ^FF3333
+  Pt:
+    Color: ^00BFFF
+  YellowCoin:
+    Color: ^FF8800
+  PurpleCoin:
+    Color: ^7700BB
+  ActionPoint:
+    Color: ^0000FF
+  Merit:
+    Color: ^FFFF00
+  Cube:
+    Color: ^33FFFF
+  Core:
+    Color: ^AAAAAA
+  Medal:
+    Color: ^FFDD00
+  GuildCoin:
+    Color: ^AAAAAA

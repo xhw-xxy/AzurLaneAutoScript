@@ -74,16 +74,16 @@
       "name": "イベント海域-2",
       "help": ""
     },
+    "Event3": {
+      "name": "Task.Event3.name",
+      "help": "Task.Event3.help"
+    },
     "Raid": {
       "name": "Raid",
       "help": ""
     },
-    "Hospital": {
-      "name": "病院探訪",
-      "help": ""
-    },
     "Coalition": {
-      "name": "ネオンシティの探索者",
+      "name": "リトル学園",
       "help": ""
     },
     "MaritimeEscort": {
@@ -119,8 +119,8 @@
       "help": ""
     },
     "CoalitionSp": {
-      "name": "ネオンシティの探索者SP",
-      "help": ""
+      "name": "Task.CoalitionSp.name",
+      "help": "Task.CoalitionSp.help"
     },
     "Commission": {
       "name": "委託",
@@ -148,10 +148,6 @@
     },
     "Reward": {
       "name": "収穫",
-      "help": ""
-    },
-    "Awaken": {
-      "name": "Task.Awaken.name",
       "help": ""
     },
     "Daily": {
@@ -188,22 +184,18 @@
     },
     "Minigame": {
       "name": "Task.Minigame.name",
-      "help": ""
-    },
-    "PrivateQuarters": {
-      "name": "Task.PrivateQuarters.name",
-      "help": "Task.PrivateQuarters.help"
+      "help": "Task.Minigame.help"
     },
     "OpsiGeneral": {
       "name": "一般設定",
       "help": ""
     },
     "OpsiAshBeacon": {
-      "name": "META Battles",
+      "name": "Ash Beacon",
       "help": ""
     },
     "OpsiAshAssist": {
-      "name": "META Assists",
+      "name": "OpSi Ash Assist",
       "help": ""
     },
     "OpsiExplore": {
@@ -262,10 +254,6 @@
       "name": "セイレーン作戦半自動",
       "help": ""
     },
-    "EventStory": {
-      "name": "Event Story",
-      "help": ""
-    },
     "Benchmark": {
       "name": "機能テスト",
       "help": ""
@@ -277,6 +265,10 @@
     "GameManager": {
       "name": "Game Manager(WIP)",
       "help": ""
+    },
+    "SomethingSpecial": {
+      "name": "Task.SomethingSpecial.name",
+      "help": "Task.SomethingSpecial.help"
     }
   },
   "Scheduler": {
@@ -329,7 +321,6 @@
       "com.YoStarJP.AzurLane": "JP",
       "com.hkmanjuu.azurlane.gp": "TW",
       "com.bilibili.blhx.huawei": "CN com.bilibili.blhx.huawei",
-      "com.bilibili.blhx.honor": "CN com.bilibili.blhx.honor",
       "com.bilibili.blhx.mi": "CN com.bilibili.blhx.mi",
       "com.tencent.tmgp.bilibili.blhx": "CN com.tencent.tmgp.bilibili.blhx",
       "com.bilibili.blhx.baidu": "CN com.bilibili.blhx.baidu",
@@ -374,10 +365,6 @@
       "cn_android-21": "[国服] 莱茵河卫兵",
       "cn_android-22": "[国服] 北极光计划",
       "cn_android-23": "[国服] 长戟计划",
-      "cn_android-24": "[国服] 暴雨行动",
-      "cn_android-25": "[国服] 水仙行动",
-      "cn_android-26": "[国服] 冬月计划",
-      "cn_android-27": "[国服] 长弓计划",
       "cn_ios-0": "[国服] 夏威夷",
       "cn_ios-1": "[国服] 珊瑚海",
       "cn_ios-2": "[国服] 中途岛",
@@ -430,8 +417,8 @@
       "aScreenCap_nc": "aScreenCap_nc",
       "DroidCast": "DroidCast",
       "DroidCast_raw": "DroidCast_raw",
-      "nemu_ipc": "nemu_ipc",
-      "ldopengl": "ldopengl"
+      "scrcpy": "scrcpy",
+      "nemu_ipc": "nemu_ipc"
     },
     "ControlMethod": {
       "name": "Emulator.ControlMethod.name",
@@ -517,6 +504,22 @@
     "CombatScreenshotInterval": {
       "name": "Optimization.CombatScreenshotInterval.name",
       "help": "Optimization.CombatScreenshotInterval.help"
+    },
+    "ClickMaxRecord": {
+      "name": "Optimization.ClickMaxRecord.name",
+      "help": "Optimization.ClickMaxRecord.help"
+    },
+    "SingleButtonMaxCount": {
+      "name": "Optimization.SingleButtonMaxCount.name",
+      "help": "Optimization.SingleButtonMaxCount.help"
+    },
+    "MultiButtonMaxCount1": {
+      "name": "Optimization.MultiButtonMaxCount1.name",
+      "help": "Optimization.MultiButtonMaxCount1.help"
+    },
+    "MultiButtonMaxCount2": {
+      "name": "Optimization.MultiButtonMaxCount2.name",
+      "help": "Optimization.MultiButtonMaxCount2.help"
     },
     "TaskHoardingDuration": {
       "name": "Optimization.TaskHoardingDuration.name",
@@ -682,7 +685,6 @@
       "campaign_main": "campaign_main",
       "coalition_20230323": "星霜海嵐",
       "coalition_20240627": "リトル学園へようこそ",
-      "coalition_20250626": "ネオンシティの探索者",
       "event_20200227_cn": "凍絶の北海",
       "event_20200312_cn": "南洋に靡く硝煙（復刻）",
       "event_20200326_cn": "闇靄払う銀翼",
@@ -731,14 +733,14 @@
       "event_20220407_tw": "蒼紅的迴響(復刻)",
       "event_20220414_cn": "極夜照らす幻光（復刻）",
       "event_20220428_cn": "吟ずる瑠璃の楽章（復刻）",
-      "event_20220526_cn": "復刻诚閃の剣 搖光の城",
-      "event_20220728_cn": "鋼鷲の冒険譚（復刻）",
-      "event_20220818_cn": "結像点作戦（復刻）",
-      "event_20220915_cn": "赫の涙月 菫の暁風（復刻）",
-      "event_20221124_cn": "錬金術士と謎の遺跡群島（復刻）",
-      "event_20221222_cn": "積重なる事象の幻界（復刻）",
-      "event_20230223_cn": "黙示の遺構（復刻）",
-      "event_20230525_cn": "覆天せし万象の塵（復刻）",
+      "event_20220526_cn": "诚閃の剣 搖光の城",
+      "event_20220728_cn": "鋼鷲の冒険譚",
+      "event_20220818_cn": "結像点作戦",
+      "event_20220915_cn": "赫の涙月 菫の暁風",
+      "event_20221124_cn": "錬金術士と謎の遺跡群島",
+      "event_20221222_cn": "積重なる事象の幻界",
+      "event_20230223_cn": "黙示の遺構",
+      "event_20230525_cn": "覆天せし万象の塵",
       "event_20230803_cn": "燃ゆる聖都の回想曲",
       "event_20230817_cn": "愚者の天秤",
       "event_20230914_cn": "須臾望月抄",
@@ -748,18 +750,6 @@
       "event_20240229_cn": "銀界遊廻",
       "event_20240425_cn": "共鳴のパッション",
       "event_20240521_cn": "赫輝のマルティリウム",
-      "event_20240725_cn": "夢幻の間奏曲",
-      "event_20240815_cn": "錬翼空翔",
-      "event_20240829_cn": "徒花咲かす彼岸",
-      "event_20240912_cn": "絳染む丹華の詠歌",
-      "event_20241024_cn": "テンペスタと眠りし海",
-      "event_20241121_cn": "危険発明接近中",
-      "event_20241219_cn": "星降る夕影の残光",
-      "event_20250227_cn": "籠檻に囚われし神光",
-      "event_20250424_cn": "チュリッパの海へ",
-      "event_20250520_cn": "高い塔の薔薇",
-      "event_20250724_cn": "錬金術士と天空邂逅の塔",
-      "event_20250814_cn": "淵層界の秘密",
       "raid_20200624": "特別演習超空強襲波（復刻）",
       "raid_20210708": "交錯する新たな波 (復刻)",
       "raid_20220127": "秘密事件調査",
@@ -769,7 +759,6 @@
       "raid_20230629": "緑地伽話",
       "raid_20240130": "新春宴会狂騒曲",
       "raid_20240328": "ゼロから頑張る魔王討伐",
-      "raid_20250116": "新春華裳協奏曲",
       "war_archives_20180607_cn": "檔案 墨染まりし鋼の桜",
       "war_archives_20180726_cn": "檔案 光と影のアイリス",
       "war_archives_20181020_en": "檔案 努力希望と計画",
@@ -789,27 +778,17 @@
       "war_archives_20200820_cn": "檔案 黒鉄の楽章 誓いの海",
       "war_archives_20200903_cn": "檔案 輝ける峡湾の星",
       "war_archives_20200917_cn": "檔案 刹那觀る胡蝶の夢",
-      "war_archives_20201012_cn": "檔案 奔る彩帆の青",
       "war_archives_20201029_cn": "檔案 激唱のユニバース",
       "war_archives_20201229_cn": "檔案 虚畳なりし限象",
       "war_archives_20210225_cn": "檔案 暁射す氷華の嵐",
       "war_archives_20210325_cn": "檔案 開かれし紺碧の砂箱",
-      "war_archives_20210422_cn": "檔案 讃える復興の迷路",
       "war_archives_20210527_cn": "檔案 照らす螺旋の鏡海",
       "war_archives_20210624_cn": "檔案 翳りし満ちる影の華",
       "war_archives_20210819_cn": "檔案 闇靄払う銀翼",
-      "war_archives_20210916_cn": "檔案 駆けよ 碧海の吹き風",
       "war_archives_20211014_cn": "檔案 激奏のポラリス",
       "war_archives_20211028_cn": "檔案 神穹を衝く聖歌",
-      "war_archives_20211111_cn": "檔案 燈火のシニエ",
-      "war_archives_20211229_cn": "檔案 遡望せし虹彩の塔",
       "war_archives_20220210_cn": "檔案 凍絶の北海",
-      "war_archives_20220224_cn": "檔案 鳴動せし星霜の淵",
-      "war_archives_20220324_cn": "檔案 幻像の塔",
-      "war_archives_20220414_cn": "檔案 極夜照らす幻光",
-      "war_archives_20220428_cn": "檔案 吟ずる瑠璃の楽章",
-      "war_archives_20220526_cn": "檔案 诚閃の剣 搖光の城",
-      "war_archives_20220728_cn": "檔案 鋼鷲の冒険譚"
+      "war_archives_20220414_cn": "檔案 極夜照らす幻光"
     },
     "Mode": {
       "name": "Campaign.Mode.name",
@@ -1206,9 +1185,180 @@
       "cassin_or_downes": "GemsFarming.CommonDD.cassin_or_downes",
       "z20_or_z21": "GemsFarming.CommonDD.z20_or_z21"
     },
+    "ALLowLowVanguardLevel": {
+      "name": "GemsFarming.ALLowLowVanguardLevel.name",
+      "help": "GemsFarming.ALLowLowVanguardLevel.help"
+    },
+    "FleetNumberInHardMode": {
+      "name": "GemsFarming.FleetNumberInHardMode.name",
+      "help": "GemsFarming.FleetNumberInHardMode.help",
+      "0": "0",
+      "1": "1",
+      "2": "2"
+    },
+    "StopIFAutoNotEnsured": {
+      "name": "GemsFarming.StopIFAutoNotEnsured.name",
+      "help": "GemsFarming.StopIFAutoNotEnsured.help"
+    },
     "CommissionLimit": {
       "name": "GemsFarming.CommissionLimit.name",
       "help": "GemsFarming.CommissionLimit.help"
+    }
+  },
+  "FlagshipFilter": {
+    "_info": {
+      "name": "FlagshipFilter._info.name",
+      "help": "FlagshipFilter._info.help"
+    },
+    "Sort": {
+      "name": "FlagshipFilter.Sort.name",
+      "help": "FlagshipFilter.Sort.help",
+      "default": "default",
+      "rarity": "rarity",
+      "level": "level",
+      "total": "total",
+      "join": "join",
+      "intimacy": "intimacy",
+      "stat": "stat"
+    },
+    "Index": {
+      "name": "FlagshipFilter.Index.name",
+      "help": "FlagshipFilter.Index.help",
+      "default": "default",
+      "all": "all",
+      "vanguard": "vanguard",
+      "main": "main",
+      "dd": "dd",
+      "cl": "cl",
+      "ca": "ca",
+      "bb": "bb",
+      "cv": "cv",
+      "repair": "repair",
+      "ss": "ss",
+      "others": "others",
+      "not_available": "not_available"
+    },
+    "Faction": {
+      "name": "FlagshipFilter.Faction.name",
+      "help": "FlagshipFilter.Faction.help",
+      "default": "default",
+      "all": "all",
+      "eagle": "eagle",
+      "royal": "royal",
+      "sakura": "sakura",
+      "iron": "iron",
+      "dragon": "dragon",
+      "sardegna": "sardegna",
+      "northern": "northern",
+      "iris": "iris",
+      "vichya": "vichya",
+      "other": "other",
+      "not_available": "not_available"
+    },
+    "Rarity": {
+      "name": "FlagshipFilter.Rarity.name",
+      "help": "FlagshipFilter.Rarity.help",
+      "default": "default",
+      "all": "all",
+      "common": "common",
+      "rare": "rare",
+      "elite": "elite",
+      "super_rare": "super_rare",
+      "ultra": "ultra"
+    },
+    "Extra": {
+      "name": "FlagshipFilter.Extra.name",
+      "help": "FlagshipFilter.Extra.help",
+      "default": "default",
+      "no_limit": "no_limit",
+      "has_skin": "has_skin",
+      "can_retrofit": "can_retrofit",
+      "enhanceable": "enhanceable",
+      "can_limit_break": "can_limit_break",
+      "not_level_max": "not_level_max",
+      "can_awaken": "can_awaken",
+      "can_awaken_plus": "can_awaken_plus",
+      "special": "special",
+      "oath_skin": "oath_skin",
+      "not_available": "not_available"
+    }
+  },
+  "VanguardFilter": {
+    "_info": {
+      "name": "VanguardFilter._info.name",
+      "help": "VanguardFilter._info.help"
+    },
+    "Sort": {
+      "name": "VanguardFilter.Sort.name",
+      "help": "VanguardFilter.Sort.help",
+      "default": "default",
+      "rarity": "rarity",
+      "level": "level",
+      "total": "total",
+      "join": "join",
+      "intimacy": "intimacy",
+      "stat": "stat"
+    },
+    "Index": {
+      "name": "VanguardFilter.Index.name",
+      "help": "VanguardFilter.Index.help",
+      "default": "default",
+      "all": "all",
+      "vanguard": "vanguard",
+      "main": "main",
+      "dd": "dd",
+      "cl": "cl",
+      "ca": "ca",
+      "bb": "bb",
+      "cv": "cv",
+      "repair": "repair",
+      "ss": "ss",
+      "others": "others",
+      "not_available": "not_available"
+    },
+    "Faction": {
+      "name": "VanguardFilter.Faction.name",
+      "help": "VanguardFilter.Faction.help",
+      "default": "default",
+      "all": "all",
+      "eagle": "eagle",
+      "royal": "royal",
+      "sakura": "sakura",
+      "iron": "iron",
+      "dragon": "dragon",
+      "sardegna": "sardegna",
+      "northern": "northern",
+      "iris": "iris",
+      "vichya": "vichya",
+      "other": "other",
+      "not_available": "not_available"
+    },
+    "Rarity": {
+      "name": "VanguardFilter.Rarity.name",
+      "help": "VanguardFilter.Rarity.help",
+      "default": "default",
+      "all": "all",
+      "common": "common",
+      "rare": "rare",
+      "elite": "elite",
+      "super_rare": "super_rare",
+      "ultra": "ultra"
+    },
+    "Extra": {
+      "name": "VanguardFilter.Extra.name",
+      "help": "VanguardFilter.Extra.help",
+      "default": "default",
+      "no_limit": "no_limit",
+      "has_skin": "has_skin",
+      "can_retrofit": "can_retrofit",
+      "enhanceable": "enhanceable",
+      "can_limit_break": "can_limit_break",
+      "not_level_max": "not_level_max",
+      "can_awaken": "can_awaken",
+      "can_awaken_plus": "can_awaken_plus",
+      "special": "special",
+      "oath_skin": "oath_skin",
+      "not_available": "not_available"
     }
   },
   "EventGeneral": {
@@ -1288,16 +1438,6 @@
       "help": "RaidDaily.StageFilter.help"
     }
   },
-  "Hospital": {
-    "_info": {
-      "name": "Hospital._info.name",
-      "help": "Hospital._info.help"
-    },
-    "UseRecommendFleet": {
-      "name": "Hospital.UseRecommendFleet.name",
-      "help": "Hospital.UseRecommendFleet.help"
-    }
-  },
   "MaritimeEscort": {
     "_info": {
       "name": "MaritimeEscort._info.name",
@@ -1319,7 +1459,6 @@
       "easy": "easy",
       "normal": "normal",
       "hard": "hard",
-      "sp": "sp",
       "ex": "ex"
     },
     "Fleet": {
@@ -1449,18 +1588,12 @@
       "name": "Research.PresetFilter.name",
       "help": "Research.PresetFilter.help",
       "custom": "custom",
-      "series_8_blueprint_305": "Series 8 Blueprints+305",
-      "series_8_blueprint_only": "Series 8 Blueprints Only",
-      "series_8_305_only": "Series 8 305 Only",
-      "series_7_blueprint_la9": "Series 7 Blueprints+La9",
-      "series_7_blueprint_only": "Series 7 Blueprints Only",
-      "series_7_la9_only": "Series 7 La9 Only",
-      "series_6_blueprint_203": "Series 6 Blueprints+203",
-      "series_6_blueprint_only": "Series 6 Blueprints Only",
-      "series_6_203_only": "Series 6 203 Only",
-      "series_5_blueprint_152": "Series 5 Blueprints+152",
-      "series_5_blueprint_only": "Series 5 Blueprints Only",
-      "series_5_152_only": "Series 5 152 Only",
+      "series_6_blueprint_203": "series_6_blueprint_203",
+      "series_6_blueprint_only": "series_6_blueprint_only",
+      "series_6_203_only": "series_6_203_only",
+      "series_5_blueprint_152": "series_5_blueprint_152",
+      "series_5_blueprint_only": "series_5_blueprint_only",
+      "series_5_152_only": "series_5_152_only",
       "series_4_blueprint_tenrai": "Series 4 Blueprints+Tenrai",
       "series_4_blueprint_only": "Series 4 Blueprints Only",
       "series_4_tenrai_only": "Series 4 Tenrai Only",
@@ -1555,10 +1688,6 @@
     "EnhanceIndex": {
       "name": "MeowfficerTrain.EnhanceIndex.name",
       "help": "MeowfficerTrain.EnhanceIndex.help"
-    },
-    "MaxFeedLevel": {
-      "name": "レベル X 以上の猫を強化材料にしない",
-      "help": "X 値は1~30に制限します"
     }
   },
   "GuildLogistics": {
@@ -1633,22 +1762,6 @@
     "CollectWeeklyMission": {
       "name": "Reward.CollectWeeklyMission.name",
       "help": "Reward.CollectWeeklyMission.help"
-    }
-  },
-  "Awaken": {
-    "_info": {
-      "name": "Awaken._info.name",
-      "help": "Awaken._info.help"
-    },
-    "LevelCap": {
-      "name": "Awaken.LevelCap.name",
-      "help": "Awaken.LevelCap.help",
-      "level120": "level120",
-      "level125": "level125"
-    },
-    "Favourite": {
-      "name": "Awaken.Favourite.name",
-      "help": "Awaken.Favourite.help"
     }
   },
   "GeneralShop": {
@@ -1884,8 +1997,7 @@
       "name": "ShipyardDr.ResearchSeries.name",
       "help": "ShipyardDr.ResearchSeries.help",
       "2": "2",
-      "3": "3",
-      "4": "4"
+      "3": "3"
     },
     "ShipIndex": {
       "name": "ShipyardDr.ShipIndex.name",
@@ -1918,8 +2030,7 @@
       "1": "1",
       "2": "2",
       "3": "3",
-      "4": "4",
-      "5": "5"
+      "4": "4"
     },
     "ShipIndex": {
       "name": "Shipyard.ShipIndex.name",
@@ -2007,21 +2118,17 @@
       "name": "Mail._info.name",
       "help": "Mail._info.help"
     },
-    "ClaimMerit": {
-      "name": "Mail.ClaimMerit.name",
-      "help": "Mail.ClaimMerit.help"
+    "Collect": {
+      "name": "Mail.Collect.name",
+      "help": "Mail.Collect.help"
     },
-    "ClaimMaintenance": {
-      "name": "Mail.ClaimMaintenance.name",
-      "help": "Mail.ClaimMaintenance.help"
+    "Filter": {
+      "name": "Mail.Filter.name",
+      "help": "Mail.Filter.help"
     },
-    "ClaimTradeLicense": {
-      "name": "Mail.ClaimTradeLicense.name",
-      "help": "Mail.ClaimTradeLicense.help"
-    },
-    "DeleteCollected": {
-      "name": "Mail.DeleteCollected.name",
-      "help": "Mail.DeleteCollected.help"
+    "Delete": {
+      "name": "Mail.Delete.name",
+      "help": "Mail.Delete.help"
     }
   },
   "SupplyPack": {
@@ -2053,32 +2160,6 @@
     "Collect": {
       "name": "Minigame.Collect.name",
       "help": "Minigame.Collect.help"
-    }
-  },
-  "PrivateQuarters": {
-    "_info": {
-      "name": "PrivateQuarters._info.name",
-      "help": "PrivateQuarters._info.help"
-    },
-    "BuyRoses": {
-      "name": "PrivateQuarters.BuyRoses.name",
-      "help": "PrivateQuarters.BuyRoses.help"
-    },
-    "BuyCake": {
-      "name": "PrivateQuarters.BuyCake.name",
-      "help": "PrivateQuarters.BuyCake.help"
-    },
-    "TargetInteract": {
-      "name": "PrivateQuarters.TargetInteract.name",
-      "help": "PrivateQuarters.TargetInteract.help"
-    },
-    "TargetShip": {
-      "name": "PrivateQuarters.TargetShip.name",
-      "help": "PrivateQuarters.TargetShip.help",
-      "anchorage": "anchorage",
-      "noshiro": "noshiro",
-      "sirius": "sirius",
-      "new_jersey": "new_jersey"
     }
   },
   "Daily": {
@@ -2225,6 +2306,16 @@
     "_info": {
       "name": "Exercise._info.name",
       "help": "Exercise._info.help"
+    },
+    "DelayUntilHoursBeforeNextUpdate": {
+      "name": "Exercise.DelayUntilHoursBeforeNextUpdate.name",
+      "help": "Exercise.DelayUntilHoursBeforeNextUpdate.help",
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "12": "12"
     },
     "OpponentChooseMode": {
       "name": "Exercise.OpponentChooseMode.name",
@@ -2382,6 +2473,14 @@
       "3": "3",
       "4": "4"
     },
+    "FleetMode": {
+      "name": "OpsiFleet.FleetMode.name",
+      "help": "OpsiFleet.FleetMode.help",
+      "combat_auto": "combat_auto",
+      "combat_manual": "combat_manual",
+      "stand_still_in_the_middle": "stand_still_in_the_middle",
+      "hide_in_bottom_left": "hide_in_bottom_left"
+    },
     "Submarine": {
       "name": "OpsiFleet.Submarine.name",
       "help": "OpsiFleet.Submarine.help"
@@ -2409,6 +2508,13 @@
     "_info": {
       "name": "OpsiShop._info.name",
       "help": "OpsiShop._info.help"
+    },
+    "ScanFrequencyLimit": {
+      "name": "OpsiShop.ScanFrequencyLimit.name",
+      "help": "OpsiShop.ScanFrequencyLimit.help",
+      "everyday": "everyday",
+      "weekly": "weekly",
+      "everyday_of_week_before_reset": "everyday of week before reset"
     },
     "PresetFilter": {
       "name": "OpsiShop.PresetFilter.name",
@@ -2521,6 +2627,16 @@
       "help": "OpsiMeowfficerFarming.TargetZone.help"
     }
   },
+  "HigherPriority": {
+    "_info": {
+      "name": "HigherPriority._info.name",
+      "help": "HigherPriority._info.help"
+    },
+    "Enable": {
+      "name": "HigherPriority.Enable.name",
+      "help": "HigherPriority.Enable.help"
+    }
+  },
   "OpsiHazard1Leveling": {
     "_info": {
       "name": "OpsiHazard1Leveling._info.name",
@@ -2556,18 +2672,6 @@
     "SelectEnemy": {
       "name": "OpsiDaemon.SelectEnemy.name",
       "help": "OpsiDaemon.SelectEnemy.help"
-    }
-  },
-  "EventStory": {
-    "_info": {
-      "name": "EventStory._info.name",
-      "help": "EventStory._info.help"
-    },
-    "SkipBattle": {
-      "name": "EventStory.SkipBattle.name",
-      "help": "EventStory.SkipBattle.help",
-      "True": "True",
-      "False": "False"
     }
   },
   "Benchmark": {
@@ -2612,6 +2716,419 @@
       "help": "GameManager.AutoRestart.help"
     }
   },
+  "GGHandler": {
+    "_info": {
+      "name": "GGHandler._info.name",
+      "help": "GGHandler._info.help"
+    },
+    "Enabled": {
+      "name": "GGHandler.Enabled.name",
+      "help": "GGHandler.Enabled.help"
+    },
+    "GGMethod": {
+      "name": "GGHandler.GGMethod.name",
+      "help": "GGHandler.GGMethod.help",
+      "u2": "u2"
+    },
+    "RestartATX": {
+      "name": "GGHandler.RestartATX.name",
+      "help": "GGHandler.RestartATX.help"
+    },
+    "GGPackageName": {
+      "name": "GGHandler.GGPackageName.name",
+      "help": "GGHandler.GGPackageName.help"
+    },
+    "AutoRestartGG": {
+      "name": "GGHandler.AutoRestartGG.name",
+      "help": "GGHandler.AutoRestartGG.help"
+    },
+    "RestartEverytime": {
+      "name": "GGHandler.RestartEverytime.name",
+      "help": "GGHandler.RestartEverytime.help"
+    },
+    "RepushLua": {
+      "name": "GGHandler.RepushLua.name",
+      "help": "GGHandler.RepushLua.help"
+    },
+    "GGMultiplyingFactor": {
+      "name": "GGHandler.GGMultiplyingFactor.name",
+      "help": "GGHandler.GGMultiplyingFactor.help"
+    },
+    "Timeout": {
+      "name": "GGHandler.Timeout.name",
+      "help": "GGHandler.Timeout.help"
+    },
+    "DisabledTask": {
+      "name": "GGHandler.DisabledTask.name",
+      "help": "GGHandler.DisabledTask.help",
+      "disable_all_dangerous_task": "disable_all_dangerous_task",
+      "disable_guild_and_dangerous": "disable_guild_and_dangerous",
+      "disable_exercise": "disable_exercise",
+      "enable_all": "enable_all"
+    }
+  },
+  "PowerLimit": {
+    "_info": {
+      "name": "PowerLimit._info.name",
+      "help": "PowerLimit._info.help"
+    },
+    "Exercise": {
+      "name": "PowerLimit.Exercise.name",
+      "help": "PowerLimit.Exercise.help"
+    },
+    "Raid": {
+      "name": "PowerLimit.Raid.name",
+      "help": "PowerLimit.Raid.help"
+    },
+    "Ash": {
+      "name": "PowerLimit.Ash.name",
+      "help": "PowerLimit.Ash.help"
+    }
+  },
+  "ChangeShip": {
+    "_info": {
+      "name": "ChangeShip._info.name",
+      "help": "ChangeShip._info.help"
+    },
+    "Enable": {
+      "name": "ChangeShip.Enable.name",
+      "help": "ChangeShip.Enable.help"
+    },
+    "PushLua": {
+      "name": "ChangeShip.PushLua.name",
+      "help": "ChangeShip.PushLua.help"
+    },
+    "Timeout": {
+      "name": "ChangeShip.Timeout.name",
+      "help": "ChangeShip.Timeout.help"
+    },
+    "ShipData": {
+      "name": "ChangeShip.ShipData.name",
+      "help": "ChangeShip.ShipData.help"
+    }
+  },
+  "ChangeAttribute": {
+    "_info": {
+      "name": "ChangeAttribute._info.name",
+      "help": "ChangeAttribute._info.help"
+    },
+    "Enable": {
+      "name": "ChangeAttribute.Enable.name",
+      "help": "ChangeAttribute.Enable.help"
+    },
+    "PushLua": {
+      "name": "ChangeAttribute.PushLua.name",
+      "help": "ChangeAttribute.PushLua.help"
+    },
+    "Timeout": {
+      "name": "ChangeAttribute.Timeout.name",
+      "help": "ChangeAttribute.Timeout.help"
+    },
+    "ShipData": {
+      "name": "ChangeAttribute.ShipData.name",
+      "help": "ChangeAttribute.ShipData.help"
+    }
+  },
+  "InfiniteDelay": {
+    "_info": {
+      "name": "InfiniteDelay._info.name",
+      "help": "InfiniteDelay._info.help"
+    },
+    "Commission": {
+      "name": "InfiniteDelay.Commission.name",
+      "help": "InfiniteDelay.Commission.help"
+    },
+    "Research": {
+      "name": "InfiniteDelay.Research.name",
+      "help": "InfiniteDelay.Research.help"
+    },
+    "Reward": {
+      "name": "InfiniteDelay.Reward.name",
+      "help": "InfiniteDelay.Reward.help"
+    }
+  },
+  "TurnOffForcedOnSettings": {
+    "_info": {
+      "name": "TurnOffForcedOnSettings._info.name",
+      "help": "TurnOffForcedOnSettings._info.help"
+    },
+    "OpsiMeowfficerFarmingFromOpsiHazard1Leveling": {
+      "name": "TurnOffForcedOnSettings.OpsiMeowfficerFarmingFromOpsiHazard1Leveling.name",
+      "help": "TurnOffForcedOnSettings.OpsiMeowfficerFarmingFromOpsiHazard1Leveling.help"
+    },
+    "OpsiHazard1LevelingYellowCoinLimit": {
+      "name": "TurnOffForcedOnSettings.OpsiHazard1LevelingYellowCoinLimit.name",
+      "help": "TurnOffForcedOnSettings.OpsiHazard1LevelingYellowCoinLimit.help"
+    }
+  },
+  "Oil": {
+    "_info": {
+      "name": "Oil._info.name",
+      "help": "Oil._info.help"
+    },
+    "Value": {
+      "name": "Oil.Value.name",
+      "help": "Oil.Value.help"
+    },
+    "Limit": {
+      "name": "Oil.Limit.name",
+      "help": "Oil.Limit.help"
+    },
+    "Color": {
+      "name": "Oil.Color.name",
+      "help": "Oil.Color.help"
+    },
+    "Record": {
+      "name": "Oil.Record.name",
+      "help": "Oil.Record.help"
+    }
+  },
+  "Coin": {
+    "_info": {
+      "name": "Coin._info.name",
+      "help": "Coin._info.help"
+    },
+    "Value": {
+      "name": "Coin.Value.name",
+      "help": "Coin.Value.help"
+    },
+    "Limit": {
+      "name": "Coin.Limit.name",
+      "help": "Coin.Limit.help"
+    },
+    "Color": {
+      "name": "Coin.Color.name",
+      "help": "Coin.Color.help"
+    },
+    "Record": {
+      "name": "Coin.Record.name",
+      "help": "Coin.Record.help"
+    }
+  },
+  "Gem": {
+    "_info": {
+      "name": "Gem._info.name",
+      "help": "Gem._info.help"
+    },
+    "Value": {
+      "name": "Gem.Value.name",
+      "help": "Gem.Value.help"
+    },
+    "Color": {
+      "name": "Gem.Color.name",
+      "help": "Gem.Color.help"
+    },
+    "Record": {
+      "name": "Gem.Record.name",
+      "help": "Gem.Record.help"
+    }
+  },
+  "Pt": {
+    "_info": {
+      "name": "Pt._info.name",
+      "help": "Pt._info.help"
+    },
+    "Value": {
+      "name": "Pt.Value.name",
+      "help": "Pt.Value.help"
+    },
+    "Color": {
+      "name": "Pt.Color.name",
+      "help": "Pt.Color.help"
+    },
+    "Record": {
+      "name": "Pt.Record.name",
+      "help": "Pt.Record.help"
+    }
+  },
+  "YellowCoin": {
+    "_info": {
+      "name": "YellowCoin._info.name",
+      "help": "YellowCoin._info.help"
+    },
+    "Value": {
+      "name": "YellowCoin.Value.name",
+      "help": "YellowCoin.Value.help"
+    },
+    "Color": {
+      "name": "YellowCoin.Color.name",
+      "help": "YellowCoin.Color.help"
+    },
+    "Record": {
+      "name": "YellowCoin.Record.name",
+      "help": "YellowCoin.Record.help"
+    }
+  },
+  "PurpleCoin": {
+    "_info": {
+      "name": "PurpleCoin._info.name",
+      "help": "PurpleCoin._info.help"
+    },
+    "Value": {
+      "name": "PurpleCoin.Value.name",
+      "help": "PurpleCoin.Value.help"
+    },
+    "Color": {
+      "name": "PurpleCoin.Color.name",
+      "help": "PurpleCoin.Color.help"
+    },
+    "Record": {
+      "name": "PurpleCoin.Record.name",
+      "help": "PurpleCoin.Record.help"
+    }
+  },
+  "ActionPoint": {
+    "_info": {
+      "name": "ActionPoint._info.name",
+      "help": "ActionPoint._info.help"
+    },
+    "Value": {
+      "name": "ActionPoint.Value.name",
+      "help": "ActionPoint.Value.help"
+    },
+    "Total": {
+      "name": "ActionPoint.Total.name",
+      "help": "ActionPoint.Total.help"
+    },
+    "Color": {
+      "name": "ActionPoint.Color.name",
+      "help": "ActionPoint.Color.help"
+    },
+    "Record": {
+      "name": "ActionPoint.Record.name",
+      "help": "ActionPoint.Record.help"
+    }
+  },
+  "Merit": {
+    "_info": {
+      "name": "Merit._info.name",
+      "help": "Merit._info.help"
+    },
+    "Value": {
+      "name": "Merit.Value.name",
+      "help": "Merit.Value.help"
+    },
+    "Color": {
+      "name": "Merit.Color.name",
+      "help": "Merit.Color.help"
+    },
+    "Record": {
+      "name": "Merit.Record.name",
+      "help": "Merit.Record.help"
+    }
+  },
+  "Cube": {
+    "_info": {
+      "name": "Cube._info.name",
+      "help": "Cube._info.help"
+    },
+    "Value": {
+      "name": "Cube.Value.name",
+      "help": "Cube.Value.help"
+    },
+    "Color": {
+      "name": "Cube.Color.name",
+      "help": "Cube.Color.help"
+    },
+    "Record": {
+      "name": "Cube.Record.name",
+      "help": "Cube.Record.help"
+    }
+  },
+  "Core": {
+    "_info": {
+      "name": "Core._info.name",
+      "help": "Core._info.help"
+    },
+    "Value": {
+      "name": "Core.Value.name",
+      "help": "Core.Value.help"
+    },
+    "Color": {
+      "name": "Core.Color.name",
+      "help": "Core.Color.help"
+    },
+    "Record": {
+      "name": "Core.Record.name",
+      "help": "Core.Record.help"
+    }
+  },
+  "Medal": {
+    "_info": {
+      "name": "Medal._info.name",
+      "help": "Medal._info.help"
+    },
+    "Value": {
+      "name": "Medal.Value.name",
+      "help": "Medal.Value.help"
+    },
+    "Color": {
+      "name": "Medal.Color.name",
+      "help": "Medal.Color.help"
+    },
+    "Record": {
+      "name": "Medal.Record.name",
+      "help": "Medal.Record.help"
+    }
+  },
+  "GuildCoin": {
+    "_info": {
+      "name": "GuildCoin._info.name",
+      "help": "GuildCoin._info.help"
+    },
+    "Value": {
+      "name": "GuildCoin.Value.name",
+      "help": "GuildCoin.Value.help"
+    },
+    "Color": {
+      "name": "GuildCoin.Color.name",
+      "help": "GuildCoin.Color.help"
+    },
+    "Record": {
+      "name": "GuildCoin.Record.name",
+      "help": "GuildCoin.Record.help"
+    }
+  },
+  "AutoRestart": {
+    "_info": {
+      "name": "AutoRestart._info.name",
+      "help": "AutoRestart._info.help"
+    },
+    "Enabled": {
+      "name": "AutoRestart.Enabled.name",
+      "help": "AutoRestart.Enabled.help"
+    },
+    "AttemptsToRestart": {
+      "name": "AutoRestart.AttemptsToRestart.name",
+      "help": "AutoRestart.AttemptsToRestart.help"
+    },
+    "NotifyWhenAutoRestart": {
+      "name": "AutoRestart.NotifyWhenAutoRestart.name",
+      "help": "AutoRestart.NotifyWhenAutoRestart.help"
+    }
+  },
+  "InstanceRestart": {
+    "_info": {
+      "name": "InstanceRestart._info.name",
+      "help": "InstanceRestart._info.help"
+    },
+    "Enabled": {
+      "name": "InstanceRestart.Enabled.name",
+      "help": "InstanceRestart.Enabled.help"
+    },
+    "AttemptsToRestart": {
+      "name": "InstanceRestart.AttemptsToRestart.name",
+      "help": "InstanceRestart.AttemptsToRestart.help"
+    },
+    "NotifyWhenAutoRestart": {
+      "name": "InstanceRestart.NotifyWhenAutoRestart.name",
+      "help": "InstanceRestart.NotifyWhenAutoRestart.help"
+    },
+    "HasRestarted": {
+      "name": "InstanceRestart.HasRestarted.name",
+      "help": "InstanceRestart.HasRestarted.help"
+    }
+  },
   "Storage": {
     "_info": {
       "name": "Storage._info.name",
@@ -2636,12 +3153,17 @@
       "Stop": "中止",
       "ScrollON": "自動スクロール ON",
       "ScrollOFF": "自動スクロール OFF",
+      "DashboardON": "Gui.Button.DashboardON",
+      "DashboardOFF": "Gui.Button.DashboardOFF",
       "ClearLog": "ログクリーニング",
       "Setting": "設定",
       "CheckUpdate": "アップデータチェック",
       "ClickToUpdate": "アップデータ実行",
       "RetryUpdate": "アップデータ再試行",
-      "CancelUpdate": "アップデータ中止"
+      "CancelUpdate": "アップデータ中止",
+      "OneClickClear": "Gui.Button.OneClickClear",
+      "Confirm": "Gui.Button.Confirm",
+      "Cancel": "Gui.Button.Cancel"
     },
     "Toast": {
       "DisableTranslateMode": "クリックして翻訳モードを中止します",
@@ -2668,6 +3190,26 @@
     },
     "Overview": {
       "Scheduler": "スケジューラー",
+      "Dashboard": "Gui.Overview.Dashboard",
+      "SecondsAgo": "Seconds ago",
+      "MinutesAgo": "Minutes ago",
+      "HoursAgo": "Hours ago",
+      "DaysAgo": "Days ago",
+      "MonthsAgo": "Months ago",
+      "YearsAgo": "Years ago",
+      "NoData": "No data",
+      "Oil": "Oil",
+      "Coin": "Coin",
+      "Gem": "Gem",
+      "Cube": "Cube",
+      "Pt": "Event Pt",
+      "YellowCoin": "Operation Supply Coin",
+      "PurpleCoin": "Special Item Token",
+      "ActionPoint": "Action Point",
+      "Merit": "Merit",
+      "Medal": "Medal",
+      "Core": "Core Data",
+      "GuildCoin": "Guild Coin",
       "Log": "ログ",
       "Running": "実行中",
       "Pending": "隊列中",
@@ -2735,7 +3277,8 @@
       "InvalidFeedBack": "フォーマットエラー。 例：{0}",
       "Clear": "消除",
       "EnterPassword": "パスワードを入力してください",
-      "ChooseFile": "ファイルを選択してください"
+      "ChooseFile": "ファイルを選択してください",
+      "ClearAllTaskConfirm": "Gui.Text.ClearAllTaskConfirm"
     }
   }
 }

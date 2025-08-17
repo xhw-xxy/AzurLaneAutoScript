@@ -6,7 +6,8 @@ from module.config.utils import (get_nearest_weekday_date,
                                  get_os_next_reset,
                                  get_os_reset_remain,
                                  get_server_next_update,
-                                 DEFAULT_TIME)
+                                 DEFAULT_TIME,
+                                 deep_get)
 from module.exception import RequestHumanTakeover, GameStuckError, ScriptError
 from module.logger import logger
 from module.map.map_grids import SelectedGrids
@@ -217,7 +218,10 @@ class OperationSiren(OSMap):
             OpsiFleet_Fleet=self.config.cross_get('OpsiMeowfficerFarming.OpsiFleet.Fleet'),
             OpsiFleet_Submarine=False,
             OpsiMeowfficerFarming_ActionPointPreserve=0,
-            OpsiMeowfficerFarming_HazardLevel=3,
+            OpsiMeowfficerFarming_HazardLevel=
+            self.config.cross_get('OpsiMeowfficerFarming'
+                                  '.OpsiMeowfficerFarming'
+                                  '.HazardLevel'),
             OpsiMeowfficerFarming_TargetZone=0,
         )
         while True:
@@ -240,7 +244,7 @@ class OperationSiren(OSMap):
         If not having enough yellow coins or purple coins, skip buying supplies in next port.
         """
         logger.hr('OS port daily', level=1)
-        if not self.zone.is_azur_port:
+        if not self.is_in_azur_port(self.zone):
             self.globe_goto(self.zone_nearest_azur_port(self.zone))
 
         self.port_enter()
@@ -272,22 +276,29 @@ class OperationSiren(OSMap):
         Returns:
             datetime: The time of the next shop reset.
         """
+        frequency = self.config.OpsiShop_ScanFrequencyLimit
         next_reset = None
 
-        if not_empty:
+        if not_empty or frequency == 'everyday':
             next_reset = get_server_next_update(self.config.Scheduler_ServerUpdate)
         else:
             remain = get_os_reset_remain()
             next_reset = get_os_next_reset()
-            if remain == 0:
-                next_reset = get_server_next_update(self.config.Scheduler_ServerUpdate)
-            elif remain < 7:
-                next_reset = next_reset - timedelta(days=1)
-            else:
-                next_reset = (
-                    get_server_next_update(self.config.Scheduler_ServerUpdate) +
-                    timedelta(days=6)
-                )
+            if frequency == 'weekly':
+                if remain == 0:
+                    next_reset = get_server_next_update(self.config.Scheduler_ServerUpdate)
+                elif remain < 7:
+                    next_reset = next_reset - timedelta(days=1)
+                else:
+                    next_reset = (
+                        get_server_next_update(self.config.Scheduler_ServerUpdate) +
+                        timedelta(days=6)
+                    )
+            elif frequency == 'week_before_reset':
+                if remain < 7:
+                    next_reset = get_server_next_update(self.config.Scheduler_ServerUpdate)
+                else:
+                    next_reset = next_reset - timedelta(days=7)
         return next_reset
 
     def _os_voucher_enter(self):
@@ -380,13 +391,14 @@ class OperationSiren(OSMap):
                     raise RequestHumanTakeover('wrong input, task stopped')
                 else:
                     logger.hr(f'OS meowfficer farming, zone_id={zone.zone_id}', level=1)
-                    self.globe_goto(zone, refresh=True)
+                    self.globe_goto(zone)
                     self.fleet_set(self.config.OpsiFleet_Fleet)
                     self.os_order_execute(
                         recon_scan=False,
                         submarine_call=self.config.OpsiFleet_Submarine)
                     self.run_auto_search()
-                    self.handle_after_auto_search()
+                    if not self.handle_after_auto_search():
+                        self.globe_goto(self.zone_nearest_azur_port(zone=zone))
                     self.config.check_task_switch()
             else:
                 zones = self.zone_select(hazard_level=self.config.OpsiMeowfficerFarming_HazardLevel) \
@@ -411,8 +423,12 @@ class OperationSiren(OSMap):
             OpsiGeneral_DoRandomMapEvent=True,
             OpsiGeneral_AkashiShopFilter='ActionPoint',
         )
-        if not self.config.is_task_enabled('OpsiMeowfficerFarming'):
-            self.config.cross_set(keys='OpsiMeowfficerFarming.Scheduler.Enable', value=True)
+        IsDisableOpsiMeowfficerFarming = deep_get(self.config.data, "SomethingSpecial.TurnOffForcedOnSettings.OpsiMeowfficerFarmingFromOpsiHazard1Leveling")
+        if not IsDisableOpsiMeowfficerFarming:
+            if not self.config.is_task_enabled('OpsiMeowfficerFarming'):
+                self.config.cross_set(keys='OpsiMeowfficerFarming.Scheduler.Enable', value=True)
+        else:
+            logger.warning(f"Disable OpsiMeowfficerFarming that is set from OpsiHazard1Leveling : {IsDisableOpsiMeowfficerFarming}")
         while True:
             # Limited action point preserve of hazard 1 to 200
             self.config.OS_ACTION_POINT_PRESERVE = 200
@@ -423,13 +439,17 @@ class OperationSiren(OSMap):
                 self.config.OS_ACTION_POINT_PRESERVE = 0
             logger.attr('OS_ACTION_POINT_PRESERVE', self.config.OS_ACTION_POINT_PRESERVE)
 
-            if self.get_yellow_coins() < self.config.OS_CL1_YELLOW_COINS_PRESERVE:
-                logger.info(f'Reach the limit of yellow coins, preserve={self.config.OS_CL1_YELLOW_COINS_PRESERVE}')
-                with self.config.multi_set():
-                    self.config.task_delay(server_update=True)
-                    if not self.is_in_opsi_explore():
-                        self.config.task_call('OpsiMeowfficerFarming')
-                self.config.task_stop()
+            IsDisableOpsiHazard1LevelingYellowCoinLimit = deep_get(self.config.data, "SomethingSpecial.TurnOffForcedOnSettings.OpsiHazard1LevelingYellowCoinLimit")
+            if not IsDisableOpsiHazard1LevelingYellowCoinLimit:
+                if self.get_yellow_coins() < self.config.OS_CL1_YELLOW_COINS_PRESERVE:
+                    logger.info(f'Reach the limit of yellow coins, preserve={self.config.OS_CL1_YELLOW_COINS_PRESERVE}')
+                    with self.config.multi_set():
+                        self.config.task_delay(server_update=True)
+                        if not self.is_in_opsi_explore():
+                            self.config.task_call('OpsiMeowfficerFarming')
+                    self.config.task_stop()
+            else:
+                logger.warning(f"Disable OpsiHazard1Leveling yellow coin limit : {IsDisableOpsiHazard1LevelingYellowCoinLimit}")
 
             self.get_current_zone()
 
@@ -439,7 +459,7 @@ class OperationSiren(OSMap):
             if self.config.OpsiGeneral_BuyActionPointLimit > 0:
                 keep_current_ap = False
             self.action_point_set(cost=70, keep_current_ap=keep_current_ap, check_rest_ap=True)
-            if self._action_point_total >= 3000:
+            if self._action_point_total >= 3000 and not IsDisableOpsiMeowfficerFarming:
                 with self.config.multi_set():
                     self.config.task_delay(server_update=True)
                     if not self.is_in_opsi_explore():
@@ -467,20 +487,16 @@ class OperationSiren(OSMap):
         with self.config.multi_set():
             next_run = self.config.Scheduler_NextRun
             for task in ['OpsiObscure', 'OpsiAbyssal', 'OpsiArchive', 'OpsiStronghold', 'OpsiMeowfficerFarming',
-                         'OpsiMonthBoss', 'OpsiShop', 'OpsiHazard1Leveling']:
+                         'OpsiMonthBoss', 'OpsiShop']:
                 keys = f'{task}.Scheduler.NextRun'
                 current = self.config.cross_get(keys=keys, default=DEFAULT_TIME)
                 if current < next_run:
                     logger.info(f'Delay task `{task}` to {next_run}')
                     self.config.cross_set(keys=keys, value=next_run)
 
-    # List of failed zone id
-    _os_explore_failed_zone = []
-
     def _os_explore(self):
         """
         Explore all dangerous zones at the beginning of month.
-        Failed zone id will be set to _os_explore_failed_zone
         """
 
         def end():
@@ -517,15 +533,12 @@ class OperationSiren(OSMap):
             end()
 
         # Run
-        self._os_explore_failed_zone = []
         for zone in order:
-            # Check if zone already unlock safe zone
             if not self.globe_goto(zone, stop_if_safe=True):
                 logger.info(f'Zone cleared: {self.name_to_zone(zone)}')
                 self.config.OpsiExplore_LastZone = zone
                 continue
 
-            # Run zone
             logger.hr(f'OS explore {zone}', level=1)
             if not self.config.OpsiExplore_SpecialRadar:
                 # Special radar gives 90 turning samples,
@@ -536,17 +549,11 @@ class OperationSiren(OSMap):
                 recon_scan=not self.config.OpsiExplore_SpecialRadar,
                 submarine_call=self.config.OpsiFleet_Submarine)
             self._os_explore_task_delay()
-
-            finished_combat = self.run_auto_search()
+            self.run_auto_search()
             self.config.OpsiExplore_LastZone = zone
             logger.info(f'Zone cleared: {self.name_to_zone(zone)}')
-            if finished_combat == 0:
-                logger.warning('Zone cleared but did not finish any combat')
-                self._os_explore_failed_zone.append(zone)
             self.handle_after_auto_search()
             self.config.check_task_switch()
-
-            # Reached end
             if zone == order[-1]:
                 end()
 
@@ -559,9 +566,6 @@ class OperationSiren(OSMap):
                 self.config.OpsiExplore_LastZone = 0
                 self.globe_goto(0)
 
-        failed_zone = [self.name_to_zone(zone) for zone in self._os_explore_failed_zone]
-        logger.error(f'OpsiExplore failed at these zones, please check you game settings '
-                     f'and check if there is any unfinished event in them: {failed_zone}')
         logger.critical('Failed to solve the locked zone')
         raise GameStuckError
 

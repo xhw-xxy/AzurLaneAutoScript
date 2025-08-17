@@ -74,16 +74,16 @@
       "name": "Event-2",
       "help": ""
     },
+    "Event3": {
+      "name": "Task.Event3.name",
+      "help": "Task.Event3.help"
+    },
     "Raid": {
       "name": "Raid",
       "help": ""
     },
-    "Hospital": {
-      "name": "Valley Hospital",
-      "help": ""
-    },
     "Coalition": {
-      "name": "Neon City Investigator",
+      "name": "Little Academy",
       "help": ""
     },
     "MaritimeEscort": {
@@ -119,7 +119,7 @@
       "help": ""
     },
     "CoalitionSp": {
-      "name": "Neon City Investigator SP",
+      "name": "Little Academy SP",
       "help": ""
     },
     "Commission": {
@@ -148,10 +148,6 @@
     },
     "Reward": {
       "name": "Reward",
-      "help": ""
-    },
-    "Awaken": {
-      "name": "Awaken",
       "help": ""
     },
     "Daily": {
@@ -190,20 +186,16 @@
       "name": "Minigame",
       "help": "Receive credits and spend them"
     },
-    "PrivateQuarters": {
-      "name": "Private Quarters",
-      "help": ""
-    },
     "OpsiGeneral": {
       "name": "OpSi General",
       "help": ""
     },
     "OpsiAshBeacon": {
-      "name": "META Battles",
+      "name": "Ash Beacon",
       "help": ""
     },
     "OpsiAshAssist": {
-      "name": "META Assists",
+      "name": "OpSi Ash Assist",
       "help": ""
     },
     "OpsiExplore": {
@@ -262,10 +254,6 @@
       "name": "OpSi Semi-auto",
       "help": ""
     },
-    "EventStory": {
-      "name": "Event Story",
-      "help": ""
-    },
     "Benchmark": {
       "name": "Performance Test",
       "help": ""
@@ -277,6 +265,10 @@
     "GameManager": {
       "name": "Game Manager(WIP)",
       "help": ""
+    },
+    "SomethingSpecial": {
+      "name": "Task.SomethingSpecial.name",
+      "help": "Task.SomethingSpecial.help"
     }
   },
   "Scheduler": {
@@ -292,7 +284,7 @@
     },
     "NextRun": {
       "name": "Next Run",
-      "help": "Updated automatically after completing the task to set next scheduled run, typically not manually modified\nHowever you can force immediate scheduling if text field cleared"
+      "help": "Updated automatically after completing the task to set next scheduled run, typically not manually modified\nHowever you can force immediate scheduling if you clear this text field"
     },
     "Command": {
       "name": "Command",
@@ -329,7 +321,6 @@
       "com.YoStarJP.AzurLane": "JP",
       "com.hkmanjuu.azurlane.gp": "TW",
       "com.bilibili.blhx.huawei": "CN com.bilibili.blhx.huawei",
-      "com.bilibili.blhx.honor": "CN com.bilibili.blhx.honor",
       "com.bilibili.blhx.mi": "CN com.bilibili.blhx.mi",
       "com.tencent.tmgp.bilibili.blhx": "CN com.tencent.tmgp.bilibili.blhx",
       "com.bilibili.blhx.baidu": "CN com.bilibili.blhx.baidu",
@@ -374,10 +365,6 @@
       "cn_android-21": "[国服] 莱茵河卫兵",
       "cn_android-22": "[国服] 北极光计划",
       "cn_android-23": "[国服] 长戟计划",
-      "cn_android-24": "[国服] 暴雨行动",
-      "cn_android-25": "[国服] 水仙行动",
-      "cn_android-26": "[国服] 冬月计划",
-      "cn_android-27": "[国服] 长弓计划",
       "cn_ios-0": "[国服] 夏威夷",
       "cn_ios-1": "[国服] 珊瑚海",
       "cn_ios-2": "[国服] 中途岛",
@@ -430,8 +417,8 @@
       "aScreenCap_nc": "aScreenCap_nc",
       "DroidCast": "DroidCast",
       "DroidCast_raw": "DroidCast_raw",
-      "nemu_ipc": "nemu_ipc",
-      "ldopengl": "ldopengl"
+      "scrcpy": "scrcpy",
+      "nemu_ipc": "nemu_ipc"
     },
     "ControlMethod": {
       "name": "Control Method",
@@ -517,6 +504,22 @@
     "CombatScreenshotInterval": {
       "name": "Take Screenshots Every X Second(s) In Combat",
       "help": "Minimum interval between 2 screenshots, limited in 0.3 ~ 1.0, can help reduce CPU during battle"
+    },
+    "ClickMaxRecord": {
+      "name": "Optimization.ClickMaxRecord.name",
+      "help": "Optimization.ClickMaxRecord.help"
+    },
+    "SingleButtonMaxCount": {
+      "name": "Optimization.SingleButtonMaxCount.name",
+      "help": "Optimization.SingleButtonMaxCount.help"
+    },
+    "MultiButtonMaxCount1": {
+      "name": "Optimization.MultiButtonMaxCount1.name",
+      "help": "Optimization.MultiButtonMaxCount1.help"
+    },
+    "MultiButtonMaxCount2": {
+      "name": "Optimization.MultiButtonMaxCount2.name",
+      "help": "Optimization.MultiButtonMaxCount2.help"
     },
     "TaskHoardingDuration": {
       "name": "Hoard Tasks For X Minute(s)",
@@ -682,7 +685,6 @@
       "campaign_main": "campaign_main",
       "coalition_20230323": "Frostfall",
       "coalition_20240627": "Welcome to Little Academy",
-      "coalition_20250626": "The Neon City Investigator",
       "event_20200227_cn": "Northern Overture",
       "event_20200312_cn": "The Solomon Ranger Rerun",
       "event_20200326_cn": "Microlayer Medley",
@@ -731,14 +733,14 @@
       "event_20220407_tw": "蒼紅的迴響(復刻)",
       "event_20220414_cn": "Aurora Noctis Rerun",
       "event_20220428_cn": "Rondo at Rainbows End Rerun",
-      "event_20220526_cn": "Pledge of the Radiant Court Rerun",
-      "event_20220728_cn": "Aquilifers Ballade Rerun",
-      "event_20220818_cn": "Operation Convergence Return",
-      "event_20220915_cn": "Violet Tempest Blooming Lycoris Rerun",
-      "event_20221124_cn": "The Alchemist and the Archipelago of Secrets Rerun",
-      "event_20221222_cn": "Parallel Superimposition Rerun",
-      "event_20230223_cn": "Revelations of Dust Rerun",
-      "event_20230525_cn": "Confluence of Nothingness Rerun",
+      "event_20220526_cn": "Pledge of the Radiant Court",
+      "event_20220728_cn": "Aquilifers Ballade",
+      "event_20220818_cn": "Operation Convergence",
+      "event_20220915_cn": "Violet Tempest Blooming Lycoris",
+      "event_20221124_cn": "The Alchemist and the Archipelago of Secrets",
+      "event_20221222_cn": "Parallel Superimposition",
+      "event_20230223_cn": "Revelations of Dust",
+      "event_20230525_cn": "Confluence of Nothingness",
       "event_20230803_cn": "Anthem of Remembrance",
       "event_20230817_cn": "The Fools Scales",
       "event_20230914_cn": "Effulgence Before Eclipse",
@@ -748,18 +750,6 @@
       "event_20240229_cn": "Snowrealm Peregrination",
       "event_20240425_cn": "Heart-Linking Harmony",
       "event_20240521_cn": "Light of the Martyrium",
-      "event_20240725_cn": "Interlude of Illusions",
-      "event_20240815_cn": "Windborne Steel Wings",
-      "event_20240829_cn": "Whence Flowers Bear No Fruit",
-      "event_20240912_cn": "Ode of Everblooming Crimson",
-      "event_20241024_cn": "Tempesta and the Sleeping Sea",
-      "event_20241121_cn": "Dangerous Inventions Incoming",
-      "event_20241219_cn": "Substellar Crepuscule",
-      "event_20250227_cn": "Paradiso of Shackled Light",
-      "event_20250424_cn": "Toward Tulipa’s Seas",
-      "event_20250520_cn": "A Rose on the High Tower",
-      "event_20250724_cn": "The Alchemist and the Tower of Horizons",
-      "event_20250814_cn": "Secrets of the Abyss",
       "raid_20200624": "Air Raid Drills with Essex Rerun",
       "raid_20210708": "Cross Wave rerun",
       "raid_20220127": "Mystery Investigation",
@@ -769,7 +759,6 @@
       "raid_20230629": "Reflections of the Oasis",
       "raid_20240130": "Spring Festive Fiasco",
       "raid_20240328": "From Zero to Hero",
-      "raid_20250116": "Spring Fashion Festa",
       "war_archives_20180607_cn": "archives Ink Stained Steel Sakura",
       "war_archives_20180726_cn": "archives Iris of Light and Dark",
       "war_archives_20181020_en": "archives Strive Wish and Strategize",
@@ -789,27 +778,17 @@
       "war_archives_20200820_cn": "archives Scherzo of Iron and Blood",
       "war_archives_20200903_cn": "archives Stars of the Shimmering Fjord",
       "war_archives_20200917_cn": "archives Dreamwakers Butterfly",
-      "war_archives_20201012_cn": "archives Sundered Blue",
       "war_archives_20201029_cn": "archives Universe in Unison",
       "war_archives_20201229_cn": "archives Inverted Orthant",
       "war_archives_20210225_cn": "archives Khorovod of Dawns Rime",
       "war_archives_20210325_cn": "archives Ashen Simulacrum",
-      "war_archives_20210422_cn": "archives Daedalian Hymn",
       "war_archives_20210527_cn": "archives Mirror Involution",
       "war_archives_20210624_cn": "archives Swirling Cherry Blossoms",
       "war_archives_20210819_cn": "archives Microlayer Medley",
-      "war_archives_20210916_cn": "archives Upon the Shimmering Blue",
       "war_archives_20211014_cn": "archives Crescendo of Polaris",
       "war_archives_20211028_cn": "archives Skybound Oratorio",
-      "war_archives_20211111_cn": "archives The Flame-Touched Dagger",
-      "war_archives_20211229_cn": "archives Tower of Transcendence",
       "war_archives_20220210_cn": "archives Northern Overture",
-      "war_archives_20220224_cn": "archives Abyssal Refrain",
-      "war_archives_20220324_cn": "archives Virtual Tower",
-      "war_archives_20220414_cn": "archives Aurora Noctis",
-      "war_archives_20220428_cn": "archives Rondo at Rainbows End",
-      "war_archives_20220526_cn": "archives Pledge of the Radiant Court",
-      "war_archives_20220728_cn": "archives Aquilifers Ballade"
+      "war_archives_20220414_cn": "archives Aurora Noctis"
     },
     "Mode": {
       "name": "Level Mode",
@@ -1206,9 +1185,180 @@
       "cassin_or_downes": "Cassin or Downes",
       "z20_or_z21": "Z20 or Z21"
     },
+    "ALLowLowVanguardLevel": {
+      "name": "ALLow Low Vanguard Level",
+      "help": "Destroyers over level 10 will now be used, 49 for Event CD"
+    },
+    "FleetNumberInHardMode": {
+      "name": "Fleet number used in hard mode",
+      "help": "Fleet number used in hard mode like Event C/D",
+      "0": "Not a hard mode",
+      "1": "Fleet 1",
+      "2": "Fleet 2"
+    },
+    "StopIFAutoNotEnsured": {
+      "name": "GemsFarming.StopIFAutoNotEnsured.name",
+      "help": "GemsFarming.StopIFAutoNotEnsured.help"
+    },
     "CommissionLimit": {
       "name": "Prevent Too Many Urgent Commissions",
       "help": "When running 7x24, prevent having a lot of urgent commissions and not being able to complete daily commissions. It is recommended to select only short-terms and high-yields in the commission filter"
+    }
+  },
+  "FlagshipFilter": {
+    "_info": {
+      "name": "FlagshipFilter._info.name",
+      "help": "FlagshipFilter._info.help"
+    },
+    "Sort": {
+      "name": "FlagshipFilter.Sort.name",
+      "help": "FlagshipFilter.Sort.help",
+      "default": "default",
+      "rarity": "rarity",
+      "level": "level",
+      "total": "total",
+      "join": "join",
+      "intimacy": "intimacy",
+      "stat": "stat"
+    },
+    "Index": {
+      "name": "FlagshipFilter.Index.name",
+      "help": "FlagshipFilter.Index.help",
+      "default": "default",
+      "all": "all",
+      "vanguard": "vanguard",
+      "main": "main",
+      "dd": "dd",
+      "cl": "cl",
+      "ca": "ca",
+      "bb": "bb",
+      "cv": "cv",
+      "repair": "repair",
+      "ss": "ss",
+      "others": "others",
+      "not_available": "not_available"
+    },
+    "Faction": {
+      "name": "FlagshipFilter.Faction.name",
+      "help": "FlagshipFilter.Faction.help",
+      "default": "default",
+      "all": "all",
+      "eagle": "eagle",
+      "royal": "royal",
+      "sakura": "sakura",
+      "iron": "iron",
+      "dragon": "dragon",
+      "sardegna": "sardegna",
+      "northern": "northern",
+      "iris": "iris",
+      "vichya": "vichya",
+      "other": "other",
+      "not_available": "not_available"
+    },
+    "Rarity": {
+      "name": "FlagshipFilter.Rarity.name",
+      "help": "FlagshipFilter.Rarity.help",
+      "default": "default",
+      "all": "all",
+      "common": "common",
+      "rare": "rare",
+      "elite": "elite",
+      "super_rare": "super_rare",
+      "ultra": "ultra"
+    },
+    "Extra": {
+      "name": "FlagshipFilter.Extra.name",
+      "help": "FlagshipFilter.Extra.help",
+      "default": "default",
+      "no_limit": "no_limit",
+      "has_skin": "has_skin",
+      "can_retrofit": "can_retrofit",
+      "enhanceable": "enhanceable",
+      "can_limit_break": "can_limit_break",
+      "not_level_max": "not_level_max",
+      "can_awaken": "can_awaken",
+      "can_awaken_plus": "can_awaken_plus",
+      "special": "special",
+      "oath_skin": "oath_skin",
+      "not_available": "not_available"
+    }
+  },
+  "VanguardFilter": {
+    "_info": {
+      "name": "VanguardFilter._info.name",
+      "help": "VanguardFilter._info.help"
+    },
+    "Sort": {
+      "name": "VanguardFilter.Sort.name",
+      "help": "VanguardFilter.Sort.help",
+      "default": "default",
+      "rarity": "rarity",
+      "level": "level",
+      "total": "total",
+      "join": "join",
+      "intimacy": "intimacy",
+      "stat": "stat"
+    },
+    "Index": {
+      "name": "VanguardFilter.Index.name",
+      "help": "VanguardFilter.Index.help",
+      "default": "default",
+      "all": "all",
+      "vanguard": "vanguard",
+      "main": "main",
+      "dd": "dd",
+      "cl": "cl",
+      "ca": "ca",
+      "bb": "bb",
+      "cv": "cv",
+      "repair": "repair",
+      "ss": "ss",
+      "others": "others",
+      "not_available": "not_available"
+    },
+    "Faction": {
+      "name": "VanguardFilter.Faction.name",
+      "help": "VanguardFilter.Faction.help",
+      "default": "default",
+      "all": "all",
+      "eagle": "eagle",
+      "royal": "royal",
+      "sakura": "sakura",
+      "iron": "iron",
+      "dragon": "dragon",
+      "sardegna": "sardegna",
+      "northern": "northern",
+      "iris": "iris",
+      "vichya": "vichya",
+      "other": "other",
+      "not_available": "not_available"
+    },
+    "Rarity": {
+      "name": "VanguardFilter.Rarity.name",
+      "help": "VanguardFilter.Rarity.help",
+      "default": "default",
+      "all": "all",
+      "common": "common",
+      "rare": "rare",
+      "elite": "elite",
+      "super_rare": "super_rare",
+      "ultra": "ultra"
+    },
+    "Extra": {
+      "name": "VanguardFilter.Extra.name",
+      "help": "VanguardFilter.Extra.help",
+      "default": "default",
+      "no_limit": "no_limit",
+      "has_skin": "has_skin",
+      "can_retrofit": "can_retrofit",
+      "enhanceable": "enhanceable",
+      "can_limit_break": "can_limit_break",
+      "not_level_max": "not_level_max",
+      "can_awaken": "can_awaken",
+      "can_awaken_plus": "can_awaken_plus",
+      "special": "special",
+      "oath_skin": "oath_skin",
+      "not_available": "not_available"
     }
   },
   "EventGeneral": {
@@ -1288,16 +1438,6 @@
       "help": "Generally does not need to be modified or re-arranged but can do so if desired\nCan save on oil consumption if less are attacked\nSupports EX difficulty if specified, submarine is force called to increase clearing rate"
     }
   },
-  "Hospital": {
-    "_info": {
-      "name": "Event Settings",
-      "help": ""
-    },
-    "UseRecommendFleet": {
-      "name": "Use Fleet Recommendation",
-      "help": "If turned off, you need to manually prepare fleets of all 15 stages in advance"
-    }
-  },
   "MaritimeEscort": {
     "_info": {
       "name": "Maritime Escort",
@@ -1319,7 +1459,6 @@
       "easy": "Easy",
       "normal": "Normal",
       "hard": "Hard",
-      "sp": "SP",
       "ex": "EX"
     },
     "Fleet": {
@@ -1449,12 +1588,6 @@
       "name": "Preset Filter Select",
       "help": "See research drops rates and spawn rates in https://azur-stats.lyoko.io/. People without a basic knowledge of these are recommended to use pre-optimized presets instead of writing custom filters",
       "custom": "custom",
-      "series_8_blueprint_305": "Series 8 Blueprints+305",
-      "series_8_blueprint_only": "Series 8 Blueprints Only",
-      "series_8_305_only": "Series 8 305 Only",
-      "series_7_blueprint_la9": "Series 7 Blueprints+La9",
-      "series_7_blueprint_only": "Series 7 Blueprints Only",
-      "series_7_la9_only": "Series 7 La9 Only",
       "series_6_blueprint_203": "Series 6 Blueprints+203",
       "series_6_blueprint_only": "Series 6 Blueprints Only",
       "series_6_203_only": "Series 6 203 Only",
@@ -1555,10 +1688,6 @@
     "EnhanceIndex": {
       "name": "Enhance Index",
       "help": "Index of target meowfficer to enhance. Limited in 1 ~ 12; indices are in ascending order from left to right of the 4 x 3 grid."
-    },
-    "MaxFeedLevel": {
-      "name": "Do not use meowfficer larger than level X as enhancing materials",
-      "help": "The X value is limited to 1 to 30"
     }
   },
   "GuildLogistics": {
@@ -1632,22 +1761,6 @@
     },
     "CollectWeeklyMission": {
       "name": "Collect Weekly Mission Rewards",
-      "help": ""
-    }
-  },
-  "Awaken": {
-    "_info": {
-      "name": "Cognitive Awakening Settings",
-      "help": "Awaken all ships in dock til cognitive chips/arrays exhausted"
-    },
-    "LevelCap": {
-      "name": "To Level Cap",
-      "help": "",
-      "level120": "Lv.120",
-      "level125": "Lv.125"
-    },
-    "Favourite": {
-      "name": "Awaken Favourite Ships Only",
       "help": ""
     }
   },
@@ -1884,8 +1997,7 @@
       "name": "Research Series",
       "help": "",
       "2": "DR2",
-      "3": "DR3",
-      "4": "DR4"
+      "3": "DR3"
     },
     "ShipIndex": {
       "name": "Ship Index",
@@ -1918,8 +2030,7 @@
       "1": "PR1",
       "2": "PR2",
       "3": "PR3",
-      "4": "PR4",
-      "5": "PR5"
+      "4": "PR4"
     },
     "ShipIndex": {
       "name": "Ship Index",
@@ -2007,19 +2118,15 @@
       "name": "Mail Settings",
       "help": ""
     },
-    "ClaimMerit": {
-      "name": "Claim Merit Mails",
-      "help": ""
+    "Collect": {
+      "name": "Collect Mail Rewards",
+      "help": "Only collects the top 3 mail entries"
     },
-    "ClaimMaintenance": {
-      "name": "Claim Maintenance Mails",
-      "help": "Mail.ClaimMaintenance.help"
+    "Filter": {
+      "name": "Mail Filter",
+      "help": "Filter as to which mail types should be collected\nSupports Merit, Coolant, Coin, DecorCoin, Cube, Oil, and/or Gem"
     },
-    "ClaimTradeLicense": {
-      "name": "Claim Trade License Mails",
-      "help": ""
-    },
-    "DeleteCollected": {
+    "Delete": {
       "name": "Delete Collected Mail Rewards",
       "help": "Delete the already collected mail entries\nMark any entries \"important\" in-game to avoid accidental deletion"
     }
@@ -2053,32 +2160,6 @@
     "Collect": {
       "name": "Enable",
       "help": ""
-    }
-  },
-  "PrivateQuarters": {
-    "_info": {
-      "name": "Private Quarters Settings",
-      "help": "Execute the automated task relating to the private quarters feature\nToggle desired subtasks, can enable just 1 or both"
-    },
-    "BuyRoses": {
-      "name": "Buy Weekly Roses",
-      "help": "On week reset, roses will be available for purchase\nThe purchase is made in bulk wholsesale or none at all\nMinimum of 24K coin is required, if not enough subtask will be delayed to the next day and try again then"
-    },
-    "BuyCake": {
-      "name": "Buy Weekly Cake",
-      "help": "Ditto, minimum of 210 gems is required however"
-    },
-    "TargetInteract": {
-      "name": "Enable Daily Interact",
-      "help": "Enables execution of the interation sequence with target ship girl"
-    },
-    "TargetShip": {
-      "name": "Choose Ship Girl",
-      "help": "Select the target ship girl for interaction sequence",
-      "anchorage": "Anchorage",
-      "noshiro": "Noshiro",
-      "sirius": "Sirius",
-      "new_jersey": "New Jersey"
     }
   },
   "Daily": {
@@ -2226,6 +2307,16 @@
       "name": "Exercise Settings",
       "help": "Runs exercise and automatically retreats when sum HP volume is low"
     },
+    "DelayUntilHoursBeforeNextUpdate": {
+      "name": "Exercise.DelayUntilHoursBeforeNextUpdate.name",
+      "help": "Exercise.DelayUntilHoursBeforeNextUpdate.help",
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "12": "12"
+    },
     "OpponentChooseMode": {
       "name": "Opponent Choose Mode",
       "help": "",
@@ -2287,7 +2378,7 @@
   },
   "OpsiAshAssist": {
     "_info": {
-      "name": "META Assist Settings",
+      "name": "OpSi Ash Assist Settings",
       "help": "Limited to 3 everyday"
     },
     "Tier": {
@@ -2333,11 +2424,11 @@
   },
   "OpsiAshBeacon": {
     "_info": {
-      "name": "META Battle Settings",
+      "name": "Ash Beacon Settings",
       "help": ""
     },
     "AttackMode": {
-      "name": "META Battle",
+      "name": "META Attack",
       "help": "",
       "current": "Current",
       "current_dossier": "Current + Dossier"
@@ -2347,8 +2438,8 @@
       "help": "Strike each beacon only once, then call for support every half hour thereafter\nNot effective in META dossiers"
     },
     "DossierAutoAttackMode": {
-      "name": "Use Auto Attack Mode in META Dossier",
-      "help": "Use Auto Attack Mode after the first battle"
+      "name": "OpsiAshBeacon.DossierAutoAttackMode.name",
+      "help": "OpsiAshBeacon.DossierAutoAttackMode.help"
     },
     "RequestAssist": {
       "name": "Request Assists",
@@ -2382,6 +2473,14 @@
       "3": "3",
       "4": "4"
     },
+    "FleetMode": {
+      "name": "Fleet Mode",
+      "help": "",
+      "combat_auto": "combat_auto",
+      "combat_manual": "combat_manual",
+      "stand_still_in_the_middle": "stand_still_in_the_middle",
+      "hide_in_bottom_left": "hide_in_bottom_left"
+    },
     "Submarine": {
       "name": "Call Submarine",
       "help": "If enabled, interval increases from 30 to 60 minutes instead"
@@ -2393,8 +2492,8 @@
       "help": "At the beginning of each month OpSi is reset\nThe following must be satisfied:\n- OpSi story and practice battles must be complete\nEach zone will be visited in a clockwise direction every 27 minutes until world has been been completely opened\nNo need to consume 5000 oil for special radar in OpSi voucher shop"
     },
     "SpecialRadar": {
-      "name": "OpSi Data Logger Bought (5k oil item)",
-      "help": "Purchase Operation Siren Data Logger is not a must, enable if you have purchased.\nAllows Alas to explore OpSi continously without having to wait 27 minutes between each zone clear\nCannot be selected when not purchased and used manually"
+      "name": "SpecialRadar Bought",
+      "help": "Enable if you have purchased the special radar\nAllows Alas to explore OpSi continously without having to wait 27 minutes between each zone clear\nCannot be selected when not purchased and used manually"
     },
     "ForceRun": {
       "name": "Force Run",
@@ -2409,6 +2508,13 @@
     "_info": {
       "name": "OpSi Shop Settings",
       "help": "Completes OpSi daily activities\nThe following must be satisfied:\n- OpSi story and practice battles must be complete\n- Task OpSi Explore enabled or consuming 5000 oil for special radar in OpSi voucher shop\nAvailable only in the next month after clearing OpSi story, i.e., after the port shop becomes a new version of the shop"
+    },
+    "ScanFrequencyLimit": {
+      "name": "Scan Frequency Limit",
+      "help": "The frequency of scanning the OS shop when all items in the filter have been purchased.",
+      "everyday": "everyday",
+      "weekly": "weekly",
+      "everyday_of_week_before_reset": "everyday of week before reset"
     },
     "PresetFilter": {
       "name": "OpSi Shop Filter",
@@ -2521,6 +2627,16 @@
       "help": "Supports either Zone ID or Name in CN/EN/JP/TW, i.e. \"51\", \"NA Ocean SE Sector E\"\nIf specified, Alas will loop on this same zone after each clear\nUse default value 0 or clear the field to remove the specification\nZone information can be acquired from <./module/os/map_data.py>"
     }
   },
+  "HigherPriority": {
+    "_info": {
+      "name": "HigherPriority._info.name",
+      "help": "HigherPriority._info.help"
+    },
+    "Enable": {
+      "name": "HigherPriority.Enable.name",
+      "help": "HigherPriority.Enable.help"
+    }
+  },
   "OpsiHazard1Leveling": {
     "_info": {
       "name": "CL1 leveling",
@@ -2556,18 +2672,6 @@
     "SelectEnemy": {
       "name": "Clear nearby enemies and resources",
       "help": "Clean nearby enemies and resources, and find new enemies or materials after cleaning, which usually clears the entire map. If some of them haven't been cleared, you need to solve them manually"
-    }
-  },
-  "EventStory": {
-    "_info": {
-      "name": "Event Story",
-      "help": "Complete the event story, only applicable to events aired on or after 20241219, please wait for about 3 minutes"
-    },
-    "SkipBattle": {
-      "name": "Kill game to skip battles",
-      "help": "",
-      "True": "Enabled",
-      "False": "False"
     }
   },
   "Benchmark": {
@@ -2612,6 +2716,419 @@
       "help": "Log back into the game when the game has been ended."
     }
   },
+  "GGHandler": {
+    "_info": {
+      "name": "GG Handler",
+      "help": ""
+    },
+    "Enabled": {
+      "name": "Enabled",
+      "help": ""
+    },
+    "GGMethod": {
+      "name": "Control Method",
+      "help": "Screenshot is slow and has some bugs, only for environments that not support UiAutomator",
+      "u2": "UiAutomator"
+    },
+    "RestartATX": {
+      "name": "GGHandler.RestartATX.name",
+      "help": "GGHandler.RestartATX.help"
+    },
+    "GGPackageName": {
+      "name": "GG Package Name",
+      "help": "In /Android/data/com.xxxxxxx. (xxxxxxx means a lot of random characters)"
+    },
+    "AutoRestartGG": {
+      "name": "Auto Restart GG",
+      "help": "Start GG before tasks"
+    },
+    "RestartEverytime": {
+      "name": "Restart Everytime Alas starts",
+      "help": "For sake of safety"
+    },
+    "RepushLua": {
+      "name": "GGHandler.RepushLua.name",
+      "help": "GGHandler.RepushLua.help"
+    },
+    "GGMultiplyingFactor": {
+      "name": "GG Multiplying Factor",
+      "help": "1 - 9999 Recommended"
+    },
+    "Timeout": {
+      "name": "GGHandler.Timeout.name",
+      "help": "GGHandler.Timeout.help"
+    },
+    "DisabledTask": {
+      "name": "Disabled Tasks",
+      "help": "",
+      "disable_all_dangerous_task": "Disable_all_dangerous_task",
+      "disable_guild_and_dangerous": "disable_guild_and_dangerous",
+      "disable_exercise": "Disable_exercise",
+      "enable_all": "Enable_all"
+    }
+  },
+  "PowerLimit": {
+    "_info": {
+      "name": "Power Limit",
+      "help": "Power over this will cause a restart and enable GG in config"
+    },
+    "Exercise": {
+      "name": "Exercise",
+      "help": ""
+    },
+    "Raid": {
+      "name": "Raid",
+      "help": ""
+    },
+    "Ash": {
+      "name": "Ash",
+      "help": ""
+    }
+  },
+  "ChangeShip": {
+    "_info": {
+      "name": "ChangeShip._info.name",
+      "help": "ChangeShip._info.help"
+    },
+    "Enable": {
+      "name": "ChangeShip.Enable.name",
+      "help": "ChangeShip.Enable.help"
+    },
+    "PushLua": {
+      "name": "ChangeShip.PushLua.name",
+      "help": "ChangeShip.PushLua.help"
+    },
+    "Timeout": {
+      "name": "ChangeShip.Timeout.name",
+      "help": "ChangeShip.Timeout.help"
+    },
+    "ShipData": {
+      "name": "ChangeShip.ShipData.name",
+      "help": "ChangeShip.ShipData.help"
+    }
+  },
+  "ChangeAttribute": {
+    "_info": {
+      "name": "ChangeAttribute._info.name",
+      "help": "ChangeAttribute._info.help"
+    },
+    "Enable": {
+      "name": "ChangeAttribute.Enable.name",
+      "help": "ChangeAttribute.Enable.help"
+    },
+    "PushLua": {
+      "name": "ChangeAttribute.PushLua.name",
+      "help": "ChangeAttribute.PushLua.help"
+    },
+    "Timeout": {
+      "name": "ChangeAttribute.Timeout.name",
+      "help": "ChangeAttribute.Timeout.help"
+    },
+    "ShipData": {
+      "name": "ChangeAttribute.ShipData.name",
+      "help": "ChangeAttribute.ShipData.help"
+    }
+  },
+  "InfiniteDelay": {
+    "_info": {
+      "name": "InfiniteDelay._info.name",
+      "help": "InfiniteDelay._info.help"
+    },
+    "Commission": {
+      "name": "InfiniteDelay.Commission.name",
+      "help": "InfiniteDelay.Commission.help"
+    },
+    "Research": {
+      "name": "InfiniteDelay.Research.name",
+      "help": "InfiniteDelay.Research.help"
+    },
+    "Reward": {
+      "name": "InfiniteDelay.Reward.name",
+      "help": "InfiniteDelay.Reward.help"
+    }
+  },
+  "TurnOffForcedOnSettings": {
+    "_info": {
+      "name": "TurnOffForcedOnSettings._info.name",
+      "help": "TurnOffForcedOnSettings._info.help"
+    },
+    "OpsiMeowfficerFarmingFromOpsiHazard1Leveling": {
+      "name": "TurnOffForcedOnSettings.OpsiMeowfficerFarmingFromOpsiHazard1Leveling.name",
+      "help": "TurnOffForcedOnSettings.OpsiMeowfficerFarmingFromOpsiHazard1Leveling.help"
+    },
+    "OpsiHazard1LevelingYellowCoinLimit": {
+      "name": "TurnOffForcedOnSettings.OpsiHazard1LevelingYellowCoinLimit.name",
+      "help": "TurnOffForcedOnSettings.OpsiHazard1LevelingYellowCoinLimit.help"
+    }
+  },
+  "Oil": {
+    "_info": {
+      "name": "Oil._info.name",
+      "help": "Oil._info.help"
+    },
+    "Value": {
+      "name": "Oil.Value.name",
+      "help": "Oil.Value.help"
+    },
+    "Limit": {
+      "name": "Oil.Limit.name",
+      "help": "Oil.Limit.help"
+    },
+    "Color": {
+      "name": "Oil.Color.name",
+      "help": "Oil.Color.help"
+    },
+    "Record": {
+      "name": "Oil.Record.name",
+      "help": "Oil.Record.help"
+    }
+  },
+  "Coin": {
+    "_info": {
+      "name": "Coin._info.name",
+      "help": "Coin._info.help"
+    },
+    "Value": {
+      "name": "Coin.Value.name",
+      "help": "Coin.Value.help"
+    },
+    "Limit": {
+      "name": "Coin.Limit.name",
+      "help": "Coin.Limit.help"
+    },
+    "Color": {
+      "name": "Coin.Color.name",
+      "help": "Coin.Color.help"
+    },
+    "Record": {
+      "name": "Coin.Record.name",
+      "help": "Coin.Record.help"
+    }
+  },
+  "Gem": {
+    "_info": {
+      "name": "Gem._info.name",
+      "help": "Gem._info.help"
+    },
+    "Value": {
+      "name": "Gem.Value.name",
+      "help": "Gem.Value.help"
+    },
+    "Color": {
+      "name": "Gem.Color.name",
+      "help": "Gem.Color.help"
+    },
+    "Record": {
+      "name": "Gem.Record.name",
+      "help": "Gem.Record.help"
+    }
+  },
+  "Pt": {
+    "_info": {
+      "name": "Pt._info.name",
+      "help": "Pt._info.help"
+    },
+    "Value": {
+      "name": "Pt.Value.name",
+      "help": "Pt.Value.help"
+    },
+    "Color": {
+      "name": "Pt.Color.name",
+      "help": "Pt.Color.help"
+    },
+    "Record": {
+      "name": "Pt.Record.name",
+      "help": "Pt.Record.help"
+    }
+  },
+  "YellowCoin": {
+    "_info": {
+      "name": "YellowCoin._info.name",
+      "help": "YellowCoin._info.help"
+    },
+    "Value": {
+      "name": "YellowCoin.Value.name",
+      "help": "YellowCoin.Value.help"
+    },
+    "Color": {
+      "name": "YellowCoin.Color.name",
+      "help": "YellowCoin.Color.help"
+    },
+    "Record": {
+      "name": "YellowCoin.Record.name",
+      "help": "YellowCoin.Record.help"
+    }
+  },
+  "PurpleCoin": {
+    "_info": {
+      "name": "PurpleCoin._info.name",
+      "help": "PurpleCoin._info.help"
+    },
+    "Value": {
+      "name": "PurpleCoin.Value.name",
+      "help": "PurpleCoin.Value.help"
+    },
+    "Color": {
+      "name": "PurpleCoin.Color.name",
+      "help": "PurpleCoin.Color.help"
+    },
+    "Record": {
+      "name": "PurpleCoin.Record.name",
+      "help": "PurpleCoin.Record.help"
+    }
+  },
+  "ActionPoint": {
+    "_info": {
+      "name": "ActionPoint._info.name",
+      "help": "ActionPoint._info.help"
+    },
+    "Value": {
+      "name": "ActionPoint.Value.name",
+      "help": "ActionPoint.Value.help"
+    },
+    "Total": {
+      "name": "ActionPoint.Total.name",
+      "help": "ActionPoint.Total.help"
+    },
+    "Color": {
+      "name": "ActionPoint.Color.name",
+      "help": "ActionPoint.Color.help"
+    },
+    "Record": {
+      "name": "ActionPoint.Record.name",
+      "help": "ActionPoint.Record.help"
+    }
+  },
+  "Merit": {
+    "_info": {
+      "name": "Merit._info.name",
+      "help": "Merit._info.help"
+    },
+    "Value": {
+      "name": "Merit.Value.name",
+      "help": "Merit.Value.help"
+    },
+    "Color": {
+      "name": "Merit.Color.name",
+      "help": "Merit.Color.help"
+    },
+    "Record": {
+      "name": "Merit.Record.name",
+      "help": "Merit.Record.help"
+    }
+  },
+  "Cube": {
+    "_info": {
+      "name": "Cube._info.name",
+      "help": "Cube._info.help"
+    },
+    "Value": {
+      "name": "Cube.Value.name",
+      "help": "Cube.Value.help"
+    },
+    "Color": {
+      "name": "Cube.Color.name",
+      "help": "Cube.Color.help"
+    },
+    "Record": {
+      "name": "Cube.Record.name",
+      "help": "Cube.Record.help"
+    }
+  },
+  "Core": {
+    "_info": {
+      "name": "Core._info.name",
+      "help": "Core._info.help"
+    },
+    "Value": {
+      "name": "Core.Value.name",
+      "help": "Core.Value.help"
+    },
+    "Color": {
+      "name": "Core.Color.name",
+      "help": "Core.Color.help"
+    },
+    "Record": {
+      "name": "Core.Record.name",
+      "help": "Core.Record.help"
+    }
+  },
+  "Medal": {
+    "_info": {
+      "name": "Medal._info.name",
+      "help": "Medal._info.help"
+    },
+    "Value": {
+      "name": "Medal.Value.name",
+      "help": "Medal.Value.help"
+    },
+    "Color": {
+      "name": "Medal.Color.name",
+      "help": "Medal.Color.help"
+    },
+    "Record": {
+      "name": "Medal.Record.name",
+      "help": "Medal.Record.help"
+    }
+  },
+  "GuildCoin": {
+    "_info": {
+      "name": "GuildCoin._info.name",
+      "help": "GuildCoin._info.help"
+    },
+    "Value": {
+      "name": "GuildCoin.Value.name",
+      "help": "GuildCoin.Value.help"
+    },
+    "Color": {
+      "name": "GuildCoin.Color.name",
+      "help": "GuildCoin.Color.help"
+    },
+    "Record": {
+      "name": "GuildCoin.Record.name",
+      "help": "GuildCoin.Record.help"
+    }
+  },
+  "AutoRestart": {
+    "_info": {
+      "name": "AutoRestart._info.name",
+      "help": "AutoRestart._info.help"
+    },
+    "Enabled": {
+      "name": "AutoRestart.Enabled.name",
+      "help": "AutoRestart.Enabled.help"
+    },
+    "AttemptsToRestart": {
+      "name": "AutoRestart.AttemptsToRestart.name",
+      "help": "AutoRestart.AttemptsToRestart.help"
+    },
+    "NotifyWhenAutoRestart": {
+      "name": "AutoRestart.NotifyWhenAutoRestart.name",
+      "help": "AutoRestart.NotifyWhenAutoRestart.help"
+    }
+  },
+  "InstanceRestart": {
+    "_info": {
+      "name": "InstanceRestart._info.name",
+      "help": "InstanceRestart._info.help"
+    },
+    "Enabled": {
+      "name": "InstanceRestart.Enabled.name",
+      "help": "InstanceRestart.Enabled.help"
+    },
+    "AttemptsToRestart": {
+      "name": "InstanceRestart.AttemptsToRestart.name",
+      "help": "InstanceRestart.AttemptsToRestart.help"
+    },
+    "NotifyWhenAutoRestart": {
+      "name": "InstanceRestart.NotifyWhenAutoRestart.name",
+      "help": "InstanceRestart.NotifyWhenAutoRestart.help"
+    },
+    "HasRestarted": {
+      "name": "InstanceRestart.HasRestarted.name",
+      "help": "InstanceRestart.HasRestarted.help"
+    }
+  },
   "Storage": {
     "_info": {
       "name": "Task status",
@@ -2636,12 +3153,17 @@
       "Stop": "Stop",
       "ScrollON": "Auto Scroll ON",
       "ScrollOFF": "Auto Scroll OFF",
+      "DashboardON": "Fold",
+      "DashboardOFF": "Unfold",
       "ClearLog": "Clear Log",
       "Setting": "Setting",
       "CheckUpdate": "Check update",
       "ClickToUpdate": "Click to update",
       "RetryUpdate": "Retry update",
-      "CancelUpdate": "Cancel update"
+      "CancelUpdate": "Cancel update",
+      "OneClickClear": "Gui.Button.OneClickClear",
+      "Confirm": "Gui.Button.Confirm",
+      "Cancel": "Gui.Button.Cancel"
     },
     "Toast": {
       "DisableTranslateMode": "Click here to disable translate mode",
@@ -2668,6 +3190,26 @@
     },
     "Overview": {
       "Scheduler": "Scheduler",
+      "Dashboard": "Gui.Overview.Dashboard",
+      "SecondsAgo": "Seconds ago",
+      "MinutesAgo": "Minutes ago",
+      "HoursAgo": "Hours ago",
+      "DaysAgo": "Days ago",
+      "MonthsAgo": "Months ago",
+      "YearsAgo": "Years ago",
+      "NoData": "No data",
+      "Oil": "Oil",
+      "Coin": "Coin",
+      "Gem": "Gem",
+      "Cube": "Cube",
+      "Pt": "Event Pt",
+      "YellowCoin": "Operation Supply Coin",
+      "PurpleCoin": "Special Item Token",
+      "ActionPoint": "Action Point",
+      "Merit": "Merit",
+      "Medal": "Medal",
+      "Core": "Core Data",
+      "GuildCoin": "Guild Coin",
       "Log": "Log",
       "Running": "Running",
       "Pending": "Pending",
@@ -2735,7 +3277,8 @@
       "InvalidFeedBack": "Invalid format. Example: {0}",
       "Clear": "Clear",
       "EnterPassword": "Enter password",
-      "ChooseFile": "Choose file"
+      "ChooseFile": "Choose file",
+      "ClearAllTaskConfirm": "Gui.Text.ClearAllTaskConfirm"
     }
   }
 }
