@@ -77,7 +77,7 @@ class OSMapOperation(MapOrderHandler, MissionHandler, PortHandler, StorageHandle
     @Config.when(SERVER='jp')
     def get_zone_name(self):
         # For JP only
-        ocr = Ocr(MAP_NAME, lang='jp', letter=(157, 173, 192), threshold=127, name='OCR_OS_MAP_NAME')
+        ocr = Ocr(MAP_NAME, lang='jp', letter=(214, 231, 255), threshold=127, name='OCR_OS_MAP_NAME')
         name = ocr.ocr(self.device.image)
         self.is_zone_name_hidden = '安全' in name
         # Remove punctuations
@@ -90,9 +90,9 @@ class OSMapOperation(MapOrderHandler, MissionHandler, PortHandler, StorageHandle
             name = name.split('セ')[0]
         # Remove '安全海域' or '秘密海域' at the end of jp ocr.
         name = name.rstrip('安全秘密異常要塞海域')
-        # Kanji '一', '力' and '卜' are not used, while Katakana 'ー', 'カ' and 'ト' are misread as Kanji sometimes.
+        # Kanji '一' and '力' are not used, while Katakana 'ー' and 'カ' are misread as Kanji sometimes.
         # Katakana 'ペ' may be misread as Hiragana 'ぺ'.
-        name = name.replace('一', 'ー').replace('力', 'カ').replace('卜', 'ト').replace('ぺ', 'ペ')
+        name = name.replace('一', 'ー').replace('力', 'カ').replace('ぺ', 'ペ')
         name = name.replace('ジブフルタル', 'ジブラルタル')
         name = name.replace('タント', 'タラント').replace('タフント', 'タラント')
         return name
@@ -253,12 +253,8 @@ class OSMapOperation(MapOrderHandler, MissionHandler, PortHandler, StorageHandle
                     break
             else:
                 confirm_timer.reset()
-            # If MAP_EXIT still appears, we haven't exit this zone yet
-            if self.appear(MAP_EXIT, offset=(20, 20)):
-                confirm_timer.reset()
 
-            # Click
-            if self.appear_then_click(MAP_EXIT, offset=(20, 20), interval=3):
+            if self.appear_then_click(MAP_EXIT, offset=(20, 20), interval=5):
                 continue
             if self.handle_popup_confirm('MAP_EXIT'):
                 self.interval_reset(MAP_EXIT)

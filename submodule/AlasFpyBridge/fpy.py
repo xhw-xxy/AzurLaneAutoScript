@@ -44,8 +44,7 @@ class FgoAutoScript(AzurLaneAutoScript):
         app = FGOpy(
             self.config.FpyEmulator_LaunchPath,
             {
-                "Special Drop": lambda:
-                    setattr(self.config, "FpyLimit_SpecialDrop", max(0, getattr(self.config, "FpyLimit_SpecialDrop") - 1)),
+                "Special Drop": "FpyLimit_SpecialDrop",
             },
         )
         assert app.run("ping")

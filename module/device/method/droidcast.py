@@ -1,4 +1,3 @@
-import time
 import typing as t
 from functools import wraps
 
@@ -7,11 +6,11 @@ import numpy as np
 import requests
 from adbutils.errors import AdbError
 
-from module.base.decorator import cached_property, del_cached_property, Config
+from module.base.decorator import cached_property, del_cached_property
 from module.base.timer import Timer
 from module.device.method.uiautomator_2 import ProcessInfo, Uiautomator2
 from module.device.method.utils import (
-    ImageTruncated, PackageNotInstalled, RETRY_TRIES, handle_adb_error, handle_unknown_host_service, retry_sleep)
+    ImageTruncated, PackageNotInstalled, RETRY_TRIES, handle_adb_error, retry_sleep)
 from module.exception import RequestHumanTakeover
 from module.logger import logger
 
@@ -31,7 +30,7 @@ def retry(func):
         for _ in range(RETRY_TRIES):
             try:
                 if callable(init):
-                    time.sleep(retry_sleep(_))
+                    retry_sleep(_)
                     init()
                 return func(self, *args, **kwargs)
             # Can't handle
@@ -47,10 +46,6 @@ def retry(func):
             except AdbError as e:
                 if handle_adb_error(e):
                     def init():
-                        self.adb_reconnect()
-                elif handle_unknown_host_service(e):
-                    def init():
-                        self.adb_start_server()
                         self.adb_reconnect()
                 else:
                     break
@@ -259,7 +254,7 @@ class DroidCast(Uiautomator2):
                     raise DroidCastVersionIncompatible(
                         'Requesting screenshots from `DroidCast_raw` but server is `DroidCast`')
             # ValueError: cannot reshape array of size 0 into shape (720,1280)
-            raise ImageTruncated(str(e)+'\nIf your emulator resolution not 1280x720, please set emulator resolution to 1280x720')
+            raise ImageTruncated(str(e))
 
         # Convert RGB565 to RGB888
         # https://blog.csdn.net/happy08god/article/details/10516871

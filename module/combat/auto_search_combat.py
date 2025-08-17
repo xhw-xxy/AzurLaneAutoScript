@@ -36,7 +36,7 @@ class AutoSearchCombat(MapOperation, Combat, CampaignStatus):
         """
         Pages:
             in: in_map, MAP_OFFENSIVE
-            out: is_combat_loading
+            out: combat_appear
         """
         self.interval_reset(AUTO_SEARCH_MAP_OPTION_ON)
         while 1:
@@ -189,12 +189,12 @@ class AutoSearchCombat(MapOperation, Combat, CampaignStatus):
 
             if self.is_auto_search_running():
                 checked_fleet = self.auto_search_watch_fleet(checked_fleet)
-                checked_oil = self.auto_search_watch_oil(checked_oil)
-                checked_coin = self.auto_search_watch_coin(checked_coin)
+                if not checked_oil or not checked_coin:
+                    checked_oil = self.auto_search_watch_oil(checked_oil)
+                    checked_coin = self.auto_search_watch_coin(checked_coin)
             if self.handle_retirement():
                 self.map_offensive_auto_search()
-                # Map offensive ends at is_combat_loading
-                break
+                continue
             if self.handle_auto_search_map_option():
                 continue
             if self.handle_combat_low_emotion():
@@ -243,9 +243,7 @@ class AutoSearchCombat(MapOperation, Combat, CampaignStatus):
             # End
             if self.is_in_auto_search_menu() or self._handle_auto_search_menu_missing():
                 raise CampaignEnd
-            pause = self.is_combat_executing()
-            if pause:
-                logger.attr('BattleUI', pause)
+            if self.is_combat_executing():
                 break
 
         logger.info('Auto Search combat execute')
@@ -273,18 +271,11 @@ class AutoSearchCombat(MapOperation, Combat, CampaignStatus):
             if auto != 'combat_auto' and self.auto_mode_checked and self.is_combat_executing():
                 if self.handle_combat_weapon_release():
                     continue
-            # bunch of popup handlers
             if self.handle_popup_confirm('AUTO_SEARCH_COMBAT_EXECUTE'):
-                continue
-            if self.handle_urgent_commission():
                 continue
             if self.handle_story_skip():
                 continue
-            if self.handle_guild_popup_cancel():
-                continue
             if self.handle_vote_popup():
-                continue
-            if self.handle_mission_popup_ack():
                 continue
 
             # End
@@ -328,11 +319,10 @@ class AutoSearchCombat(MapOperation, Combat, CampaignStatus):
             # Combat status
             if self.handle_get_ship():
                 continue
+            if self.handle_popup_confirm('AUTO_SEARCH_COMBAT_STATUS'):
+                continue
             if self.handle_auto_search_map_option():
                 self._auto_search_status_confirm = False
-                continue
-            # bunch of popup handlers
-            if self.handle_popup_confirm('AUTO_SEARCH_COMBAT_STATUS'):
                 continue
             if self.handle_urgent_commission():
                 continue

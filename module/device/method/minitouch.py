@@ -14,7 +14,7 @@ from module.base.decorator import Config, cached_property, del_cached_property, 
 from module.base.timer import Timer
 from module.base.utils import *
 from module.device.connection import Connection
-from module.device.method.utils import RETRY_TRIES, handle_adb_error, handle_unknown_host_service, retry_sleep
+from module.device.method.utils import RETRY_TRIES, handle_adb_error, retry_sleep
 from module.exception import RequestHumanTakeover, ScriptError
 from module.logger import logger
 
@@ -383,7 +383,7 @@ def retry(func):
         for _ in range(RETRY_TRIES):
             try:
                 if callable(init):
-                    time.sleep(retry_sleep(_))
+                    retry_sleep(_)
                     init()
                 return func(self, *args, **kwargs)
             # Can't handle
@@ -429,13 +429,6 @@ def retry(func):
             except AdbError as e:
                 if handle_adb_error(e):
                     def init():
-                        self.adb_reconnect()
-                        if self._minitouch_port:
-                            self.adb_forward_remove(f'tcp:{self._minitouch_port}')
-                        del_cached_property(self, '_minitouch_builder')
-                elif handle_unknown_host_service(e):
-                    def init():
-                        self.adb_start_server()
                         self.adb_reconnect()
                         if self._minitouch_port:
                             self.adb_forward_remove(f'tcp:{self._minitouch_port}')
@@ -683,7 +676,7 @@ class Minitouch(Connection):
         points = insert_swipe(p0=p1, p3=p2)
         builder = self.minitouch_builder
 
-        builder.down(*points[0]).commit().wait(10)
+        builder.down(*points[0]).commit()
         builder.send()
 
         for point in points[1:]:
@@ -700,7 +693,7 @@ class Minitouch(Connection):
         points = insert_swipe(p0=p1, p3=p2, speed=20)
         builder = self.minitouch_builder
 
-        builder.down(*points[0]).commit().wait(10)
+        builder.down(*points[0]).commit()
         builder.send()
 
         for point in points[1:]:

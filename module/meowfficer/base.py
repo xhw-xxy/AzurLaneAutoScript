@@ -69,7 +69,8 @@ class MeowfficerBase(UI):
                 self.device.screenshot()
 
             # End
-            if self.match_template_color(MEOWFFICER_CHECK, offset=(20, 20)):
+            if self.appear(MEOWFFICER_CHECK, offset=(20, 20)) \
+                    and MEOWFFICER_CHECK.match_appear_on(self.device.image):
                 break
             else:
                 if click_timer.reached():

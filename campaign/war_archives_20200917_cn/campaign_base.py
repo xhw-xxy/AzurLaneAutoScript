@@ -27,7 +27,7 @@ class CampaignBase(CampaignBase_):
         if chapter.isdigit():
             self.ui_goto_campaign()
             self.campaign_ensure_mode('normal')
-            self.campaign_ensure_chapter(chapter)
+            self.campaign_ensure_chapter(index=chapter)
             if mode == 'hard':
                 self.campaign_ensure_mode('hard')
 
@@ -39,11 +39,11 @@ class CampaignBase(CampaignBase_):
                 self.campaign_ensure_mode('hard')
             elif chapter == 'ex_sp':
                 self.campaign_ensure_mode('ex')
-            self.campaign_ensure_chapter(chapter)
+            self.campaign_ensure_chapter(index=chapter)
 
         elif chapter == 'sp':
             self.ui_goto_sp()
-            self.campaign_ensure_chapter(chapter)
+            self.campaign_ensure_chapter(index=chapter)
 
         elif chapter in ['t', 'ts', 'ht', 'hts']:
             self.ui_goto_event()
@@ -60,7 +60,7 @@ class CampaignBase(CampaignBase_):
             if chapter == 'ex_sp':
                 self.campaign_ensure_mode('ex')
             # Get stage
-            self.campaign_ensure_chapter(1)
+            self.campaign_ensure_chapter(index=1)
         else:
             logger.warning(f'Unknown campaign chapter: {name}')
 

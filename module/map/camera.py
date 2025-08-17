@@ -16,8 +16,8 @@ from module.map_detection.grid import Grid
 from module.map_detection.utils import area2corner, trapezoid2area
 from module.map_detection.view import View
 from module.os.assets import GLOBE_GOTO_MAP
-from module.os_handler.assets import AUTO_SEARCH_REWARD, GET_ADAPTABILITY, MISSION_CHECK as OPSI_MISSION_CHECK, \
-    PORT_SUPPLY_CHECK
+from module.os_handler.assets import AUTO_SEARCH_REWARD, GET_ADAPTABILITY, MISSION_CHECK as OPSI_MISSION_CHECK
+from module.os_shop.assets import PORT_SUPPLY_CHECK
 from module.ui.assets import BACK_ARROW
 
 
@@ -128,7 +128,7 @@ class Camera(MapOperation):
                 # Don't use handle_mystery() here since OpSi overrides it.
                 self.device.click(GET_ITEMS_1)
                 return False
-            elif self.appear(GET_ITEMS_1_RYZA, offset=(-20, -100, 20, 20)):
+            elif self.appear(GET_ITEMS_1_RYZA, offset=(20, 20)):
                 logger.warning('Perspective error caused by GET_ITEMS_1_RYZA')
                 self.device.click(GET_ITEMS_1_RYZA)
                 return False
@@ -188,10 +188,15 @@ class Camera(MapOperation):
                 logger.warning('Perspective error caused by akashi shop')
                 self.device.click(BACK_ARROW)
                 return False
-            elif self.appear(GAME_TIPS, offset=(20, 20)):
-                logger.warning('Perspective error caused by game tips')
-                self.device.click(GAME_TIPS)
-                return False
+            elif not self.is_in_map() \
+                    and not self.is_in_strategy_submarine_move() \
+                    and not self.is_in_strategy_mob_move():
+                if self.appear(GAME_TIPS, offset=(20, 20)):
+                    logger.warning('Perspective error caused by game tips')
+                    self.device.click(GAME_TIPS)
+                    return False
+                else:
+                    raise e
             elif 'Camera outside map' in str(e):
                 string = str(e)
                 logger.warning(string)

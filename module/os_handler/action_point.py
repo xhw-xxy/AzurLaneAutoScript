@@ -107,9 +107,6 @@ class ActionPointHandler(UI, MapEventHandler):
     def _is_in_action_point(self):
         return self.appear(ACTION_POINT_USE, offset=(20, 20))
 
-    def is_current_ap_visible(self):
-        return self.match_template_color(CURRENT_AP_CHECK, offset=(40, 5), threshold=15)
-
     def action_point_use(self, skip_first_screenshot=True):
         prev = self._action_point_current
         self.interval_clear(ACTION_POINT_USE)
@@ -151,25 +148,6 @@ class ActionPointHandler(UI, MapEventHandler):
         self._action_point_total = total
 
     def action_point_safe_get(self, skip_first_screenshot=True):
-        timeout = Timer(3, count=6).start()
-        while 1:
-            if skip_first_screenshot:
-                skip_first_screenshot = False
-            else:
-                self.device.screenshot()
-
-            # End
-            if self.is_current_ap_visible():
-                break
-            if timeout.reached():
-                logger.warning('Get action points timeout, wait is_current_ap_visible timeout')
-                break
-            # Forced map event on the top of action point popup
-            if self.handle_map_event():
-                timeout.reset()
-                continue
-
-        skip_first_screenshot = True
         timeout = Timer(1, count=2).start()
         while 1:
             if skip_first_screenshot:
@@ -180,8 +158,8 @@ class ActionPointHandler(UI, MapEventHandler):
             if timeout.reached():
                 logger.warning('Get action points timeout')
                 break
-            # Forced map event on the top of action point popup
-            if self.handle_map_event():
+
+            if self.info_bar_count() >= 2:
                 timeout.reset()
                 continue
 
@@ -344,24 +322,7 @@ class ActionPointHandler(UI, MapEventHandler):
             in: ACTION_POINT_USE
             out: page_os
         """
-        while 1:
-            if skip_first_screenshot:
-                skip_first_screenshot = False
-            else:
-                self.device.screenshot()
-
-            # End
-            # sometimes you have action point popup without black-blurred background
-            # ACTION_POINT_CANCEL and OS_CHECK both appears
-            if not self.appear(ACTION_POINT_CANCEL, offset=(20, 20)):
-                if self.appear(OS_CHECK, offset=(20, 20)):
-                    break
-            # Click
-            if self.appear_then_click(ACTION_POINT_CANCEL, offset=(20, 20), interval=3):
-                continue
-            # Forced map event on the top of action point popup
-            if self.handle_map_event():
-                continue
+        self.ui_click(ACTION_POINT_CANCEL, check_button=OS_CHECK, skip_first_screenshot=skip_first_screenshot)
 
     def handle_action_point(self, zone, pinned, cost=None, keep_current_ap=True, check_rest_ap=False):
         """
@@ -419,17 +380,9 @@ class ActionPointHandler(UI, MapEventHandler):
             # Buy action points
             if self.config.OpsiGeneral_BuyActionPointLimit > 0 and not buy_checked:
                 if self.action_point_buy(preserve=self.config.OpsiGeneral_OilLimit):
-                    self.action_point_safe_get()
                     continue
                 else:
                     buy_checked = True
-
-            # Recheck if total ap is less than cost
-            # If it is, skip using boxes
-            if self._action_point_total < cost:
-                logger.info('Not having enough action points')
-                self.action_point_quit()
-                raise ActionPointLimit
 
             # Sort action point boxes
             box = []

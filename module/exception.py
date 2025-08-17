@@ -2,10 +2,6 @@ class CampaignEnd(Exception):
     pass
 
 
-class OilExhausted(Exception):
-    pass
-
-
 class MapDetectionError(Exception):
     pass
 

@@ -114,7 +114,7 @@ class FleetOperator:
             return None
 
         area = self._hard_satisfied.button
-        image = color_similarity_2d(self.main.image_crop(area), color=(249, 199, 0))
+        image = color_similarity_2d(self.main.image_crop(area, copy=False), color=(249, 199, 0))
         height = cv2.reduce(image, 1, cv2.REDUCE_AVG).flatten()
         parameters = {'height': 180, 'distance': 5}
         peaks, _ = signal.find_peaks(height, **parameters)
@@ -152,27 +152,6 @@ class FleetOperator:
             # Click
             if click_timer.reached():
                 main.device.click(self._clear)
-                click_timer.reset()
-
-    def recommend(self, skip_first_screenshot=True):
-        """
-        Recommend fleet
-        """
-        main = self.main
-        click_timer = Timer(3, count=6)
-        while 1:
-            if skip_first_screenshot:
-                skip_first_screenshot = False
-            else:
-                main.device.screenshot()
-
-            # End
-            if self.in_use():
-                break
-
-            # Click
-            if click_timer.reached():
-                main.device.click(self._choose)
                 click_timer.reset()
 
     def open(self, skip_first_screenshot=True):
@@ -251,7 +230,7 @@ class FleetOperator:
         Returns:
             list: List of int. Currently selected fleet ranges from 1 to 6.
         """
-        data = self.parse_fleet_bar(self.main.image_crop(self._bar.button))
+        data = self.parse_fleet_bar(self.main.image_crop(self._bar.button, copy=False))
         return data
 
     def in_use(self):
@@ -265,7 +244,7 @@ class FleetOperator:
 
         # Cropping FLEET_*_IN_USE to avoid detecting info_bar, also do the trick.
         # It also avoids wasting time on handling the info_bar.
-        image = rgb2gray(self.main.image_crop(self._in_use.button))
+        image = rgb2gray(self.main.image_crop(self._in_use.button, copy=False))
         return np.std(image.flatten(), ddof=1) > self.FLEET_IN_USE_STD
 
     def bar_opened(self):
@@ -274,7 +253,7 @@ class FleetOperator:
             bool: If dropdown menu appears.
         """
         # Check the brightness of the rightest column of the bar area.
-        luma = rgb2gray(self.main.image_crop(self._bar.button))[:, -1]
+        luma = rgb2gray(self.main.image_crop(self._bar.button, copy=False))[:, -1]
         # FLEET_PREPARATION is about 146~155
         return np.sum(luma > 168) / luma.size > 0.5
 
@@ -340,11 +319,7 @@ class FleetPreparation(InfoHandler):
             return False
 
         # Submarine.
-        # cache submarine.allow() to avoid inconsistency after setting fleet_2
-        # because the expanded fleet_2 may cover submarine buttons
-        map_allow_submarine = submarine.allow()
-        logger.attr('map_allow_submarine', map_allow_submarine)
-        if map_allow_submarine:
+        if submarine.allow():
             if self.config.Submarine_Fleet:
                 submarine.ensure_to_be(self.config.Submarine_Fleet)
             else:
@@ -368,13 +343,11 @@ class FleetPreparation(InfoHandler):
             fleet_1.ensure_to_be(self.config.Fleet_Fleet1)
 
         # Check if submarine is empty again.
-        if map_allow_submarine:
+        if submarine.allow():
             if self.config.Submarine_Fleet:
                 pass
             else:
                 submarine.clear()
-        else:
-            self.config.SUBMARINE = 0
 
         if self.appear(FLEET_1_CLEAR, offset=(-20, -80, 20, 5)):
             AUTO_SEARCH_SET_MOB.load_offset(FLEET_1_CLEAR)

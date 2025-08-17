@@ -637,11 +637,7 @@ class Map(Fleet):
                 return False
 
             nearby = self.map.select(cost_2=1).add(self.map.select(cost_2=2))
-            approaching = SelectedGrids([])
-            if self.config.MAP_HAS_MOVABLE_ENEMY:
-                approaching = approaching.add(nearby.select(is_siren=True))
-            if self.config.MAP_HAS_MOVABLE_NORMAL_ENEMY:
-                approaching = approaching.add(nearby.select(is_enemy=True))
+            approaching = nearby.select(is_siren=True)
             if approaching:
                 grids = self.select_grids(approaching, sort=('cost_2', 'cost_1'))
                 self.clear_chosen_enemy(grids[0], expected='siren')
@@ -657,8 +653,8 @@ class Map(Fleet):
 
     def clear_filter_enemy(self, string, preserve=0):
         """
-        If EnemyPriority_EnemyScaleBalanceWeight != default_mode, enemy filter is ignored
-        If MAP_HAS_MOVABLE_NORMAL_ENEMY, enemy filter is ignored
+        if EnemyPriority_EnemyScaleBalanceWeight != default_mode
+        Filter will be covered
 
         Args:
             string (str): Filter to select enemies, from easy to hard
@@ -668,11 +664,6 @@ class Map(Fleet):
         Returns:
             bool: If clear an enemy.
         """
-        if self.config.MAP_HAS_MOVABLE_NORMAL_ENEMY:
-            if self.clear_any_enemy(sort=('cost_2',)):
-                return True
-            return False
-
         if self.config.EnemyPriority_EnemyScaleBalanceWeight == 'S3_enemy_first':
             string = '3L > 3M > 3E > 3C > 2L > 2M > 2E > 2C > 1L > 1M > 1E > 1C'
             preserve = 0

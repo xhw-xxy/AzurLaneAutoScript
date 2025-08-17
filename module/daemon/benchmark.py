@@ -165,9 +165,6 @@ class Benchmark(DaemonBase, CampaignUI):
         if click_result:
             self.show(test='Control', data=click_result, evaluate_func=self.evaluate_click)
             fastest = sorted(click_result, key=lambda item: compare(item))[0]
-            # Prefer MaaTouch if both minitouch and MaaTouch are fastest
-            if 'MaaTouch' in click and fastest[0] == 'minitouch':
-                fastest[0] = 'MaaTouch'
             logger.info(f'Recommend control method: {fastest[0]} ({float2str(fastest[1])})')
             fastest_click = fastest[0]
 
@@ -177,7 +174,7 @@ class Benchmark(DaemonBase, CampaignUI):
         device = self.config.Benchmark_DeviceType
         # device == 'emulator'
         screenshot = ['ADB', 'ADB_nc', 'uiautomator2', 'aScreenCap', 'aScreenCap_nc', 'DroidCast', 'DroidCast_raw']
-        click = ['ADB', 'uiautomator2', 'minitouch', 'MaaTouch']
+        click = ['ADB', 'uiautomator2', 'minitouch']
 
         def remove(*args):
             return [l for l in screenshot if l not in args]
@@ -196,10 +193,6 @@ class Benchmark(DaemonBase, CampaignUI):
             click = ['ADB', 'Hermit', 'MaaTouch']
         if self.device.nemu_ipc_available():
             screenshot.append('nemu_ipc')
-        if self.device.ldopengl_available():
-            screenshot.append('ldopengl')
-        if self.device.is_bluestacks_air:
-            screenshot = [l for l in screenshot if 'DroidCast' not in l]
 
         scene = self.config.Benchmark_TestScene
         if 'screenshot' not in scene:
@@ -212,7 +205,8 @@ class Benchmark(DaemonBase, CampaignUI):
     def run(self):
         self.config.override(Emulator_ScreenshotMethod='ADB')
         self.device.uninstall_minicap()
-        self.ensure_campaign_ui('7-2', mode='normal')
+        self.ui_goto_campaign()
+        self.campaign_set_chapter('7-2')
 
         logger.attr('DeviceType', self.config.Benchmark_DeviceType)
         logger.attr('TestScene', self.config.Benchmark_TestScene)
@@ -237,8 +231,6 @@ class Benchmark(DaemonBase, CampaignUI):
             screenshot = remove('ADB_nc', 'aScreenCap_nc')
         if self.device.nemu_ipc_available():
             screenshot.append('nemu_ipc')
-        if self.device.ldopengl_available():
-            screenshot.append('ldopengl')
         screenshot = tuple(screenshot)
 
         self.TEST_TOTAL = 3

@@ -1,9 +1,9 @@
-from .campaign_2_base import CampaignBase
+from module.campaign.campaign_base import CampaignBase
 from module.logger import logger
 from module.map.map_base import CampaignMap
 from module.map.map_grids import RoadGrids, SelectedGrids
 
-MAP = CampaignMap('2-1')
+MAP = CampaignMap()
 MAP.shape = 'F4'
 MAP.camera_data = ['C2']
 MAP.camera_data_spawn_point = ['C1']
@@ -50,6 +50,7 @@ class Config:
         'distance': 50,
         'wlen': 1000
     }
+    HOMO_CANNY_THRESHOLD = (75, 100)
     HOMO_EDGE_COLOR_RANGE = (0, 49)
 
 

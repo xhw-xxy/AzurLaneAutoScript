@@ -48,13 +48,6 @@ class AshCombat(Combat):
 
         return False
 
-    def handle_exp_info(self):
-        """
-        META combats don't drop EXP so no handle_exp_info
-        Random background of BATTLE_STATUS may trigger EXP_INFO_B
-        """
-        return False
-
     def handle_battle_preparation(self):
 
         if self.appear(BATTLE_PREPARATION, offset=(20, 20)):
@@ -90,6 +83,7 @@ class AshCombat(Combat):
 
 
 class OSAsh(UI, MapEventHandler):
+
     _ash_fully_collected = False
 
     def ash_collect_status(self):

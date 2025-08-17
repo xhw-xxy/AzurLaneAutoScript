@@ -1,4 +1,3 @@
-import module.config.server as server
 from module.combat.assets import GET_ITEMS_1
 from module.logger import logger
 from module.minigame.assets import *
@@ -8,16 +7,10 @@ from module.ui.page import page_game_room
 from module.ui.scroll import Scroll
 from module.ui.ui import UI
 
-if server.server != 'jp':
-    OCR_COIN = Digit(COIN_HOLDER,
-                    name='OCR_COIN',
-                    letter=(255, 235, 115),
-                    threshold=128)
-else:
-    OCR_COIN = Digit(COIN_HOLDER,
-                    name='OCR_COIN',
-                    letter=(211, 196, 95),
-                    threshold=128)
+OCR_COIN = Digit(COIN_HOLDER,
+                 name='OCR_COIN',
+                 letter=(255, 235, 115),
+                 threshold=128)
 MINIGAME_SCROLL = Scroll(MINIGAME_SCROLL_AREA, color=(247, 247, 247), name='MINIGAME_SCROLL')
 
 class MinigameRun(UI):
@@ -32,26 +25,20 @@ class MinigameRun(UI):
         """
         logger.hr('Minigame run', level=1)
 
-        # page_game_room main_page -> MINIGAME_SCROLL
         logger.info("Enter minigame")
         while 1:
             if skip_first_screenshot:
                 skip_first_screenshot = False
             else:
                 self.device.screenshot()
-            # End
-            # both minigame main and minigame list has GOTO_CHOOSE_GAME
-            if self.appear(GAME_ROOM_CHECK, offset=(5, 5)) and not self.appear(GOTO_CHOOSE_GAME, offset=(20, 20)):
-                if MINIGAME_SCROLL.appear(main=self):
-                    break
             # unable to get more ticket popup
             if self.deal_popup():
                 continue
             if self.appear_then_click(GOTO_CHOOSE_GAME, offset=(5, 5), interval=3):
-                # note: GOTO_CHOOSE_GAME is some where safe to click
-                # that won't enter any minigame on the minigame list page
                 continue
-
+            if self.appear(GAME_ROOM_CHECK, offset=(5, 5)) \
+                    and MINIGAME_SCROLL.appear(main=self):
+                break
         logger.info("Choose minigame")
         self.choose_game()
         # try to add coins, if failed, skip play
@@ -70,9 +57,6 @@ class MinigameRun(UI):
         """
         # specific
         if self.deal_specific_popup():
-            return True
-        if self.handle_popup_confirm('TICKETS_FULL'):
-            self.interval_reset(COIN_POPUP, interval=3)
             return True
         # coins more than 31, deal popup
         if self.appear_then_click(COIN_POPUP, offset=(5, 5), interval=3):

@@ -15,10 +15,6 @@ from module.exception import RequestHumanTakeover
 from module.logger import logger
 
 
-def handle_unknown_host_service(e):
-    pass
-
-
 def retry(func):
     @wraps(func)
     def retry_wrapper(self, *args, **kwargs):
@@ -30,7 +26,7 @@ def retry(func):
         for _ in range(RETRY_TRIES):
             try:
                 if callable(init):
-                    time.sleep(retry_sleep(_))
+                    retry_sleep(_)
                     init()
                 return func(self, *args, **kwargs)
             # Can't handle
@@ -63,11 +59,6 @@ def retry(func):
             except AdbError as e:
                 if handle_adb_error(e):
                     def init():
-                        self.adb_reconnect()
-                        del_cached_property(self, '_maatouch_builder')
-                elif handle_unknown_host_service(e):
-                    def init():
-                        self.adb_start_server()
                         self.adb_reconnect()
                         del_cached_property(self, '_maatouch_builder')
                 else:
@@ -355,7 +346,7 @@ class MaaTouch(Connection):
         points = insert_swipe(p0=p1, p3=p2)
         builder = self.maatouch_builder
 
-        builder.down(*points[0]).commit().wait(10)
+        builder.down(*points[0]).wait(10).commit()
         builder.send_sync()
 
         for point in points[1:]:

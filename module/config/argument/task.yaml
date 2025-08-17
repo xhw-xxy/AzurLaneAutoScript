@@ -110,11 +110,6 @@ Event:
       - Campaign
       - StopCondition
       - Emotion
-    Hospital:
-      - Scheduler
-      - Hospital
-      - StopCondition
-      - Emotion
     Coalition:
       - Scheduler
       - Campaign
@@ -235,9 +230,6 @@ Reward:
     Reward:
       - Scheduler
       - Reward
-    Awaken:
-      - Scheduler
-      - Awaken
 
 # ==================== DailyMission ====================
 
@@ -278,9 +270,6 @@ DailyMission:
       - SupplyPack
     Minigame:
       - Scheduler
-    PrivateQuarters:
-      - Scheduler
-      - PrivateQuarters
 
 # ==================== Opsi ====================
 
@@ -352,8 +341,6 @@ Tool:
       - Daemon
     OpsiDaemon:
       - OpsiDaemon
-    EventStory:
-      - EventStory
     Benchmark:
       - Benchmark
     AzurLaneUncensored:

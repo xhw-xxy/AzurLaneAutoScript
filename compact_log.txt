@@ -1,0 +1,5 @@
+2024-06-28T18:50:11.792832500Z : ready compact 'D:\MuMuPlayer-12.0\vms\MuMuPlayer-12.0-1\data.vdi'
+cBlocksAllocated: 22049, afterCompact: 21555
+new method failed or the disk free space is not enough, will trigger in-place compact
+2024-06-28T18:50:14.419093300Z : write 'Finished' to name pipe
+compacted 494 MB, defragment 0 MB, elapsed: 2617 ms.

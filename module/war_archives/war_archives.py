@@ -1,5 +1,3 @@
-import re
-
 from campaign.campaign_war_archives.campaign_base import CampaignBase
 from module.campaign.run import CampaignRun
 from module.logger import logger
@@ -7,15 +5,7 @@ from module.ocr.ocr import DigitCounter
 from module.war_archives.assets import (OCR_DATA_KEY_CAMPAIGN,
                                         WAR_ARCHIVES_CAMPAIGN_CHECK)
 
-
-class OcrDataKey(DigitCounter):
-    def after_process(self, result):
-        result = super().after_process(result)
-        result = re.sub(r'(\d{1,2})60$', r'\1/60', result)
-        return result
-
-
-DATA_KEY_CAMPAIGN = OcrDataKey(OCR_DATA_KEY_CAMPAIGN, letter=(255, 247, 247), threshold=64)
+DATA_KEY_CAMPAIGN = DigitCounter(OCR_DATA_KEY_CAMPAIGN, letter=(255, 247, 247), threshold=64)
 
 
 class CampaignWarArchives(CampaignRun, CampaignBase):
@@ -41,5 +31,7 @@ class CampaignWarArchives(CampaignRun, CampaignBase):
         return False
 
     def run(self, name=None, folder='campaign_main', mode='normal', total=0):
-        self.config.override(USE_DATA_KEY=True)
+        backup = self.config.temporary(USE_DATA_KEY=True)
         super().run(name, folder, mode, total)
+        backup.recover()
+        self.ui_goto_main()  # Go to main, as remaining in page can throw off Event task

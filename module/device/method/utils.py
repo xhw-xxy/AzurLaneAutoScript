@@ -73,38 +73,6 @@ u2.setup_logger = setup_logger
 u2.init.setup_logger = setup_logger
 
 
-# Patch Initer
-class PatchedIniter(u2.init.Initer):
-    @property
-    def atx_agent_url(self):
-        files = {
-            'armeabi-v7a': 'atx-agent_{v}_linux_armv7.tar.gz',
-            # 'arm64-v8a': 'atx-agent_{v}_linux_armv7.tar.gz',
-            'arm64-v8a': 'atx-agent_{v}_linux_arm64.tar.gz',
-            'armeabi': 'atx-agent_{v}_linux_armv6.tar.gz',
-            'x86': 'atx-agent_{v}_linux_386.tar.gz',
-            'x86_64': 'atx-agent_{v}_linux_386.tar.gz',
-        }
-        name = None
-        for abi in self.abis:
-            name = files.get(abi)
-            if name:
-                break
-        if not name:
-            raise Exception(
-                "arch(%s) need to be supported yet, please report an issue in github"
-                % self.abis)
-        return u2.init.GITHUB_BASEURL + '/atx-agent/releases/download/%s/%s' % (
-            u2.version.__atx_agent_version__, name.format(v=u2.version.__atx_agent_version__))
-
-    @property
-    def minicap_urls(self):
-        return []
-
-
-u2.init.Initer = PatchedIniter
-
-
 def is_port_using(port_num):
     """ if port is using by others, return True. else return False """
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -186,16 +154,16 @@ class ImageTruncated(Exception):
 def retry_sleep(trial):
     # First trial
     if trial == 0:
-        return 0
+        pass
     # Failed once, fast retry
     elif trial == 1:
-        return 0
+        pass
     # Failed twice
     elif trial == 2:
-        return 1
+        time.sleep(1)
     # Failed more
     else:
-        return RETRY_DELAY
+        time.sleep(RETRY_DELAY)
 
 
 def handle_adb_error(e):
@@ -238,9 +206,10 @@ def handle_adb_error(e):
         # Raised by uiautomator2 when current adb service is killed by another version of adb service.
         logger.error(e)
         return True
-    elif text == 'rest':
-        # AdbError(rest)
-        # Response telling adbd service has reset, client should reconnect
+    elif 'unknown host service' in text:
+        # AdbError(unknown host service)
+        # Another version of ADB service started, current ADB service has been killed.
+        # Usually because user opened a Chinese emulator, which uses ADB from the Stone Age.
         logger.error(e)
         return True
     else:
@@ -251,25 +220,6 @@ def handle_adb_error(e):
             'Emulator died, please restart emulator',
             'Serial incorrect, no such device exists or emulator is not running'
         )
-        return False
-
-
-def handle_unknown_host_service(e):
-    """
-    Args:
-        e (Exception):
-
-    Returns:
-        bool: If should retry
-    """
-    text = str(e)
-    if 'unknown host service' in text:
-        # AdbError(unknown host service)
-        # Another version of ADB service started, current ADB service has been killed.
-        # Usually because user opened a Chinese emulator, which uses ADB from the Stone Age.
-        logger.error(e)
-        return True
-    else:
         return False
 
 
@@ -331,67 +281,27 @@ def remove_shell_warning(s):
     """
     Remove warnings from shell
 
-    1. Warnings in VMOS shell
-    https://github.com/LmeSzinc/AzurLaneAutoScript/issues/1425
-
-    WARNING: linker: [vdso]: unused DT entry: type 0x70000001 arg 0x0\n\x89PNG\r\n\x1a\n\x00\x00\x00\rIH
-
-    2. This linker thingy might appear multiple times when executing multiple commands
-
-    mek_8q:/dev # getprop | grep gnss
-    WARNING: linker: Warning: "[vdso]" unused DT entry: unknown processor-specific (type 0x70000001 arg 0x0) (ignoring)
-    WARNING: linker: Warning: "[vdso]" unused DT entry: unknown processor-specific (type 0x70000001 arg 0x0) (ignoring)
-    [init.svc.gnss_service]: [running]
-    [init.svc_debug_pid.gnss_service]: [406]
-    [ro.boottime.gnss_service]: [27308752875]
-
-    3. Errors in waydroid screencap render
-    https://github.com/LmeSzinc/AzurLaneAutoScript/issues/4760
-
-    Failed to create //.cache for shader cache (Read-only file system)---disabling.\n
-
-    4. Warning when taking screenshot from multiscreen device
-
-    [Warning] Multiple displays were found, but no display id was specified! Defaulting to the first display found,
-    however this default is not guaranteed to be consistent across captures.\n
-    A display id should be specified.\n
-    See "dumpsys SurfaceFlinger --display-id" for valid display IDs.\n
-    \x89PNG...
-
     Args:
-        s (T): bytes or str
+        s (str, bytes):
 
     Returns:
-        T:
+        str, bytes:
     """
+    # WARNING: linker: [vdso]: unused DT entry: type 0x70000001 arg 0x0\n\x89PNG\r\n\x1a\n\x00\x00\x00\rIH
     if isinstance(s, bytes):
-        while 1:
-            if s.startswith(b'WARNING: linker:'):
-                _, _, s = s.partition(b'\n')
-            else:
-                break
-        if s.startswith(b'Failed to create'):
-            _, _, s = s.partition(b'\n')
-        if s.startswith(b'[Warning] Multiple displays'):
-            _, _, s = s.partition(b'\n')
-            if s.startswith(b'A display id'):
-                _, _, s = s.partition(b'\n')
-                if s.startswith(b'See "dumpsys'):
-                    _, _, s = s.partition(b'\n')
+        if s.startswith(b'WARNING'):
+            try:
+                s = s.split(b'\n', maxsplit=1)[1]
+            except IndexError:
+                pass
+        return s
+        # return re.sub(b'^WARNING.+\n', b'', s)
     elif isinstance(s, str):
-        while 1:
-            if s.startswith('WARNING: linker:'):
-                _, _, s = s.partition('\n')
-            else:
-                break
-        if s.startswith('Failed to create'):
-            _, _, s = s.partition('\n')
-        if s.startswith('[Warning] Multiple displays'):
-            _, _, s = s.partition('\n')
-            if s.startswith('A display id'):
-                _, _, s = s.partition('\n')
-                if s.startswith('See "dumpsys'):
-                    _, _, s = s.partition('\n')
+        if s.startswith('WARNING'):
+            try:
+                s = s.split('\n', maxsplit=1)[1]
+            except IndexError:
+                pass
     return s
 
 

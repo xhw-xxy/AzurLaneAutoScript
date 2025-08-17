@@ -1,13 +1,13 @@
 import os
-import time
 from functools import wraps
 
+import lz4.block
 from adbutils.errors import AdbError
 
 from module.base.utils import *
 from module.device.connection import Connection
-from module.device.method.utils import (ImageTruncated, RETRY_TRIES, handle_adb_error, handle_unknown_host_service,
-                                        retry_sleep)
+from module.device.method.utils import (RETRY_TRIES, retry_sleep,
+                                        handle_adb_error, ImageTruncated)
 from module.exception import RequestHumanTakeover, ScriptError
 from module.logger import logger
 
@@ -27,7 +27,7 @@ def retry(func):
         for _ in range(RETRY_TRIES):
             try:
                 if callable(init):
-                    time.sleep(retry_sleep(_))
+                    retry_sleep(_)
                     init()
                 return func(self, *args, **kwargs)
             # Can't handle
@@ -49,10 +49,6 @@ def retry(func):
             except AdbError as e:
                 if handle_adb_error(e):
                     def init():
-                        self.adb_reconnect()
-                elif handle_unknown_host_service(e):
-                    def init():
-                        self.adb_start_server()
                         self.adb_reconnect()
                 else:
                     break
@@ -156,8 +152,7 @@ class AScreenCap(Connection):
 
         _, uncompressed_size, _, width, height = compressed_data_header
         channel = 3
-        from lz4.block import decompress
-        data = decompress(raw_compressed_data[20:], uncompressed_size=uncompressed_size)
+        data = lz4.block.decompress(raw_compressed_data[20:], uncompressed_size=uncompressed_size)
 
         image = np.frombuffer(data, dtype=np.uint8)
         if image is None:
@@ -170,9 +165,7 @@ class AScreenCap(Connection):
             # ValueError: cannot reshape array of size 0 into shape (720,1280,4)
             raise ImageTruncated(str(e))
 
-        # flip without `dst=image`
-        # np.frombuffer creates a read-only memory view, we need to create a writable copy here
-        image = cv2.flip(image, 0)
+        cv2.flip(image, 0, dst=image)
         if image is None:
             raise ImageTruncated('Empty image after cv2.flip')
 
@@ -183,21 +176,20 @@ class AScreenCap(Connection):
         return image
 
     def __process_screenshot(self, screenshot):
-        from lz4.block import LZ4BlockError
         for method in self.__screenshot_method_fixed:
             try:
                 result = self.__load_screenshot(screenshot, method=method)
                 result = self.__uncompress(result)
                 self.__screenshot_method_fixed = [method] + self.__screenshot_method
                 return result
-            except LZ4BlockError:
+            except lz4.block.LZ4BlockError:
                 self.__bytepointer = 0
                 continue
 
         self.__screenshot_method_fixed = self.__screenshot_method
         if len(screenshot) < 500:
             logger.warning(f'Unexpected screenshot: {screenshot}')
-        raise ImageTruncated(f'cannot load screenshot')
+        raise OSError(f'cannot load screenshot')
 
     @retry
     def screenshot_ascreencap(self):

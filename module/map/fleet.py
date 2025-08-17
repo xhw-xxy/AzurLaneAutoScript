@@ -467,27 +467,23 @@ class Fleet(Camera, AmbushHandler):
             if result == 'nothing' and expected == 'combat':
                 raise MapEnemyMoved
 
-    def goto(self, location, expected='', step_optimize=None, turning_optimize=None):
+    def goto(self, location, optimize=None, expected=''):
         """
         Args:
             location (tuple, str, GridInfo): Destination.
+            optimize (bool): Optimize walk path, reducing ambushes.
+                If None, loads MAP_WALK_OPTIMIZE
             expected (str): Expected result on destination grid, such as 'combat', 'combat_siren', 'mystery'.
                 Will give a waring if arrive with unexpected result.
-            step_optimize (bool): True to walk in fleet step
-            turning_optimize (bool): True to optimize route to reduce ambushes
         """
         location = location_ensure(location)
-        if step_optimize is None:
-            step_optimize = self.config.MAP_HAS_FLEET_STEP
-            if self.config.MAP_HAS_PORTAL or self.config.MAP_HAS_MAZE:
-                step_optimize = True
-        if turning_optimize is None:
-            turning_optimize = self.config.MAP_HAS_AMBUSH
+        if optimize is None:
+            optimize = self.config.MAP_WALK_OPTIMIZE
 
         # self.device.sleep(1000)
-        if step_optimize or turning_optimize:
-            step = self.fleet_step if step_optimize else 0
-            nodes = self.map.find_path(location, step=step, turning_optimize=turning_optimize)
+        if optimize and (self.config.MAP_HAS_AMBUSH or self.config.MAP_HAS_FLEET_STEP or self.config.MAP_HAS_PORTAL
+                         or self.config.MAP_HAS_MAZE):
+            nodes = self.map.find_path(location, step=self.fleet_step)
             for node in nodes:
                 if self.maze_active_on(node):
                     logger.info(f'Maze is active on {location2node(node)}, bouncing to wait')
@@ -503,7 +499,7 @@ class Fleet(Camera, AmbushHandler):
                     logger.warning('Map walk error.')
                     self.predict()
                     self.ensure_edge_insight()
-                    nodes_ = self.map.find_path(node, step=1, turning_optimize=False)
+                    nodes_ = self.map.find_path(node, step=1)
                     for node_ in nodes_:
                         self._goto(node_, expected=expected if node == nodes[-1] else '')
         else:
@@ -630,12 +626,10 @@ class Fleet(Camera, AmbushHandler):
         logger.info(f'Tracked enemy {matched_before} -> {matched_after}')
 
         # Delete wrong prediction
-        # keep whatever if MAP_HAS_MOVABLE_NORMAL_ENEMY, it's kind of a mess
-        if not self.config.MAP_HAS_MOVABLE_NORMAL_ENEMY:
-            for grid in after.delete(matched_after):
-                if not grid.may_siren:
-                    logger.warning(f'Wrong detection: {grid}')
-                    grid.wipe_out()
+        for grid in after.delete(matched_after):
+            if not grid.may_siren:
+                logger.warning(f'Wrong detection: {grid}')
+                grid.wipe_out()
 
         # Predict missing siren
         diff = before.delete(matched_before)
@@ -651,13 +645,6 @@ class Fleet(Camera, AmbushHandler):
                 covered = covered.add(self.map.grid_covered(self.map[self.fleet_1_location], location=[(0, -1)]))
             if self.fleet_2_location:
                 covered = covered.add(self.map.grid_covered(self.map[self.fleet_2_location], location=[(0, -1)]))
-            if self.config.MAP_HAS_MOVABLE_NORMAL_ENEMY and not self.config.MAP_ENEMY_TEMPLATE:
-                # enemy_scale icon of the right grid may get covered by fleet
-                # if enemy template is empty, must predict by enemy_scale
-                if self.fleet_1_location:
-                    covered = covered.add(self.map.grid_covered(self.map[self.fleet_1_location], location=[(1, 0)]))
-                if self.fleet_2_location:
-                    covered = covered.add(self.map.grid_covered(self.map[self.fleet_2_location], location=[(1, 0)]))
             covered = covered.add(self.map._map_covered)
             if siren:
                 for grid in after:
@@ -1039,7 +1026,7 @@ class Fleet(Camera, AmbushHandler):
     def catch_camera_repositioning(self, destination):
         """
         Args:
-            destination (GridInfo): Globe map grid.
+            Destination (GridInfo): Globe map grid.
         """
         appear = False
         for data in self.map.spawn_data:

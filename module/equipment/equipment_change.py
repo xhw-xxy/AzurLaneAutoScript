@@ -19,8 +19,8 @@ EQUIPMENT_SCROLL = Scroll(EQUIP_SCROLL, color=(247, 211, 66), name='EQUIP_SCROLL
 SIM_VALUE = 0.90
 
 equipping_filter = Switch('Equipping_filter')
-equipping_filter.add_state('on', check_button=EQUIPPING_ON)
-equipping_filter.add_state('off', check_button=EQUIPPING_OFF)
+equipping_filter.add_status('on', check_button=EQUIPPING_ON)
+equipping_filter.add_status('off', check_button=EQUIPPING_OFF)
 
 
 class EquipmentChangeOld(Equipment):
@@ -193,7 +193,7 @@ class EquipmentChangeNew(Equipment):
         for index, button in enumerate(EQUIPMENT_GRID.buttons):
             if index not in index_list:
                 continue
-            crop_image = self.image_crop(button)
+            crop_image = self.image_crop(button, copy=False)
             edge_value = np.mean(np.abs(cv2.Sobel(crop_image, 3, 1, 1)))
             # Nothing is 0.15~1
             # +1 is 40

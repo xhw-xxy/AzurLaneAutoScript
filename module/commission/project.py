@@ -161,11 +161,9 @@ class Commission:
         # Name
         area = area_offset((176, 23, 420, 53), self.area[0:2])
         button = Button(area=area, color=(), button=area, name='COMMISSION')
-        ocr = Ocr(button, letter=(201, 201, 201), lang='jp')
+        ocr = Ocr(button, lang='jp')
         self.button = button
         self.name = ocr.ocr(self.image)
-        # NB装備輸送 -> NYB装備輸送
-        self.name = self.name.replace('NB', 'BYB').replace('BW', 'BIW')
         self.genre = self.commission_name_parse(self.name)
 
         # Suffix
