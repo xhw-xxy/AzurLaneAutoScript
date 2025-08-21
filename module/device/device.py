@@ -1,6 +1,9 @@
 import collections
 from datetime import datetime
 
+from lxml import etree
+
+from module.device.env import IS_WINDOWS
 # Patch pkg_resources before importing adbutils and uiautomator2
 from module.device.pkg_resources import get_distribution
 
@@ -12,13 +15,8 @@ from module.config.utils import get_server_next_update
 from module.device.app_control import AppControl
 from module.device.control import Control
 from module.device.screenshot import Screenshot
-from module.exception import (
-    EmulatorNotRunningError,
-    GameNotRunningError,
-    GameStuckError,
-    GameTooManyClickError,
-    RequestHumanTakeover
-)
+from module.exception import (EmulatorNotRunningError, GameNotRunningError, GameStuckError, GameTooManyClickError,
+                              RequestHumanTakeover)
 from module.handler.assets import GET_MISSION
 from module.logger import logger
 
@@ -67,16 +65,19 @@ class Device(Screenshot, Control, AppControl):
     _screen_size_checked = False
     detect_record = set()
     click_record = collections.deque(maxlen=15)
-    stuck_timer = Timer(180, count=60).start()
+    stuck_timer = Timer(60, count=60).start()
     stuck_timer_long = Timer(180, count=180).start()
     stuck_long_wait_list = ['BATTLE_STATUS_S', 'PAUSE', 'LOGIN_CHECK']
 
     def __init__(self, *args, **kwargs):
-        for _ in range(2):
+        for trial in range(4):
             try:
                 super().__init__(*args, **kwargs)
                 break
             except EmulatorNotRunningError:
+                if trial >= 3:
+                    logger.critical('Failed to start emulator after 3 trial')
+                    raise RequestHumanTakeover
                 # Try to start emulator
                 if self.emulator_instance is not None:
                     self.emulator_start()
@@ -85,10 +86,10 @@ class Device(Screenshot, Control, AppControl):
                         f'No emulator with serial "{self.config.Emulator_Serial}" found, '
                         f'please set a correct serial'
                     )
-                    raise
+                    raise RequestHumanTakeover
 
         # Auto-fill emulator info
-        if self.config.EmulatorInfo_Emulator == 'auto':
+        if IS_WINDOWS and self.config.EmulatorInfo_Emulator == 'auto':
             _ = self.emulator_instance
 
         self.screenshot_interval_set()
@@ -104,10 +105,6 @@ class Device(Screenshot, Control, AppControl):
                 self.early_maatouch_init()
             if self.config.Emulator_ControlMethod == 'minitouch':
                 self.early_minitouch_init()
-
-        record_maxlen = self.config.Optimization_ClickMaxRecord
-        if record_maxlen != self.click_record.maxlen:
-            self.click_record = collections.deque(maxlen=record_maxlen)
 
     def run_simple_screenshot_benchmark(self):
         """
@@ -138,6 +135,14 @@ class Device(Screenshot, Control, AppControl):
         # if self.config.Emulator_ScreenshotMethod != 'nemu_ipc' and self.config.Emulator_ControlMethod == 'nemu_ipc':
         #     logger.warning('When not using nemu_ipc, both screenshot and control should not use nemu_ipc')
         #     self.config.Emulator_ControlMethod = 'minitouch'
+        # Allow Hermit on VMOS only
+        if self.config.Emulator_ControlMethod == 'Hermit' and not self.is_vmos:
+            logger.warning('ControlMethod is allowed on VMOS only')
+            self.config.Emulator_ControlMethod = 'MaaTouch'
+        if self.config.Emulator_ScreenshotMethod == 'ldopengl' \
+                and self.config.Emulator_ControlMethod == 'minitouch':
+            logger.warning('Use MaaTouch on ldplayer')
+            self.config.Emulator_ControlMethod = 'MaaTouch'
         pass
 
     def handle_night_commission(self, daily_trigger='21:00', threshold=30):
@@ -183,6 +188,10 @@ class Device(Screenshot, Control, AppControl):
             super().screenshot()
 
         return self.image
+
+    def dump_hierarchy(self) -> etree._Element:
+        self.stuck_record_check()
+        return super().dump_hierarchy()
 
     def release_during_wait(self):
         # Scrcpy server is still sending video stream,
@@ -267,29 +276,19 @@ class Device(Screenshot, Control, AppControl):
 
         return removed
 
-    def check_and_ensure_record_setting(self):
-        record_maxlen = self.config.Optimization_ClickMaxRecord
-        if self.config.Optimization_SingleButtonMaxCount > record_maxlen:
-            self.config.Optimization_SingleButtonMaxCount = int(0.8 * record_maxlen)
-        if self.config.Optimization_MultiButtonMaxCount1 + self.config.Optimization_MultiButtonMaxCount2 > record_maxlen:
-            self.config.Optimization_MultiButtonMaxCount1 = int(0.4 * record_maxlen)
-            self.config.Optimization_MultiButtonMaxCount2 = int(0.4 * record_maxlen)
-
     def click_record_check(self):
         """
         Raises:
             GameTooManyClickError:
         """
-        self.check_and_ensure_record_setting()
-
         count = collections.Counter(self.click_record).most_common(2)
-        if count[0][1] >= self.config.Optimization_SingleButtonMaxCount:
+        if count[0][1] >= 12:
             show_function_call()
             logger.warning(f'Too many click for a button: {count[0][0]}')
             logger.warning(f'History click: {[str(prev) for prev in self.click_record]}')
             self.click_record_clear()
             raise GameTooManyClickError(f'Too many click for a button: {count[0][0]}')
-        if len(count) >= 2 and count[0][1] >= self.config.Optimization_MultiButtonMaxCount1 and count[1][1] >= self.config.Optimization_MultiButtonMaxCount2:
+        if len(count) >= 2 and count[0][1] >= 6 and count[1][1] >= 6:
             show_function_call()
             logger.warning(f'Too many click between 2 buttons: {count[0][0]}, {count[1][0]}')
             logger.warning(f'History click: {[str(prev) for prev in self.click_record]}')

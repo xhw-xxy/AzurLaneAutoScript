@@ -1,7 +1,7 @@
 import ctypes
 import os
 import subprocess
-import time
+import typing as t
 from dataclasses import dataclass
 from functools import wraps
 
@@ -9,7 +9,6 @@ import cv2
 import numpy as np
 
 from module.base.decorator import cached_property
-from module.device.env import IS_WINDOWS
 from module.device.method.utils import RETRY_TRIES, get_serial_pair, retry_sleep
 from module.device.platform import Platform
 from module.exception import RequestHumanTakeover
@@ -101,31 +100,17 @@ class LDConsole:
             logger.warning(f'TimeoutExpired when calling {cmd}, stdout={stdout}, stderr={stderr}')
         return stdout
 
-    def list2(self):
+    def list2(self) -> t.List[DataLDPlayerInfo]:
         """
         > ldconsole.exe list2
         0,雷电模拟器,28053900,42935798,1,59776,36816,1280,720,240
         1,雷电模拟器-1,0,0,0,-1,-1,1280,720,240
-
-        Returns:
-            list[DataLDPlayerInfo]:
         """
         out = []
         data = self.subprocess_run(['list2'])
         for row in data.strip().split(b'\n'):
-            row = row.strip()
-            if not row:
-                continue
-            info = row.split(b',')
-            # check parts
-            if len(info) != 10:
-                logger.warning(f'ldplayer info does not have 10 parts: "{row}"')
-                continue
-            # build info
-            try:
-                info = DataLDPlayerInfo(*info)
-            except Exception as e:
-                logger.warning(f'Failed to build ldplayer info from "{row}", {e}')
+            info = row.strip().split(b',')
+            info = DataLDPlayerInfo(*info)
             out.append(info)
         return out
 
@@ -160,7 +145,7 @@ def retry(func):
         for _ in range(RETRY_TRIES):
             try:
                 if callable(init):
-                    time.sleep(retry_sleep(_))
+                    retry_sleep(_)
                     init()
                 return func(self, *args, **kwargs)
             # Can't handle
@@ -203,6 +188,9 @@ class LDOpenGLImpl:
             f'ldopengl_dll={ldopengl_dll}, '
             f'instance_id={instance_id}'
         )
+        self.console = LDConsole(ld_folder)
+        self.info = self.get_player_info_by_index(instance_id)
+
         # Load dll
         try:
             self.lib = ctypes.WinDLL(ldopengl_dll)
@@ -211,17 +199,13 @@ class LDOpenGLImpl:
             if not os.path.exists(ldopengl_dll):
                 raise LDOpenGLIncompatible(
                     f'ldopengl_dll={ldopengl_dll} does not exist, '
-                    f'ldopengl requires LDPlayer >= 9.0.78, please check your version'
+                    f'ldopengl requires LDPlayer >= 9.0.75, please check your version'
                 )
             else:
                 raise LDOpenGLIncompatible(
                     f'ldopengl_dll={ldopengl_dll} exist, '
                     f'but cannot be loaded'
                 )
-        # Get info after loading DLL, so DLL existence can act as a version check
-        self.console = LDConsole(ld_folder)
-        self.info = self.get_player_info_by_index(instance_id)
-
         self.lib.CreateScreenShotInstance.restype = ctypes.c_void_p
 
         # Get screenshot instance
@@ -279,8 +263,6 @@ class LDOpenGLImpl:
             int: instance_id, or None if failed to predict
         """
         serial, _ = get_serial_pair(serial)
-        if serial is None:
-            return None
         try:
             port = int(serial.split(':')[1])
         except (IndexError, ValueError):
@@ -327,12 +309,7 @@ class LDOpenGL(Platform):
             raise RequestHumanTakeover
 
     def ldopengl_available(self) -> bool:
-        if not IS_WINDOWS:
-            return False
         if not self.is_ldplayer_bluestacks_family:
-            return False
-        logger.attr('EmulatorInfo_Emulator', self.config.EmulatorInfo_Emulator)
-        if self.config.EmulatorInfo_Emulator not in ['LDPlayer9']:
             return False
 
         try:
@@ -344,6 +321,16 @@ class LDOpenGL(Platform):
     def screenshot_ldopengl(self):
         image = self.ldopengl.screenshot()
 
-        image = cv2.flip(image, 0)
+        cv2.flip(image, 0, dst=image)
         cv2.cvtColor(image, cv2.COLOR_BGR2RGB, dst=image)
         return image
+
+
+if __name__ == '__main__':
+    ld = LDOpenGLImpl('E:/ProgramFiles/LDPlayer9', instance_id=1)
+    for _ in range(5):
+        import time
+
+        start = time.time()
+        ld.screenshot()
+        print(time.time() - start)
