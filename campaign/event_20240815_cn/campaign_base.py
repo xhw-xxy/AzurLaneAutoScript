@@ -4,7 +4,6 @@ from module.campaign.campaign_base import CampaignBase as CampaignBase_
 from module.combat.assets import GET_ITEMS_1
 from module.exception import CampaignNameError
 from module.logger import logger
-from module.ui.page import page_event
 
 
 class CampaignBase(CampaignBase_):
@@ -83,9 +82,3 @@ class CampaignBase(CampaignBase_):
             self.ensure_no_stage_entrance()
             return True
         return super().handle_campaign_ui_additional()
-
-    def handle_exp_info(self):
-        # Random background hits EXP_INFO_B
-        if self.ui_page_appear(page_event):
-            return False
-        return super().handle_exp_info()

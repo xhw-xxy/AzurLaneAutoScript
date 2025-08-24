@@ -308,12 +308,15 @@ class MapOperation(MysteryHandler, FleetPreparation, Retirement, FastForwardHand
         if not self.config.MAP_HAS_CLEAR_PERCENTAGE:
             logger.attr('MAP_HAS_CLEAR_PERCENTAGE', self.config.MAP_HAS_CLEAR_PERCENTAGE)
             return True
+        if self.config.MAP_IS_ONE_TIME_STAGE:
+            logger.attr('MAP_IS_ONE_TIME_STAGE', self.config.MAP_IS_ONE_TIME_STAGE)
+            return True
         # info_bar covers percentage and MAP_GREEN
         if self.info_bar_count():
             return False
 
         percent = self.get_map_clear_percentage()
-        logger.attr('Map_clear_percentage', percent)
+        logger.attr('Map_clear_percentage', f'{int(percent * 100)}%')
         # Comment this because percentage starts from 100% and increase from 0% to actual value
         # 2022.08.21 Still enable this when `percent` was raised from 0.
         if percent > 0.95 and 0 <= self.map_clear_percentage_prev < 0.95:

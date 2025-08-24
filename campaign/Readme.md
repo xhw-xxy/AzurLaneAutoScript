@@ -203,3 +203,8 @@ To add a new event, add a new row in here, and run `python -m module.config.conf
 | 20240711   | event 20211229 cn        | Tower of Transcendence Rerun                 | -  | -  | -　 | 復刻逆轉彩虹之塔  |
 | 20240718   | event 20220526 cn        | Pledge of the Radiant Court Rerun                 | 复刻泠誓光庭               | Pledge of the Radiant Court Rerun                 | 復刻诚閃の剣 搖光の城                | -                        |
 | 20240725 | event 20240725 cn | Interlude of Illusions | 幻梦间奏曲 | Interlude of Illusions | 夢幻の間奏曲 | - |
+| 20240725 | raid 20240328 | From Zero to Hero | - | - | - | 從零開始的魔王討伐之旅 |
+| 20240815 | event 20240815 cn | Windborne Steel Wings | 铁翼擎风 | Windborne Steel Wings | 錬翼空翔 | - |
+| 20240815 | event 20240425 cn | Heart-Linking Harmony | - | - | - | 共鳴的PASSION |
+| 20240829 | event 20240829 cn | Whence Flowers Bear No Fruit | 埋葬于彼岸之花 | Whence Flowers Bear No Fruit | 徒花咲かす彼岸 | - |
+| 20240829 | event 20220324 cn | Virtual Tower | - | - | - | 復刻虛像構築之塔 |
