@@ -54,7 +54,6 @@ class Config:
     STAR_REQUIRE_3 = 0
     # ===== End of generated config =====
 
-    MAP_CHAPTER_SWITCH_20241219 = True
     MAP_IS_ONE_TIME_STAGE = True
     STAGE_ENTRANCE = ['half', '20240725']
     INTERNAL_LINES_FIND_PEAKS_PARAMETERS = {

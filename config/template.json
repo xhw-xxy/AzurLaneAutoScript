@@ -1391,7 +1391,8 @@
       "Mode": "seamlessly",
       "RetainTalentedGold": true,
       "RetainTalentedPurple": true,
-      "EnhanceIndex": 1
+      "EnhanceIndex": 1,
+      "MaxFeedLevel": 5
     },
     "Storage": {
       "Storage": {}
