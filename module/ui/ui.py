@@ -568,6 +568,12 @@ class UI(InfoHandler):
         for switch_button in page_main.links.values():
             if button == switch_button:
                 self.interval_reset(GET_SHIP)
+        if button in [MAIN_GOTO_REWARD, MAIN_GOTO_REWARD_WHITE]:
+            self.interval_reset(GET_SHIP)
+        if button == REWARD_GOTO_TACTICAL:
+            self.interval_reset(REWARD_GOTO_TACTICAL_WHITE)
+        if button == REWARD_GOTO_TACTICAL_WHITE:
+            self.interval_reset(REWARD_GOTO_TACTICAL)
         if button in [MAIN_GOTO_CAMPAIGN, MAIN_GOTO_CAMPAIGN_WHITE]:
             self.interval_reset(GET_SHIP)
             # Shinano event has the same title as raid
