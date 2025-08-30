@@ -35,6 +35,7 @@ class LoginHandler(UI):
         confirm_timer = Timer(1.5, count=4).start()
         orientation_timer = Timer(5)
         login_success = False
+
         while 1:
             # Watch device rotation
             if not login_success and orientation_timer.reached():
@@ -53,7 +54,7 @@ class LoginHandler(UI):
                 confirm_timer.reset()
 
             # Login
-            if self.appear(LOGIN_CHECK, offset=(30, 30), interval=5) and LOGIN_CHECK.match_appear_on(self.device.image):
+            if self.match_template_color(LOGIN_CHECK, offset=(30, 30), interval=5):
                 self.device.click(LOGIN_CHECK)
                 if not login_success:
                     logger.info('Login success')
