@@ -699,7 +699,7 @@
     },
     "Name": {
       "name": "Level Name",
-      "help": "7-2, 12-4, or SP4; case insensitive; if the level is missing, please wait for next update\n15-4 has 2 options: 15-4 and 15-4-121\n15-4: mob fleet clears 2nd boss, boss fleet does 1st and 3rd boss\n15-4-121: mob fleet clears 1st and 3rd boss, boss clears 2nd boss only"
+      "help": "7-2, 12-4, or SP4; case insensitive; if the level is missing, please wait for next update"
     },
     "Event": {
       "name": "Event Name",
@@ -785,6 +785,7 @@
       "event_20250520_cn": "A Rose on the High Tower",
       "event_20250724_cn": "The Alchemist and the Tower of Horizons",
       "event_20250814_cn": "Secrets of the Abyss",
+      "event_20250912_cn": "A Dance for Amahara Above",
       "raid_20200624": "Air Raid Drills with Essex Rerun",
       "raid_20210708": "Cross Wave rerun",
       "raid_20220127": "Mystery Investigation",
