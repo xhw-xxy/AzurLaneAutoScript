@@ -32,7 +32,7 @@ class Switch:
         self.offset = offset
         self.state_list = []
 
-    def add_state(self, state, check_button, click_button=None, offset=0):
+    def add_status(self, state, check_button, click_button=None, offset=0):
         """
         Args:
             state (str): State name but cannot use 'unknown' as state name
