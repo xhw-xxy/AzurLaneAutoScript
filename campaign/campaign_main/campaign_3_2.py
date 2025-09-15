@@ -1,10 +1,10 @@
 from campaign.campaign_main.campaign_3_1 import Config
-from module.campaign.campaign_base import CampaignBase
+from .campaign_3_base import CampaignBase
 from module.logger import logger
 from module.map.map_base import CampaignMap
 from module.map.map_grids import RoadGrids, SelectedGrids
 
-MAP = CampaignMap('3-2')
+MAP = CampaignMap()
 MAP.shape = 'H4'
 MAP.camera_data = ['E2']
 MAP.camera_data_spawn_point = ['D1', 'D2']
