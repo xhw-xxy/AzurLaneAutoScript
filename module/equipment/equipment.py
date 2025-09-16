@@ -364,6 +364,8 @@ class EquipmentNew(StorageHandler):
                 else:
                     self.device.click(click_button)
                 enter_timer.reset()
+            if self.handle_game_tips():
+                continue
 
     @cached_property
     @equip_assets_override("new")

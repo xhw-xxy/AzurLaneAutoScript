@@ -2,7 +2,6 @@
 # Define argument group of tasks.
 # --------------------
 
-
 # ==================== Alas ====================
 
 Alas:
@@ -230,6 +229,9 @@ Reward:
     Reward:
       - Scheduler
       - Reward
+    Awaken:
+      - Scheduler
+      - Awaken
 
 # ==================== DailyMission ====================
 
