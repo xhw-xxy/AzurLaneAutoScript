@@ -51,8 +51,7 @@ MEDAL_SHOP_SCROLL_250814 = ShopAdaptiveScroll(
     name="MEDAL_SHOP_SCROLL_250814"
 )
 MEDAL_SHOP_SCROLL_250814.drag_threshold = 0.1
-# A little bit larger than 0.1 to handle bottom
-MEDAL_SHOP_SCROLL_250814.edge_threshold = 0.12
+MEDAL_SHOP_SCROLL_250814.edge_threshold = 0.1
 
 
 class ShopPriceOcr(DigitYuv):
