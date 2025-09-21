@@ -12,7 +12,8 @@ from module.map.assets import (FLEET_ENTER_FLAGSHIP_HARD_1,
                                FLEET_ENTER_FLAGSHIP_HARD_2, FLEET_ENTER_HARD_1, FLEET_ENTER_HARD_2,
                                FLEET_ENTER_FLAGSHIP_HARD_1_3, FLEET_ENTER_FLAGSHIP_HARD_2_3, FLEET_ENTER_HARD_1_3,
                                FLEET_ENTER_HARD_2_3)
-from module.retire.assets import (DOCK_SHIP_DOWN)
+from module.retire.assets import (
+                                  DOCK_SHIP_DOWN)
 from module.map.assets import FLEET_PREPARATION, MAP_PREPARATION
 from module.retire.assets import (
     DOCK_CHECK,
@@ -46,7 +47,7 @@ class GemsCampaignOverride(CampaignBase):
             return result
 
         if self.handle_popup_cancel('IGNORE_LOW_EMOTION'):
-            self.config.GEMS_EMOTION_TRIGGERED = True
+            self.config.GEMS_EMOTION_TRIGGRED = True
             logger.hr('EMOTION WITHDRAW')
 
             while 1:
@@ -139,13 +140,6 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
     @property
     def change_vanguard_equip(self):
         return 'equip' in self.config.GemsFarming_ChangeVanguard
-
-    @property
-    def fleet_to_attack(self):
-        if self.config.Fleet_FleetOrder == 'fleet1_standby_fleet2_all':
-            return self.config.Fleet_Fleet2
-        else:
-            return self.config.Fleet_Fleet1
 
     def _fleet_detail_enter(self):
         """
@@ -262,7 +256,7 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
         self.dock_sort_method_dsc_set()
         self.dock_select_confirm(check_button=self.page_fleet_check_button)
 
-    def get_common_rarity_cv(self):
+    def get_common_rarity_cv(self, lv=31, emotion=16):
         """
         Get a common rarity cv by config.GemsFarming_CommonCV
         If config.GemsFarming_CommonCV == 'any', return a common lv1 ~ lv33 cv
@@ -273,7 +267,7 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
         logger.hr('FINDING FLAGSHIP')
 
         scanner = ShipScanner(
-            level=(1, 31), emotion=(10, 150), fleet=self.config.Fleet_Fleet1, status='free')
+            level=(1, lv), emotion=(emotion, 150), fleet=self.config.Fleet_Fleet1, status='free')
         scanner.disable('rarity')
 
         if self.config.GemsFarming_CommonCV == 'any':
@@ -285,7 +279,6 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
                 # Don't need to change current
                 return ships
 
-            # Change to any ship
             scanner.set_limitation(fleet=0)
             return scanner.scan(self.device.image, output=False)
 
@@ -306,7 +299,7 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
 
             scanner.set_limitation(fleet=0)
             candidates = [ship for ship in scanner.scan(self.device.image, output=False)
-                          if template.match(self.image_crop(ship.button, copy=False), similarity=SIM_VALUE)]
+                          if template.match(self.image_crop(ship.button), similarity=SIM_VALUE)]
 
             if candidates:
                 return candidates
@@ -315,7 +308,7 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
             self.dock_sort_method_dsc_set(False)
 
             candidates = [ship for ship in scanner.scan(self.device.image)
-                          if template.match(self.image_crop(ship.button, copy=False), similarity=SIM_VALUE)]
+                          if template.match(self.image_crop(ship.button), similarity=SIM_VALUE)]
 
             return candidates
 
@@ -339,14 +332,21 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
             min_level = max_level
         if self.hard_mode:
             min_level = max(min_level, 49)
-        scanner = ShipScanner(level=(max_level, max_level), emotion=(10, 150),
-                              fleet=[0, self.fleet_to_attack], status='free')
+        scanner = ShipScanner(level=(min_level, max_level), emotion=(emotion, 150),
+                              fleet=self.config.Fleet_Fleet1, status='free')
         scanner.disable('rarity')
 
         self.dock_sort_method_dsc_set()
 
+        ships = scanner.scan(self.device.image)
+        if ships:
+            # Don't need to change current
+            return ships
+
+        scanner.set_limitation(fleet=0)
+
         if self.config.GemsFarming_CommonDD == 'any':
-            return scanner.scan(self.device.image)
+            return scanner.scan(self.device.image, output=False)
         
         candidates = self.find_candidates(self.get_templates(self.config.GemsFarming_CommonDD), scanner)
 
@@ -368,7 +368,7 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
         candidates = []
         for item in template:
             candidates = [ship for ship in scanner.scan(self.device.image, output=False)
-                          if item.match(self.image_crop(ship.button, copy=False), similarity=SIM_VALUE)]
+                          if item.match(self.image_crop(ship.button), similarity=SIM_VALUE)]
             if candidates:
                 break
         return candidates
@@ -423,15 +423,8 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
             out: page_fleet
         """
         self.solve_hard_flagship_black()
-        for _ in self.loop():
-            if self.appear(DOCK_CHECK, offset=(20, 20)):
-                break
-            if self.ui_page_appear(page_fleet, interval=5):
-                self.device.click(FLEET_ENTER_FLAGSHIP)
-                continue
-            # 2025.05.29 game tips that infos skin feature when you enter dock
-            if self.handle_game_tips():
-                return True
+        self.ui_click(self.FLEET_ENTER_FLAGSHIP,
+                      appear_button=self.page_fleet_check_button, check_button=DOCK_CHECK, skip_first_screenshot=True)
 
         # self.dock_filter_set(
         #     index='cv', rarity='common', extra='enhanceable', sort='total')
@@ -496,15 +489,8 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
             out: page_fleet
         """
         self.solve_hard_vanguard_black()
-        for _ in self.loop():
-            if self.appear(DOCK_CHECK, offset=(20, 20)):
-                break
-            if self.ui_page_appear(page_fleet, interval=5):
-                self.device.click(FLEET_ENTER)
-                continue
-            # 2025.05.29 game tips that infos skin feature when you enter dock
-            if self.handle_game_tips():
-                return True
+        self.ui_click(self.FLEET_ENTER,
+                      appear_button=self.page_fleet_check_button, check_button=DOCK_CHECK, skip_first_screenshot=True)
         # self.dock_filter_set(
         #     index='dd', rarity='common', faction='eagle', extra='can_limit_break')
 
@@ -550,7 +536,7 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
             logger.hr('TRIGGERED LV32 LIMIT')
             return True
 
-        if self.campaign.map_is_auto_search and self.campaign.config.GEMS_EMOTION_TRIGGERED:
+        if self.campaign.map_is_auto_search and self.campaign.config.GEMS_EMOTION_TRIGGRED:
             self._trigger_emotion = True
             logger.hr('TRIGGERED EMOTION LIMIT')
             return True
@@ -567,6 +553,7 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
         """
         self.config.STOP_IF_REACH_LV32 = self.change_flagship
         self.campaign_floder = folder
+        self.config.RETIRE_KEEP_COMMON_CV = True
         self.event_hard_mode_override()
         while 1:
             self._trigger_lv32 = False
@@ -614,7 +601,7 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
                 self._trigger_lv32 = False
                 self._trigger_emotion = False
                 self.campaign.config.LV32_TRIGGERED = False
-                self.campaign.config.GEMS_EMOTION_TRIGGERED = False
+                self.campaign.config.GEMS_EMOTION_TRIGGRED = False
 
                 # Scheduler
                 if self.config.task_switched():
