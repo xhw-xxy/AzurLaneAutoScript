@@ -4,7 +4,7 @@ import shutil
 import time
 from threading import Lock
 
-from deploy.Windows.config import DeployConfig
+from deploy.config import DeployConfig
 from module.logger import logger
 from submodule.AlasFpyBridge.module.utils.headlessCliApplication import HeadlessCliApplication
 
@@ -63,9 +63,7 @@ class FGOpy(HeadlessCliApplication):
             return
         prompt, datetime, level, module, content = match.groups()
         getattr(logger, level.lower())(content)
-        item = self.counter.get(content)
-        if item:
-            setattr(self.config, item, getattr(self.config, item) - 1)
+        self.counter.get(content, lambda: None)()
 
         if self.first_log:
             self.first_log = False

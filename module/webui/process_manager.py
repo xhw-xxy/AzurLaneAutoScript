@@ -1,19 +1,18 @@
-import os
-import sys
-import queue
 import argparse
+import os
+import queue
 import threading
 from multiprocessing import Process
 from typing import Dict, List, Union
 
 import inflection
-from filelock import FileLock
 from rich.console import Console, ConsoleRenderable
 
 # Since this file does not run under the same process or subprocess of app.py
 # the following code needs to be repeated
 # Import fake module before import pywebio to avoid importing unnecessary module PIL
 from module.webui.fake_pil_module import *
+
 import_fake_pil_module()
 
 from module.config.utils import filepath_config
@@ -35,6 +34,7 @@ class ProcessManager:
         self.renderables_max_length = 400
         self.renderables_reduce_length = 80
         self._process: Process = None
+        self._process_locks: Dict[str, threading.Lock] = {}
         self.thd_log_queue_handler: threading.Thread = None
 
     def start(self, func, ev: threading.Event = None) -> None:
@@ -70,7 +70,12 @@ class ProcessManager:
         self.thd_log_queue_handler.start()
 
     def stop(self) -> None:
-        lock = FileLock(f"{filepath_config(self.config_name)}.lock")
+        try:
+            lock = self._process_locks[self.config_name]
+        except KeyError:
+            lock = threading.Lock()
+            self._process_locks[self.config_name] = lock
+
         with lock:
             if self.alive:
                 self._process.kill()

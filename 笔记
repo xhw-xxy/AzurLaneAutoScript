@@ -1,4 +1,4 @@
-pr 25/02/23 22：17
+pr 25/03/17 11:23
 
 不可动:
 alas.py
@@ -63,6 +63,8 @@ module\webui\process_manager.py
 
 ---------------------------------------------
 安全：
+module\awaken\awaken.py
+
 module\base\utils.py
 
 module\combat\assets.py
@@ -70,10 +72,13 @@ module\combat\combat.py
 module\combat_ui\assets.py
 module\commission\assets.py
 
+module\config\deep.py
+
 module\device\method\ldopengl.py
 module\device\method\maatouch.py
 module\device\method\minitouch.py
 module\device\method\nemu_ipc.py
+module\device\connection_attr.py
 
 module\device\connection.py
 module\device\screenshot.py
@@ -85,6 +90,8 @@ module\freebies\battle_pass.py
 
 module\gacha\gacha_reward.py
 
+module\guild\assets.py
+
 module\handler\sensitive_info.py
 module\handler\strategy.py
 
@@ -95,6 +102,7 @@ module\map\map_operation.py
 
 module\meowfficer\enhance.py
 
+module\meta_reward\assets.py
 module\meta_reward\meta_reward.py
 
 module\os\map_operation.py
@@ -106,9 +114,18 @@ module\research\assets.py
 module\shop\shop_medal.py
 module\shop\shop_reward.py
 
+module\statistics\azurstats.py
+
+module\submodule\utils.py
+
 module\template\assets.py
 
 module\ui\assets.py
 module\ui\ui.py
 
 module\war_archives\war_archives.py
+
+module\webui\config.py
+module\webui\lang.py
+module\webui\translate.py
+module\webui\utils.py

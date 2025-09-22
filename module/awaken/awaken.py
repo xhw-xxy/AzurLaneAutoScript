@@ -87,7 +87,7 @@ class Awaken(Dock):
         return self.appear_then_click(AWAKEN_FINISH, offset=(20, 20), interval=1)
 
     def is_in_awaken(self):
-        return SHIP_LEVEL_CHECK.match_luma(self.device.image)
+        return SHIP_LEVEL_CHECK.match_luma(self.device.image, similarity=0.7)
 
     def awaken_popup_close(self, skip_first_screenshot=True):
         logger.info('Awaken popup close')
@@ -131,7 +131,8 @@ class Awaken(Dock):
             if LEVEL_UP.match_luma(self.device.image):
                 logger.info(f'awaken_once ended at {LEVEL_UP}')
                 return 'no_exp'
-            if interval.reached() and AWAKENING.match_luma(self.device.image):
+            # Lower similarity due to random background
+            if interval.reached() and AWAKENING.match_luma(self.device.image, similarity=0.7):
                 self.device.click(AWAKENING)
                 interval.reset()
                 continue

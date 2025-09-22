@@ -2,7 +2,7 @@ from module.base.button import ButtonGrid
 from module.base.timer import Timer
 from module.base.utils import color_similar, get_color, resize
 from module.combat.assets import GET_ITEMS_1
-from module.config.utils import deep_get
+from module.config.deep import deep_get
 from module.exception import RequestHumanTakeover, ScriptError
 from module.handler.assets import AUTO_SEARCH_MAP_OPTION_OFF, AUTO_SEARCH_MAP_OPTION_ON
 from module.logger import logger
@@ -553,6 +553,7 @@ class Retirement(Enhancement, QuickRetireSettingHandler):
         """
         swipe_count = 0
         disappear_confirm = Timer(2, count=6)
+        top_checked = False
         while 1:
             if skip_first_screenshot:
                 skip_first_screenshot = False
@@ -575,16 +576,21 @@ class Retirement(Enhancement, QuickRetireSettingHandler):
                 else:
                     continue
 
-            if RETIRE_CONFIRM_SCROLL.at_bottom(main=self):
-                logger.info('Scroll bar reached end, stop')
-                break
-
-            # Swipe next page
-            if swipe_count >= 7:
-                logger.info('Reached maximum swipes to find common CV')
-                break
-            RETIRE_CONFIRM_SCROLL.next_page(main=self)
-            swipe_count += 1
+            if not top_checked:
+                top_checked = True
+                logger.info('Find common CV from bottom to top')
+                RETIRE_CONFIRM_SCROLL.set_bottom(main=self)
+                continue
+            else:
+                if RETIRE_CONFIRM_SCROLL.at_top(main=self):
+                    logger.info('Scroll bar reached top, stop')
+                    break
+                # Swipe prev page
+                if swipe_count >= 7:
+                    logger.info('Reached maximum swipes to find common CV')
+                    break
+                RETIRE_CONFIRM_SCROLL.prev_page(main=self)
+                swipe_count += 1
 
         return button
 

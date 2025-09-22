@@ -1,17 +1,16 @@
 import re
-import sys
-import json
-import time
-import queue
 import argparse
+import json
+import queue
 import threading
-
+import time
 from datetime import datetime
 from functools import partial
 from typing import Dict, List, Optional
 
 # Import fake module before import pywebio to avoid importing unnecessary module PIL
 from module.webui.fake_pil_module import import_fake_pil_module
+
 import_fake_pil_module()
 
 from pywebio import config as webconfig
@@ -39,17 +38,15 @@ from pywebio.output import (
     use_scope,
 )
 from pywebio.pin import pin, pin_on_change
-from pywebio.session import (download, go_app, info, local, register_thread, run_js, set_env)
+from pywebio.session import download, go_app, info, local, register_thread, run_js, set_env
 
 import module.webui.lang as lang
 from module.config.config import AzurLaneConfig, Function
+from module.config.deep import deep_get, deep_iter, deep_set
 from module.config.env import IS_ON_PHONE_CLOUD
 from module.config.utils import (
     alas_instance,
     alas_template,
-    deep_get,
-    deep_iter,
-    deep_set,
     dict_to_kv,
     filepath_args,
     filepath_config,
@@ -1080,17 +1077,17 @@ class AlasGUI(Frame):
     def dev_utils(self) -> None:
         self.init_menu(name="Utils")
         self.set_title(t("Gui.MenuDevelop.Utils"))
-        put_button(label=t("Gui.MenuDevelop.RaiseException"), onclick=raise_exception)
+        put_button(label="Raise exception", onclick=raise_exception)
 
         def _force_restart():
             if State.restart_event is not None:
-                toast(t("Gui.Toast.AlasRestart"), duration=0, color="error")
+                toast("Alas will restart in 3 seconds", duration=0, color="error")
                 clearup()
                 State.restart_event.set()
             else:
-                toast(t("Gui.Toast.ReloadEnabled"), color="error")
+                toast("Reload not enabled", color="error")
 
-        put_button(label=t("Gui.MenuDevelop.ForceRestart"), onclick=_force_restart)
+        put_button(label="Force restart", onclick=_force_restart)
 
     @use_scope("content", clear=True)
     def dev_remote(self) -> None:
@@ -1679,6 +1676,9 @@ def app():
     logger.attr("Password", True if key else False)
     logger.attr("CDN", cdn)
     logger.attr("IS_ON_PHONE_CLOUD", IS_ON_PHONE_CLOUD)
+
+    from deploy.atomic import atomic_failure_cleanup
+    atomic_failure_cleanup('./config')
 
     global g_instance_watcher
     if g_instance_watcher is None:
