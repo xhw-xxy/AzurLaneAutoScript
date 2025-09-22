@@ -349,7 +349,7 @@ class DockNew(UI):
         """
         self.dock_filter_enter()
         self.dock_filter.set(sort=sort, index=index, faction=faction, rarity=rarity, extra=extra)
-        self.dock_filter_confirm()
+        self.dock_filter_confirm(wait_loading=wait_loading)
 
     def dock_select_one(self, button, skip_first_screenshot=True):
         """
