@@ -16,6 +16,7 @@ from module.ui.page import page_campaign
 from module.config.utils import deep_get, deep_set
 from datetime import datetime, timedelta
 
+
 class CampaignRun(CampaignEvent, ShopStatus):
     folder: str
     name: str
@@ -385,6 +386,7 @@ class CampaignRun(CampaignEvent, ShopStatus):
                     self.campaign.ensure_campaign_ui(name=self.stage, mode=mode)
             else:
                 self.campaign.ensure_campaign_ui(name=self.stage, mode=mode)
+            self.disable_raid_on_event()
             self.handle_commission_notice()
 
             # if in hard mode, check remain times
