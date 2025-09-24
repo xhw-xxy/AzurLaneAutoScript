@@ -1,6 +1,6 @@
 import module.config.server as server
 
-from module.base.button import ButtonGrid
+from module.base.button import ButtonGrid, get_color, color_similar
 from module.base.decorator import cached_property
 from module.base.timer import Timer
 from module.equipment.equipment import Equipment
@@ -13,12 +13,12 @@ from module.ui.switch import Switch
 from module.ui.ui import UI
 
 DOCK_SORTING = Switch('Dork_sorting')
-DOCK_SORTING.add_state('Ascending', check_button=SORT_ASC, click_button=SORTING_CLICK)
-DOCK_SORTING.add_state('Descending', check_button=SORT_DESC, click_button=SORTING_CLICK)
+DOCK_SORTING.add_status('Ascending', check_button=SORT_ASC, click_button=SORTING_CLICK)
+DOCK_SORTING.add_status('Descending', check_button=SORT_DESC, click_button=SORTING_CLICK)
 
 DOCK_FAVOURITE = Switch('Favourite_filter')
-DOCK_FAVOURITE.add_state('on', check_button=COMMON_SHIP_FILTER_ENABLE)
-DOCK_FAVOURITE.add_state('off', check_button=COMMON_SHIP_FILTER_DISABLE)
+DOCK_FAVOURITE.add_status('on', check_button=COMMON_SHIP_FILTER_ENABLE)
+DOCK_FAVOURITE.add_status('off', check_button=COMMON_SHIP_FILTER_DISABLE)
 
 CARD_GRIDS = ButtonGrid(
     origin=(93, 76), delta=(164 + 2 / 3, 227), button_shape=(138, 204), grid_shape=(7, 2), name='CARD')
@@ -227,10 +227,23 @@ class DockOld(Equipment):
 
 
 class DockNew(UI):
-    def handle_dock_cards_loading(self):
-        # Poor implementation.
-        self.device.sleep((1, 1.5))
-        self.device.screenshot()
+    def handle_dock_cards_loading(self, skip_first_screenshot=True):
+        # Poor implementation
+        # confirm_timer method cannot be used
+        timeout = Timer(1.2, count=1).start()
+        while 1:
+            if skip_first_screenshot:
+                skip_first_screenshot = False
+            else:
+                self.device.screenshot()
+
+            # Quick exit if dock is empty
+            if self.appear(DOCK_EMPTY):
+                logger.info('Dock empty')
+                break
+            # Otherwise we just wait 1.2s
+            if timeout.reached():
+                break
 
     def dock_favourite_set(self, enable=False, wait_loading=True):
         """
@@ -262,12 +275,27 @@ class DockNew(UI):
         self.ui_click(DOCK_FILTER, appear_button=DOCK_CHECK, check_button=DOCK_FILTER_CONFIRM,
                       skip_first_screenshot=True)
 
-    def dock_filter_confirm(self, wait_loading=True):
+    def dock_filter_confirm(self, wait_loading=True, skip_first_screenshot=True):
         """
         Args:
             wait_loading: Default to True, use False on continuous operation
+            skip_first_screenshot:
         """
-        self.ui_click(DOCK_FILTER_CONFIRM, check_button=DOCK_CHECK, skip_first_screenshot=True)
+        while 1:
+            if skip_first_screenshot:
+                skip_first_screenshot = False
+            else:
+                self.device.screenshot()
+
+            # End
+            # sometimes you have dock filter without black-blurred background
+            # DOCK_FILTER_CONFIRM and DOCK_CHECK appears
+            if not self.appear(DOCK_FILTER_CONFIRM, offset=(20, 20)):
+                if self.appear(DOCK_CHECK, offset=(20, 20)):
+                    break
+            if self.appear_then_click(DOCK_FILTER_CONFIRM, offset=(20, 20), interval=3):
+                continue
+
         if wait_loading:
             self.handle_dock_cards_loading()
 
@@ -436,6 +464,62 @@ class DockNew(UI):
                 continue
             if self.handle_popup_confirm('DOCK_SELECT_CONFIRM'):
                 continue
+
+    def dock_enter_first(self, non_npc=True, skip_first_screenshot=True):
+        """
+        Enter first ship in dock
+
+        Args:
+            non_npc: True to enter the second ship if first ship is NPC
+            skip_first_screenshot:
+
+        Returns:
+            bool: True if success to enter
+                False if dock empty
+                False if non_npc and only one NPC in dock
+
+        Pages:
+            in: page_dock
+            out: SHIP_DETAIL_CHECK
+        """
+        logger.info('Dock enter first')
+        self.interval_clear(DOCK_CHECK, interval=3)
+
+        while 1:
+            if skip_first_screenshot:
+                skip_first_screenshot = False
+            else:
+                self.device.screenshot()
+
+            # End
+            if self.appear(SHIP_DETAIL_CHECK, offset=(20, 20)):
+                return True
+            if self.appear(DOCK_EMPTY, offset=(20, 20)):
+                logger.info('Dock empty')
+                return False
+
+            # Click
+            if self.appear(DOCK_CHECK, offset=(20, 20), interval=3):
+                if non_npc:
+                    # Check NPC
+                    if DOCK_FIRST_NPC.match_luma(self.device.image, offset=(20, 20)):
+                        logger.info('First ship is NPC, select second')
+                        button = CARD_GRIDS[(1, 0)]
+                        # Check if there's second ship
+                        color = get_color(self.device.image, button.area)
+                        if color_similar(color, (34, 34, 42)):
+                            logger.info('Second ship empty, dock empty')
+                            return False
+                    else:
+                        button = CARD_GRIDS[(0, 0)]
+                else:
+                    button = CARD_GRIDS[(0, 0)]
+                self.device.click(button)
+                continue
+            if self.handle_game_tips():
+                continue
+
+
 
 
 class Dock(DockOld if globals().get("g_current_task", "") == "GemsFarming" else DockNew):

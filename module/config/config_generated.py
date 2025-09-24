@@ -160,6 +160,7 @@ class GeneratedConfig:
     GemsFarming_FleetNumberInHardMode = 0  # 0, 1, 2
     GemsFarming_StopIFAutoNotEnsured = True
     GemsFarming_CommissionLimit = True
+    Campaign_Use2xBook = False
 
     # Group `FlagshipFilter`
     FlagshipFilter_Sort = 'default'  # default, rarity, level, total, join, intimacy, stat
@@ -195,11 +196,14 @@ class GeneratedConfig:
     # Group `RaidDaily`
     RaidDaily_StageFilter = 'hard > normal > easy'
 
+    # Group `Hospital`
+    Hospital_UseRecommendFleet = True
+
     # Group `MaritimeEscort`
     MaritimeEscort_Enable = True
 
     # Group `Coalition`
-    Coalition_Mode = 'hard'  # easy, normal, hard, ex
+    Coalition_Mode = 'tc1'  # tc1, tc2, tc3, sp, ex
     Coalition_Fleet = 'single'  # single, multi
 
     # Group `Commission`

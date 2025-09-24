@@ -1,7 +1,7 @@
 from module.gg_handler.gg_data import GGData
 from module.gg_handler.gg_u2 import GGU2
 # from module.gg_handler.gg_screenshot import GGScreenshot
-from module.config.utils import deep_get, deep_set
+from module.config.deep import deep_get, deep_set
 from module.logger import logger
 from module.base.timer import timeout
 
@@ -175,7 +175,7 @@ class GGHandler:
         self.device.screenshot()
         OCR_CHECK = Digit(OCR_PRE_BATTLE_CHECK, letter=(255, 255, 255), threshold=128)
         ocr = OCR_CHECK.ocr(self.device.image)
-        from module.config.utils import deep_get
+        from module.config.deep import deep_get
         limit = deep_get(self.config.data, keys=f'GameManager.PowerLimit.{task}', default=17000)
         logger.attr('Power Limit', limit)
         if ocr >= limit:

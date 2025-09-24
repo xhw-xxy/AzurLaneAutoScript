@@ -13,7 +13,7 @@ from module.handler.fast_forward import map_files, to_map_file_name
 from module.logger import logger
 from module.notify import handle_notify
 from module.ui.page import page_campaign
-from module.config.utils import deep_get, deep_set
+from module.config.deep import deep_get, deep_set
 from datetime import datetime, timedelta
 
 
@@ -221,6 +221,7 @@ class CampaignRun(CampaignEvent, ShopStatus):
             'event_20211125_cn',
             'event_20231026_cn',
             'event_20241024_cn',
+            'event_20250424_cn',
         ]:
             name = convert.get(name, name)
         # Convert between A/B/C/D and T/HT
@@ -251,6 +252,7 @@ class CampaignRun(CampaignEvent, ShopStatus):
             'event_20240829_cn',
             'event_20241024_cn',
             'event_20241121_cn',
+            'event_20250424_cn',
         ]:
             name = convert.get(name, name)
         else:

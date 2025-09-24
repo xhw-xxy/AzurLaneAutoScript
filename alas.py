@@ -91,7 +91,7 @@ class AzurLaneAutoScript:
         except GameNotRunningError as e:
             logger.warning(e)
             self.config.task_call('Restart')
-            return True
+            return False
         except (GameStuckError, GameTooManyClickError) as e:
             logger.error(e)
             self.save_error_log()
@@ -435,6 +435,10 @@ class AzurLaneAutoScript:
         from module.raid.run import RaidRun
         RaidRun(config=self.config, device=self.device).run()
 
+    def hospital(self):
+        from module.event_hospital.hospital import Hospital
+        Hospital(config=self.config, device=self.device).run()
+
     def coalition(self):
         from module.coalition.coalition import Coalition
         Coalition(config=self.config, device=self.device).run()
@@ -540,7 +544,9 @@ class AzurLaneAutoScript:
                         del_cached_property(self, 'config')
                         continue
                     if task.command != 'Restart':
-                        self.run('start')
+                        self.config.task_call('Restart')
+                        del_cached_property(self, 'config')
+                        continue
                 elif method == 'goto_main':
                     logger.info('Goto main page during wait')
                     self.run('goto_main')

@@ -3,8 +3,7 @@ from module.base.decorator import cached_property
 from module.base.timer import Timer
 from module.equipment.assets import *
 from module.logger import logger
-from module.retire.assets import DOCK_CHECK
-from module.retire.assets import EQUIP_CONFIRM as RETIRE_EQUIP_CONFIRM
+from module.retire.assets import DOCK_CHECK, EQUIP_CONFIRM as RETIRE_EQUIP_CONFIRM
 from module.storage.storage import StorageHandler
 from module.ui.assets import BACK_ARROW
 from module.ui.navbar import Navbar
@@ -288,7 +287,6 @@ class EquipmentOld(StorageHandler):
 class EquipmentNew(StorageHandler):
     equipment_has_take_on = False
 
-    @equip_assets_override("new")
     def _ship_view_swipe(self, distance, check_button=EQUIPMENT_OPEN):
         swipe_count = 0
         swipe_timer = Timer(5, count=10)
@@ -313,6 +311,9 @@ class EquipmentNew(StorageHandler):
                     if self.appear(RETIRE_EQUIP_CONFIRM, offset=(30, 30)):
                         logger.info('RETIRE_EQUIP_CONFIRM popup in _ship_view_swipe()')
                         return False
+                    # Popup when enhancing a NPC ship
+                    if self.handle_popup_confirm('SHIP_VIEW_SWIPE'):
+                        continue
                 swipe_count += 1
 
             self.device.screenshot()
@@ -330,26 +331,23 @@ class EquipmentNew(StorageHandler):
                 logger.info('New ship detected on swipe')
                 return True
 
-    @equip_assets_override("new")
     def ship_view_next(self, check_button=EQUIPMENT_OPEN):
         return self._ship_view_swipe(distance=-SWIPE_DISTANCE, check_button=check_button)
 
-    @equip_assets_override("new")
     def ship_view_prev(self, check_button=EQUIPMENT_OPEN):
         return self._ship_view_swipe(distance=SWIPE_DISTANCE, check_button=check_button)
 
-    @equip_assets_override("new")
-    def ship_info_enter(self, click_button, check_button=EQUIPMENT_OPEN, long_click=True, skil_first_screenshot=True):
+    def ship_info_enter(self, click_button, check_button=EQUIPMENT_OPEN, long_click=True, skip_first_screenshot=True):
         enter_timer = Timer(10)
 
         while 1:
-            if skil_first_screenshot:
-                skil_first_screenshot = False
+            if skip_first_screenshot:
+                skip_first_screenshot = False
             else:
                 self.device.screenshot()
 
             # End
-            if self.appear(check_button):
+            if self.appear(check_button, offset=(5, 5)):
                 break
 
             # Long click accidentally became normal click, exit from dock
@@ -368,7 +366,6 @@ class EquipmentNew(StorageHandler):
                 continue
 
     @cached_property
-    @equip_assets_override("new")
     def _ship_side_navbar(self):
         """
         pry_sidebar 3 options
@@ -390,13 +387,12 @@ class EquipmentNew(StorageHandler):
             detail.
         """
         ship_side_navbar = ButtonGrid(
-            origin=(21, 118), delta=(0, 94.5), button_shape=(60, 75), grid_shape=(1, 5), name='DETAIL_SIDE_NAVBAR')
+            origin=(21, 118), delta=(0, 94.5), button_shape=(60, 75), grid_shape=(1, 5), name='SHIP_SIDE_NAVBAR')
 
         return Navbar(grids=ship_side_navbar,
                       active_color=(247, 255, 173), active_threshold=221,
                       inactive_color=(140, 162, 181), inactive_threshold=221)
 
-    @equip_assets_override("new")
     def ship_side_navbar_ensure(self, upper=None, bottom=None):
         """
         Ensure able to transition to page
@@ -433,7 +429,6 @@ class EquipmentNew(StorageHandler):
             return True
         return False
 
-    @equip_assets_override("new")
     def ship_equipment_take_off(self, skip_first_screenshot=True):
         logger.info('Equipment take off')
         bar_timer = Timer(5)
@@ -455,7 +450,7 @@ class EquipmentNew(StorageHandler):
             if self.handle_storage_full():
                 continue
 
-            if confirm_timer.reached() and self.handle_popup_confirm():
+            if confirm_timer.reached() and self.handle_popup_confirm('EQUIPMENT_TAKE_OFF'):
                 confirm_timer.reset()
                 off_timer.reset()
                 bar_timer.reset()
@@ -473,8 +468,8 @@ class EquipmentNew(StorageHandler):
                     bar_timer.reset()
                     continue
 
-    logger.info('Equipment take off ended')
-    @equip_assets_override("new")
+        logger.info('Equipment take off ended')
+
     def fleet_equipment_take_off(self, enter, long_click, out):
         """
         Args:
@@ -487,14 +482,13 @@ class EquipmentNew(StorageHandler):
 
         while True:
             self.ship_equipment_take_off()
-            self.ui_click(click_button=EQUIPMENT_CLOSE, check_button=EQUIPMENT_OPEN, offset=None)
+            self.ui_click(EQUIPMENT_CLOSE, check_button=EQUIPMENT_OPEN, skip_first_screenshot=True)
             if not self.ship_view_next():
                 break
 
         self.ui_back(out)
         self.equipment_has_take_on = False
 
-    @equip_assets_override("new")
     def ship_equipment_take_on_preset(self, index, skip_first_screenshot=True):
         logger.info('Equipment take on preset')
         bar_timer = Timer(5)
@@ -531,7 +525,7 @@ class EquipmentNew(StorageHandler):
                 continue
 
         logger.info('Equipment take on ended')
-    @equip_assets_override("new")
+
     def fleet_equipment_take_on_preset(self, preset_record, enter, long_click, out):
         """
         Args:
@@ -549,10 +543,11 @@ class EquipmentNew(StorageHandler):
                 self.ship_view_next()
             else:
                 self.ship_equipment_take_on_preset(index=index)
-                self.ui_click(click_button=EQUIPMENT_CLOSE, check_button=EQUIPMENT_OPEN, offset=None)
+                self.ui_click(EQUIPMENT_CLOSE, check_button=EQUIPMENT_OPEN, skip_first_screenshot=True)
 
         self.ui_back(out)
         self.equipment_has_take_on = True
+
 
 
 class Equipment(EquipmentOld if globals().get("g_current_task", "") == "GemsFarming" else EquipmentNew):

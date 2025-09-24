@@ -2,6 +2,7 @@ from module.base.button import Button
 from module.base.decorator import run_once
 from module.base.timer import Timer
 from module.combat.assets import GET_ITEMS_1, GET_ITEMS_2, GET_SHIP
+from module.event_hospital.assets import HOSIPITAL_CLUE_CHECK, HOSPITAL_BATTLE_EXIT
 from module.exception import (GameNotRunningError, GamePageUnknownError,
                               RequestHumanTakeover)
 from module.exercise.assets import EXERCISE_PREPARATION
@@ -544,20 +545,46 @@ class UI(InfoHandler):
         # RPG event (raid_20240328)
         if self.appear_then_click(RPG_STATUS_POPUP, offset=(30, 30), interval=3):
             return True
+        # Hospital event (20250327)
+        if self.appear_then_click(HOSIPITAL_CLUE_CHECK, offset=(20, 20), interval=2):
+            return True
+        if self.appear_then_click(HOSPITAL_BATTLE_EXIT, offset=(20, 20), interval=2):
+            return True
 
         # Idle page
-        if self.get_interval_timer(IDLE, interval=3).reached():
-            if IDLE.match_luma(self.device.image, offset=(5, 5)):
-                logger.info(f'UI additional: {IDLE} -> {REWARD_GOTO_MAIN}')
-                self.device.click(REWARD_GOTO_MAIN)
-                self.get_interval_timer(IDLE).reset()
-                return True
+        if self.handle_idle_page():
+            return True
         # Switch on ui_white, no offset just color match
         if self.appear(MAIN_GOTO_MEMORIES_WHITE, interval=3):
             logger.info(f'UI additional: {MAIN_GOTO_MEMORIES_WHITE} -> {MAIN_TAB_SWITCH_WHITE}')
             self.device.click(MAIN_TAB_SWITCH_WHITE)
             return True
 
+        return False
+
+    def handle_idle_page(self):
+        """
+        Returns:
+            bool: If handled
+        """
+        timer = self.get_interval_timer(IDLE, interval=3)
+        if not timer.reached():
+            return False
+        if IDLE.match_luma(self.device.image, offset=(5, 5)):
+            logger.info(f'UI additional: {IDLE} -> {REWARD_GOTO_MAIN}')
+            self.device.click(REWARD_GOTO_MAIN)
+            timer.reset()
+            return True
+        if IDLE_2.match_luma(self.device.image, offset=(5, 5)):
+            logger.info(f'UI additional: {IDLE_2} -> {REWARD_GOTO_MAIN}')
+            self.device.click(REWARD_GOTO_MAIN)
+            timer.reset()
+            return True
+        if IDLE_3.match_luma(self.device.image, offset=(5, 5)):
+            logger.info(f'UI additional: {IDLE_3} -> {REWARD_GOTO_MAIN}')
+            self.device.click(REWARD_GOTO_MAIN)
+            timer.reset()
+            return True
         return False
 
     def ui_button_interval_reset(self, button):
