@@ -18,22 +18,25 @@ class ModeSwitch(Switch):
 
 
 MODE_SWITCH_1 = ModeSwitch('Mode_switch_1', offset=(30, 10))
-MODE_SWITCH_1.add_status('normal', SWITCH_1_NORMAL)
-MODE_SWITCH_1.add_status('hard', SWITCH_1_HARD)
+MODE_SWITCH_1.add_state('normal', SWITCH_1_NORMAL)
+MODE_SWITCH_1.add_state('hard', SWITCH_1_HARD)
 MODE_SWITCH_2 = ModeSwitch('Mode_switch_2', offset=(30, 10))
-MODE_SWITCH_2.add_status('hard', SWITCH_2_HARD)
-MODE_SWITCH_2.add_status('ex', SWITCH_2_EX)
+MODE_SWITCH_2.add_state('hard', SWITCH_2_HARD)
+MODE_SWITCH_2.add_state('ex', SWITCH_2_EX)
 
 # Event mode switches changing from 20240725 to 20241219
 # I think it stable at 20241219, so give them names with date 20241219
 MODE_SWITCH_20241219 = ModeSwitch('Mode_switch_20241219', is_selector=True, offset=(30, 30))
-MODE_SWITCH_20241219.add_status('combat', SWITCH_20241219_COMBAT)
-MODE_SWITCH_20241219.add_status('story', SWITCH_20241219_STORY)
+MODE_SWITCH_20241219.add_state('combat', SWITCH_20241219_COMBAT)
+MODE_SWITCH_20241219.add_state('story', SWITCH_20241219_STORY)
 ASIDE_SWITCH_20241219 = ModeSwitch('Aside_switch_20241219', is_selector=True, offset=(30, 30))
-ASIDE_SWITCH_20241219.add_status('part1', CHAPTER_20241219_PART1)
-ASIDE_SWITCH_20241219.add_status('part2', CHAPTER_20241219_PART2)
-ASIDE_SWITCH_20241219.add_status('sp', CHAPTER_20241219_SP)
-ASIDE_SWITCH_20241219.add_status('ex', CHAPTER_20241219_EX)
+ASIDE_SWITCH_20241219.add_state('part1', CHAPTER_20241219_PART1)
+ASIDE_SWITCH_20241219.add_state('part2', CHAPTER_20241219_PART2)
+ASIDE_SWITCH_20241219.add_state('sp', CHAPTER_20241219_SP)
+ASIDE_SWITCH_20241219.add_state('ex', CHAPTER_20241219_EX)
+# shorten unknown_timer for faster hanlding
+# because of game bug that aside indicator will be missing after campaign retreat or finish
+ASIDE_SWITCH_20241219.set_unknown_timer = Timer(0.6, count=2)
 
 
 def is_digit_chapter(chapter):

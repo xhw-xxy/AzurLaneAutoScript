@@ -8,17 +8,17 @@ from module.ui.switch import Switch
 
 # 2023.10.19, icons on one row increased from 2 to 3
 FORMATION = Switch('Formation', offset=(100, 200))
-FORMATION.add_status('line_ahead', check_button=FORMATION_1)
-FORMATION.add_status('double_line', check_button=FORMATION_2)
-FORMATION.add_status('diamond', check_button=SUBMARINE_HUNT_ON)
+FORMATION.add_state('line_ahead', check_button=FORMATION_1)
+FORMATION.add_state('double_line', check_button=FORMATION_2)
+FORMATION.add_state('diamond', check_button=FORMATION_3)
 
 SUBMARINE_HUNT = Switch('Submarine_hunt', offset=(200, 200))
-SUBMARINE_HUNT.add_status('on', check_button=SUBMARINE_HUNT_ON)
-SUBMARINE_HUNT.add_status('off', check_button=SUBMARINE_HUNT_OFF)
+SUBMARINE_HUNT.add_state('on', check_button=SUBMARINE_HUNT_ON)
+SUBMARINE_HUNT.add_state('off', check_button=SUBMARINE_HUNT_OFF)
 
 SUBMARINE_VIEW = Switch('Submarine_view', offset=(100, 200))
-SUBMARINE_VIEW.add_status('on', check_button=SUBMARINE_VIEW_ON)
-SUBMARINE_VIEW.add_status('off', check_button=SUBMARINE_VIEW_OFF)
+SUBMARINE_VIEW.add_state('on', check_button=SUBMARINE_VIEW_ON)
+SUBMARINE_VIEW.add_state('off', check_button=SUBMARINE_VIEW_OFF)
 
 MOB_MOVE_OFFSET = (120, 200)
 
