@@ -146,8 +146,8 @@ page_campaign.link(button=CAMPAIGN_GOTO_EVENT, destination=page_sp)
 # page_coalition_menu.link(button=COALITION_ACADEMY_GOTO_CAMPAIGN, destination=page_coalition)
 # NEONCITY
 page_coalition = Page(NEONCITY_COALITION_CHECK)
-page_coalition.link(button=GOTO_MAIN, destination=page_main)
-page_coalition.link(button=BACK_ARROW, destination=page_campaign)
+page_coalition.link(button=NEONCITY_UI_HOME, destination=page_main)
+page_coalition.link(button=NEONCITY_UI_BACK, destination=page_campaign)
 page_campaign_menu.link(button=CAMPAIGN_MENU_GOTO_EVENT, destination=page_coalition)
 
 # Operation Siren
@@ -265,6 +265,11 @@ page_meowfficer.link(button=MEOWFFICER_GOTO_DORMMENU, destination=page_main)
 page_academy = Page(ACADEMY_CHECK)
 page_dormmenu.link(button=DORMMENU_GOTO_ACADEMY, destination=page_academy)
 page_academy.link(button=GOTO_MAIN, destination=page_main)
+
+# Private Quarters
+page_private_quarters = Page(PRIVATE_QUARTERS_CHECK)
+page_dormmenu.link(button=DORMMENU_GOTO_PRIVATE_QUARTERS, destination=page_private_quarters)
+page_private_quarters.link(button=PQ_GOTO_MAIN, destination=page_main)
 
 # Game room & choose game
 page_game_room = Page(GAME_ROOM_CHECK)

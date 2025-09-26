@@ -128,7 +128,7 @@ class Camera(MapOperation):
                 # Don't use handle_mystery() here since OpSi overrides it.
                 self.device.click(GET_ITEMS_1)
                 return False
-            elif self.appear(GET_ITEMS_1_RYZA, offset=(20, 20)):
+            elif self.appear(GET_ITEMS_1_RYZA, offset=(-20, -100, 20, 20)):
                 logger.warning('Perspective error caused by GET_ITEMS_1_RYZA')
                 self.device.click(GET_ITEMS_1_RYZA)
                 return False
@@ -411,7 +411,7 @@ class Camera(MapOperation):
             mystery_count:
             siren_count:
             carrier_count:
-            mode (str): Scan mode, such as 'normal', 'carrier', 'movable'
+            mode (str): Scan mode, such as 'init', 'normal', 'carrier', 'movable'
 
         """
         logger.info(f'Full scan start, mode={mode}')

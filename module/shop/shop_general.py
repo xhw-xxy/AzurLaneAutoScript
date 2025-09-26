@@ -2,7 +2,7 @@ from module.base.decorator import cached_property
 from module.logger import logger
 from module.ocr.ocr import Digit
 from module.shop.assets import *
-from module.shop.base import ShopItemGrid
+from module.shop.base import ShopItemGrid, ShopItemGrid_250814
 from module.shop.clerk import ShopClerk
 from module.shop.shop_status import ShopStatus
 from module.shop.ui import ShopUI
@@ -117,11 +117,7 @@ class GeneralShop(ShopClerk, ShopUI, ShopStatus):
         Returns:
             bool: whether item is custom
         """
-        if isinstance(self.config.GeneralShop_ConsumeCoins, bool):
-            logger.warning(f"Incorrect general shop consume coins setting: {self.config.GeneralShop_ConsumeCoins}, reset to 550000")
-            self.config.GeneralShop_ConsumeCoins = 550000
-
-        if self.config.GeneralShop_ConsumeCoins and self._currency >= self.config.GeneralShop_ConsumeCoins:
+        if self.config.GeneralShop_ConsumeCoins and self._currency >= 550000:
             if item.cost == 'Coins':
                 return True
 
@@ -157,3 +153,26 @@ class GeneralShop(ShopClerk, ShopUI, ShopStatus):
             if refresh and self.shop_refresh():
                 continue
             break
+
+
+class GeneralShop_250814(GeneralShop):
+    # New UI in 2025-08-14
+    @cached_property
+    def shop_general_items(self):
+        """
+        Returns:
+            ShopItemGrid:
+        """
+        shop_grid = self.shop_grid
+
+        shop_general_items = ShopItemGrid_250814(
+            shop_grid,
+            templates={},
+            template_area=(25, 20, 82, 72),
+            amount_area=(42, 50, 65, 65),
+            cost_area=(-12, 115, 60, 155),
+            price_area=(14, 121, 85, 150),
+        )
+        shop_general_items.load_template_folder(self.shop_template_folder)
+        shop_general_items.load_cost_template_folder('./assets/shop/cost')
+        return shop_general_items

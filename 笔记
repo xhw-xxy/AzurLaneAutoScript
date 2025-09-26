@@ -1,4 +1,4 @@
-pr 25/06/27 00:34 coalition
+pr 25/09/25 12:25
 
 安全:
 
@@ -22,6 +22,7 @@ module\commission\commission.py
 module\commission\project.py
 
 module\config\deep.py
+module\config\server.py
 
 module\device\app_control.py
 module\device\connection.py
@@ -44,6 +45,7 @@ module\exercise\hp_daemon.py
 
 module\freebies\assets.py
 module\freebies\battle_pass.py
+module\freebies\freebies.py
 module\freebies\mail_white.py
 
 module\gacha\gacha_reward.py
@@ -60,6 +62,8 @@ module\map\map.py
 module\map\map_base.py
 module\map\map_fleet_preparation.py
 module\map\map_operation.py
+
+module\map_detection\grid_info.py
 
 module\meowfficer\enhance.py
 
@@ -81,14 +85,17 @@ module\os_shop\selector.py
 module\raid\run.py
 
 module\research\assets.py
+module\research\selector.py
+module\research\ui.py
 
 module\retire\enhancement.py
 
 module\reward\assets.py
 module\reward\reward.py
 
-module\shop\shop_medal.py
-module\shop\shop_reward.py
+module\shipyard\shipyard_reward.py
+
+module\shop
 
 module\statistics\azurstats.py
 
@@ -111,5 +118,6 @@ module\war_archives\war_archives.py
 
 module\webui\config.py
 module\webui\lang.py
+module\webui\patch.py
 module\webui\translate.py
 module\webui\utils.py
