@@ -176,12 +176,10 @@ class EquipmentChangeOld(Equipment):
 class EquipmentChangeNew(Equipment):
     equipment_list = {}
 
-    @equip_assets_override("new")
     def equipping_set(self, enable=False):
         if equipping_filter.set('on' if enable else 'off', main=self):
             self.wait_until_stable(SWIPE_AREA)
 
-    @equip_assets_override("new")
     def ship_equipment_record_image(self, index_list=range(0, 5)):
         """
         Record equipment through upgrade page
@@ -189,7 +187,19 @@ class EquipmentChangeNew(Equipment):
         """
         logger.info('RECORD EQUIPMENT')
         self.ship_side_navbar_ensure(bottom=1)
+
+        # Ensure EQUIPMENT_GRID in the right place
+        skip_first_screenshot = True
+        while True:
+            if skip_first_screenshot:
+                skip_first_screenshot = False
+            else:
+                self.device.screenshot()
+            if self.appear(EQUIPMENT_OPEN, offset=(5, 5)):
+                break
+
         self.equipment_list = {}
+        info_bar_disappeared = False
         for index, button in enumerate(EQUIPMENT_GRID.buttons):
             if index not in index_list:
                 continue
@@ -206,14 +216,20 @@ class EquipmentChangeNew(Equipment):
                 # Enter upgrade inform
                 self.ui_click(click_button=UPGRADE_ENTER,
                               check_button=UPGRADE_ENTER_CHECK, skip_first_screenshot=True)
+                # Save equipment template
+                if not info_bar_disappeared:
+                    self.handle_info_bar()
+                    info_bar_disappeared = True
                 self.equipment_list[index] = self.image_crop(EQUIP_SAVE)
                 # Quit upgrade inform
                 self.ui_click(
                     click_button=UPGRADE_QUIT, check_button=EQUIPMENT_OPEN, appear_button=UPGRADE_ENTER_CHECK,
                     skip_first_screenshot=True)
+            else:
+                logger.info(f"Equipment {index} is empty")
+
         logger.info(f"Recorded equipment index list: {list(self.equipment_list.keys())}")
 
-    @equip_assets_override("new")
     def ship_equipment_take_on_image(self, index_list=range(0, 5), skip_first_screenshot=True):
         """
         Equip the equipment previously recorded
@@ -233,7 +249,6 @@ class EquipmentChangeNew(Equipment):
                 self._find_equipment(index)
 
     @Config.when(DEVICE_CONTROL_METHOD='minitouch')
-    @equip_assets_override("new")
     def _equipment_swipe(self, distance=190):
         # Distance of two commission is 146px
         p1, p2 = random_rectangle_vector(
@@ -244,7 +259,6 @@ class EquipmentChangeNew(Equipment):
         self.device.screenshot()
 
     @Config.when(DEVICE_CONTROL_METHOD=None)
-    @equip_assets_override("new")
     def _equipment_swipe(self, distance=300):
         # Distance of two commission is 146px
         p1, p2 = random_rectangle_vector(
@@ -254,7 +268,6 @@ class EquipmentChangeNew(Equipment):
         self.device.sleep(0.3)
         self.device.screenshot()
 
-    @equip_assets_override("new")
     def _equip_equipment(self, point, offset=(100, 100)):
         """
         Equip Equipment then back to ship details
@@ -270,7 +283,6 @@ class EquipmentChangeNew(Equipment):
         logger.info('Equip confirm')
         self.ui_click(click_button=EQUIP_CONFIRM, check_button=SHIP_INFO_EQUIPMENT_CHECK)
 
-    @equip_assets_override("new")
     def _find_equipment(self, index):
         """
         Find the equipment previously recorded
@@ -312,6 +324,7 @@ class EquipmentChangeNew(Equipment):
                 break
 
         return
+
 
 
 class EquipmentChange(EquipmentChangeOld if globals().get("g_current_task", "") == "GemsFarming" else EquipmentChangeNew):

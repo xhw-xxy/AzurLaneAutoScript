@@ -624,7 +624,7 @@ class AzurLaneAutoScript:
 
             # Skip first restart
             if task == 'Restart':
-                if self.is_first_task:
+                if self.is_first_task and task == 'Restart':
                     logger.info('Skip task `Restart` at scheduler start')
                 else:
                     from module.handler.login import LoginHandler

@@ -24,11 +24,16 @@ module\commission\project.py
 module\config\deep.py
 module\config\server.py
 
+module\config\redirect_utils\utils.py
+
+module\daemon\uncensored.py
+
 module\device\app_control.py
 module\device\connection.py
 module\device\connection_attr.py
 module\device\screenshot.py
 
+module\device\method\adb.py
 module\device\method\ldopengl.py
 module\device\method\maatouch.py
 module\device\method\minitouch.py
