@@ -7,7 +7,7 @@ Deploy:
     # Branch of Alas
     # [Developer] Use 'dev', 'app', etc, to try new features
     # [Other] Use 'master', the stable branch
-    Branch: master
+    Branch: test
     # Filepath of git executable `git.exe`
     # [Easy installer] Use './toolkit/Git/mingw64/bin/git.exe'
     # [Other] Use you own git
@@ -23,11 +23,6 @@ Deploy:
     # Update Alas at startup
     # [In most cases] Use true
     AutoUpdate: true
-    # Whether to keep local changes during update
-    # User settings, logs and screenshots will be kept, no mather this is true or false
-    # [Developer] Use true, if you modified the code
-    # [Other] Use false
-    KeepLocalChanges: false
 
   Python:
     # Filepath of python executable `python.exe`
@@ -64,7 +59,7 @@ Deploy:
     ReplaceAdb: true
     # Brute-force connect to all available emulator instances
     # [In most cases] Use true
-    AutoConnect: false
+    AutoConnect: true
     # Re-install uiautomator2
     # [In most cases] Use true
     InstallUiautomator2: true
@@ -87,6 +82,7 @@ Deploy:
 
   Update:
     # Use auto update and builtin updater feature
+    # This may cause problem https://github.com/LmeSzinc/AzurLaneAutoScript/issues/876
     EnableReload: true
     # Check update every X minute
     # [Disable] 0

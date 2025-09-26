@@ -8,7 +8,7 @@ import module.config.server as server
 
 from module.base.timer import Timer
 from module.base.utils import color_similar, get_color
-from module.campaign.assets import OCR_EVENT_PT, OCR_COIN, OCR_OIL, OCR_COIN_LIMIT, OCR_OIL_LIMIT, OCR_OIL_CHECK
+from module.campaign.assets import OCR_COIN, OCR_EVENT_PT, OCR_OIL, OCR_COIN_LIMIT, OCR_OIL_LIMIT, OCR_OIL_CHECK
 from module.logger import logger
 from module.ocr.ocr import Digit, Ocr
 from module.ui.ui import UI
@@ -172,9 +172,8 @@ class CampaignStatus(UI):
             'Event',
             'Event2',
             'Event3',
-            'Coalition',
-            'Coalition_sp',
             'Raid',
+            'Coalition',
             'GemsFarming',
         ]
         command = self.config.Scheduler_Command
